@@ -345,3 +345,19 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
   .robot-overlay { width: 320px; }
   .robot-h { font-size: 24px; }
 }
+
+/* ─── Parallax Elements ──────────────────────────────────── */
+.parallax-bg {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: screen;
+}
+.bg-1 { top: 10%; left: -10%; width: 50vw; height: 50vw; background: #3b82f6; }
+.bg-2 { top: 40%; right: -15%; width: 55vw; height: 55vw; background: #8b5cf6; }
+.bg-3 { top: 75%; left: 15%; width: 45vw; height: 45vw; background: #3b82f6; }
+.bg-4 { top: 60%; left: -5%; width: 30vw; height: 30vw; background: #a855f7; }
+

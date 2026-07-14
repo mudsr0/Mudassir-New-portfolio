@@ -397,23 +397,23 @@ export default function RobotSection() {
 
     /* phase 2 — DRAMATIC PAUSE (2.4 → 3.5s) */
 
-    /* phase 3 — LEFT robot: right arm WAVE */
-    tl.to(botL.rArm.uP.rotation,{x:-2.05,z:-0.12,duration:0.85,ease:'power3.out'},3.5)
-    tl.to(botL.rArm.fP.rotation,{x:0.50,duration:0.78,ease:'power3.out'},3.62)
-    tl.to(botL.head.rotation,{y:-0.09,duration:0.88,ease:'power2.out'},3.5)
+    /* phase 3 — LEFT robot: BOW + right hand presentation */
+    tl.to(botL.torso.rotation,{x:0.20,duration:1.05,ease:'power3.out'},3.5)
+    tl.to(botL.head.rotation,{x:-0.17,y:0.08,duration:1.05,ease:'power3.out'},3.5)
+    /* right arm → gesture forward */
+    tl.to(botL.rArm.uP.rotation,{x:-0.60,y:0,z:0.25,duration:0.95,ease:'power3.out'},3.62)
+    tl.to(botL.rArm.fP.rotation,{x:-1.20,y:0,z:0,duration:0.88,ease:'power3.out'},3.78)
     /* left arm stays natural at side */
-    tl.to(botL.lArm.uP.rotation,{x:0.05,z:-0.20,duration:0.7,ease:'power2.out'},3.5)
-    /* wave oscillation */
-    tl.to(botL.rArm.fP.rotation,{z:-0.36,duration:0.22,ease:'power2.inOut',repeat:5,yoyo:true},4.32)
+    tl.to(botL.lArm.uP.rotation,{x:0.06,y:0,z:-0.20,duration:0.7,ease:'power2.out'},3.5)
 
-    /* phase 4 — RIGHT robot: BOW + left hand to chest, RIGHT ARM STAYS VISIBLE */
-    tl.to(botR.torso.rotation,{x:0.20,duration:1.05,ease:'power3.out'},3.7)
-    tl.to(botR.head.rotation, {x:-0.17,duration:1.05,ease:'power3.out'},3.7)
-    /* left arm → chest (inward + bend) */
-    tl.to(botR.lArm.uP.rotation,{x:-0.50,z:0.88,duration:0.95,ease:'power3.out'},3.82)
-    tl.to(botR.lArm.fP.rotation,{x:1.32,duration:0.88,ease:'power3.out'},3.98)
-    /* RIGHT arm — stays at side but slightly raised outward so it's clearly visible */
-    tl.to(botR.rArm.uP.rotation,{x:0.06,z:0.26,y:-0.05,duration:0.7,ease:'power2.out'},3.7)
+    /* phase 4 — RIGHT robot: BOW + left hand presentation */
+    tl.to(botR.torso.rotation,{x:0.20,duration:1.05,ease:'power3.out'},3.5)
+    tl.to(botR.head.rotation, {x:-0.17,y:-0.08,duration:1.05,ease:'power3.out'},3.5)
+    /* left arm → gesture forward */
+    tl.to(botR.lArm.uP.rotation,{x:-0.60,y:0,z:-0.25,duration:0.95,ease:'power3.out'},3.62)
+    tl.to(botR.lArm.fP.rotation,{x:-1.20,y:0,z:0,duration:0.88,ease:'power3.out'},3.78)
+    /* right arm stays natural at side */
+    tl.to(botR.rArm.uP.rotation,{x:0.06,y:0,z:0.20,duration:0.7,ease:'power2.out'},3.5)
 
     /* phase 5 — orbs appear */
     orbs.forEach((o,i)=>tl.to(o.grp.scale,{x:1,y:1,z:1,duration:0.72,ease:'back.out(2.2)'},4.65+i*0.22))
@@ -486,9 +486,11 @@ export default function RobotSection() {
 
       /* arm micro-float post welcome */
       if(prog>0.96){
-        botL.rArm.uP.rotation.x=-2.05+Math.sin(t*1.10)*0.026
-        botR.torso.rotation.x=0.20+Math.sin(t*0.65)*0.016
-        botR.lArm.uP.rotation.z=0.88+Math.sin(t*0.9)*0.04
+        botL.torso.rotation.x=0.20+Math.sin(t*0.65)*0.016
+        botL.rArm.uP.rotation.x=-0.60+Math.sin(t*0.9)*0.02
+        
+        botR.torso.rotation.x=0.20+Math.sin(t*0.65+Math.PI)*0.016
+        botR.lArm.uP.rotation.x=-0.60+Math.sin(t*0.9+Math.PI)*0.02
       }
 
       /* eye glow pulse */

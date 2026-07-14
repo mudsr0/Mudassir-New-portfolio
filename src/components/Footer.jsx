@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <span className="footer-copy">© {year} Faiq · DevRolin</span>
+      <span className="footer-copy">© {year} Mudassir · DevRolin</span>
       <nav className="footer-links" aria-label="Social links">
         {links.map((l) => (
           <a key={l.label} href={l.href} className="footer-link"

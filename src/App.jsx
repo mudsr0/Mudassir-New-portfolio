@@ -87,23 +87,53 @@ export default function App() {
         )
       })
 
-      // ── Horizontal parallax on section bg ────────────────
+      // ── Background Parallax on sections ──────────────────
       document.querySelectorAll('.section').forEach((sec) => {
         gsap.fromTo(sec,
-          { backgroundPositionY: '-10%' },
+          { backgroundPositionY: '-25%' },
           {
-            backgroundPositionY: '10%',
+            backgroundPositionY: '25%',
             ease: 'none',
             scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true },
           }
         )
       })
 
+      // ── Card Parallax (Scrubbing yPercent) ────────────────
+      document.querySelectorAll('.work-card, .stat-card').forEach((el, i) => {
+        const speed = i % 2 === 0 ? -12 : -6;
+        gsap.to(el, {
+          yPercent: speed,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el.closest('.section') || el.parentElement,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5,
+          }
+        });
+      });
+
       // ── Stat cards counter ────────────────────────────────
       document.querySelectorAll('.stat-num').forEach((el) => {
         ScrollTrigger.create({
           trigger: el, start: 'top 85%', once: true,
           onEnter: () => gsap.fromTo(el, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.8)' })
+        })
+      })
+
+      // ── Vertical Parallax ────────────────────────────────
+      document.querySelectorAll('[data-parallax]').forEach((el) => {
+        const speed = parseFloat(el.dataset.parallax) || 0.15;
+        gsap.to(el, {
+          y: () => -(document.documentElement.scrollHeight * speed),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: document.body,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.5,
+          }
         })
       })
     }
@@ -122,6 +152,13 @@ export default function App() {
     <>
       <div className="noise" aria-hidden="true" />
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
+      
+      {/* Global Parallax Background Orbs */}
+      <div className="parallax-bg bg-1" data-parallax="0.25" aria-hidden="true" />
+      <div className="parallax-bg bg-2" data-parallax="-0.35" aria-hidden="true" />
+      <div className="parallax-bg bg-3" data-parallax="0.45" aria-hidden="true" />
+      <div className="parallax-bg bg-4" data-parallax="-0.25" aria-hidden="true" />
+
       <Navbar />
       <main>
         <Hero />
