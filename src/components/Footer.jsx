@@ -1,11 +1,7 @@
-const links = [
-  { label: 'upwork',   href: 'https://upwork.com' },
-  { label: 'linkedin', href: 'https://linkedin.com' },
-  { label: 'github',   href: 'https://github.com' },
-  { label: 'email',    href: 'mailto:hello@devrolin.com' },
-]
+import data from '../data.json'
 
 export default function Footer() {
+  const links = data.footer.links
   const year = new Date().getFullYear()
 
   return (

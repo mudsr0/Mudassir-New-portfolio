@@ -1,43 +1,8 @@
-const services = [
-  {
-    num: '01',
-    icon: '◈',
-    title: 'Agentic AI',
-    desc: 'Multi-agent pipelines, LLM orchestration, autonomous decision systems that operate without human intervention.',
-  },
-  {
-    num: '02',
-    icon: '⇌',
-    title: 'Automations',
-    desc: 'Code-first automation: custom webhooks, API chains, GHL integrations. Zero drag-and-drop.',
-  },
-  {
-    num: '03',
-    icon: '▣',
-    title: 'Full-stack SaaS',
-    desc: 'Next.js, MERN stack, custom CRMs, dashboards, and portals built to scale globally.',
-  },
-  {
-    num: '04',
-    icon: '◉',
-    title: '3D Web',
-    desc: 'Three.js and React Three Fiber experiences — portfolios, product showcases, interactive installations.',
-  },
-  {
-    num: '05',
-    icon: '▦',
-    title: 'Mobile Apps',
-    desc: 'Flutter cross-platform apps for iOS and Android. One codebase, native-grade performance.',
-  },
-  {
-    num: '06',
-    icon: '∿',
-    title: 'AI / ML Systems',
-    desc: 'TTS model training, EEG signal classification, BCI pipelines, voice synthesis, Groq & OpenAI integration.',
-  },
-]
+import data from '../data.json'
 
 export default function Services() {
+  const services = data.services
+
   return (
     <section id="services" className="section">
       <div className="sec-header" data-fade>

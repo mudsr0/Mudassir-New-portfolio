@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
+import data from '../data.json'
 
 export default function Hero() {
   const mountRef = useRef(null)
@@ -214,20 +215,13 @@ export default function Hero() {
       <div className="hero-content">
         <div className="hero-eyebrow">
           <span className="eyebrow-line" />
-          agentic ai · automations · 3d web
+          {data.hero.eyebrowText}
           <span className="eyebrow-line" />
         </div>
 
-        <h1 className="hero-h1">
-          I build what<br />
-          <em>doesn't exist</em><br />
-          yet.
-        </h1>
+        <h1 className="hero-h1" dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
 
-        <p className="hero-caption">
-          AI Agents · Autonomous Systems · Full-stack SaaS · 3D Experiences<br />
-          DevRolin · Eylina · Based in Pakistan · Serving globally
-        </p>
+        <p className="hero-caption" dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
 
         <div className="hero-actions">
           <button className="btn-primary" onClick={() => scrollTo('work')}>view work</button>

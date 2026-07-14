@@ -1,0 +1,156 @@
+{
+  "nav": {
+    "logoText": "FAIQ",
+    "links": ["work", "services", "about", "contact"]
+  },
+  "hero": {
+    "eyebrowText": "agentic ai · automations · 3d web",
+    "headlineHtml": "I build what<br /><em>doesn't exist</em><br />yet.",
+    "caption": "AI Agents · Autonomous Systems · Full-stack SaaS · 3D Experiences<br />DevRolin · Eylina · Based in Pakistan · Serving globally"
+  },
+  "marquee": {
+    "items": [
+      "Agentic AI", "Automations", "Full-stack SaaS", "3D Web",
+      "Mobile Apps", "AI Systems", "Voice AI", "Next.js",
+      "Three.js", "GSAP", "Flutter", "DevRolin", "Eylina"
+    ]
+  },
+  "about": {
+    "stats": [
+      { "num": "30+", "label": "Projects shipped" },
+      { "num": "12+", "label": "Countries served" },
+      { "num": "3",   "label": "Companies built" },
+      { "num": "5yr", "label": "Experience" }
+    ],
+    "descriptionHtml": "Everything I ship is <strong>custom-built</strong> \u2014 no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers. Eylina is our AI-native product \u2014 redefining how law firms handle client intake."
+  },
+  "services": [
+    {
+      "num": "01",
+      "icon": "◈",
+      "title": "Agentic AI",
+      "desc": "Multi-agent pipelines, LLM orchestration, autonomous decision systems that operate without human intervention."
+    },
+    {
+      "num": "02",
+      "icon": "⇌",
+      "title": "Automations",
+      "desc": "Code-first automation: custom webhooks, API chains, GHL integrations. Zero drag-and-drop."
+    },
+    {
+      "num": "03",
+      "icon": "▣",
+      "title": "Full-stack SaaS",
+      "desc": "Next.js, MERN stack, custom CRMs, dashboards, and portals built to scale globally."
+    },
+    {
+      "num": "04",
+      "icon": "◉",
+      "title": "3D Web",
+      "desc": "Three.js and React Three Fiber experiences \u2014 portfolios, product showcases, interactive installations."
+    },
+    {
+      "num": "05",
+      "icon": "▦",
+      "title": "Mobile Apps",
+      "desc": "Flutter cross-platform apps for iOS and Android. One codebase, native-grade performance."
+    },
+    {
+      "num": "06",
+      "icon": "∿",
+      "title": "AI / ML Systems",
+      "desc": "TTS model training, EEG signal classification, BCI pipelines, voice synthesis, Groq & OpenAI integration."
+    }
+  ],
+  "work": [
+    {
+      "tag": "AI Platform",
+      "year": "2024",
+      "icon": "⚖",
+      "title": "Eylina \u2014 Legal Intake AI",
+      "desc": "AI-powered legal intake platform. Automates client onboarding, case triage, and document collection for law firms.",
+      "stack": "Next.js · OpenAI · MongoDB"
+    },
+    {
+      "tag": "Voice AI",
+      "year": "2024",
+      "icon": "◎",
+      "title": "CallRolin \u2014 TTS System",
+      "desc": "Multilingual voice AI platform on GCP. Custom VITS model training for Urdu, English, and Arabic TTS synthesis.",
+      "stack": "Python · GCP · VITS · React"
+    },
+    {
+      "tag": "CRM Automation",
+      "year": "2024",
+      "icon": "⬡",
+      "title": "BuyerSide Spain CRM",
+      "desc": "Full real-estate CRM with GHL automation, property pipeline management, and client reactivation workflows.",
+      "stack": "GoHighLevel · Node.js · Zapier"
+    },
+    {
+      "tag": "EdTech Platform",
+      "year": "2023",
+      "icon": "▶",
+      "title": "ZEERO \u2014 AI Lecture Platform",
+      "desc": "AI-powered multilingual video lecture platform with real-time translation, quiz generation, and progress tracking.",
+      "stack": "React · OpenAI · Firebase"
+    },
+    {
+      "tag": "AI Automation",
+      "year": "2024",
+      "icon": "♦",
+      "title": "Cherrett Chiropractic AI",
+      "desc": "AI patient reactivation system that autonomously contacts lapsed patients and books appointments through SMS.",
+      "stack": "GHL · AI · Twilio"
+    },
+    {
+      "tag": "Web Platform",
+      "year": "2024",
+      "icon": "◐",
+      "title": "AtmoStreams \u2014 3D Framer Site",
+      "desc": "Premium Framer website with custom 3D animations, particle effects, and scroll-linked visual storytelling.",
+      "stack": "Framer · Three.js · GSAP"
+    }
+  ],
+  "techStack": {
+    "featured": ["React / Next.js", "Three.js", "Node.js", "Flutter", "OpenAI API", "Python", "MongoDB"],
+    "rest": ["GSAP", "Framer Motion", "Neon DB", "GCP", "n8n", "GoHighLevel", "Groq", "Vercel", "Tailwind CSS", "TypeScript", "FastAPI", "Twilio", "Zapier", "Airtable (API)", "Shopify"]
+  },
+  "testimonials": [
+    {
+      "initials": "JA",
+      "name": "Justin Ash",
+      "role": "Robbins Pest Control, USA",
+      "quote": "Faiq delivered our entire email automation and domain setup in days. Professional, fast, and the system works flawlessly. Will definitely work with him again."
+    },
+    {
+      "initials": "MP",
+      "name": "Michael Pritsky",
+      "role": "Vocalis / MYNTZ INC",
+      "quote": "Most developers promise results. Faiq actually delivers. The EHR integration he built handles everything automatically \u2014 it saved us countless hours every week."
+    },
+    {
+      "initials": "BT",
+      "name": "Brad Tucker",
+      "role": "Senior Pros Home Care, USA",
+      "quote": "Faiq migrated our entire phone system to OpenPhone smoothly. Zero downtime, zero complications. The whole setup was handled with great attention to detail."
+    },
+    {
+      "initials": "MG",
+      "name": "Mike Godleski",
+      "role": "Prepare2Swim",
+      "quote": "Working with Faiq and the DevRolin team has been excellent. They understand what we need quickly and execute without back-and-forth. Genuinely impressive work."
+    }
+  ],
+  "contact": {
+    "subTextHtml": "Agentic AI · Automations · 3D Web · Full-stack<br/>Global clients. No templates. No shortcuts."
+  },
+  "footer": {
+    "links": [
+      { "label": "upwork",   "href": "https://upwork.com" },
+      { "label": "linkedin", "href": "https://linkedin.com" },
+      { "label": "github",   "href": "https://github.com" },
+      { "label": "email",    "href": "mailto:hello@devrolin.com" }
+    ]
+  }
+}

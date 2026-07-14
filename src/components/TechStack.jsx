@@ -1,9 +1,8 @@
-const tech = {
-  featured: ['React / Next.js', 'Three.js', 'Node.js', 'Flutter', 'OpenAI API', 'Python', 'MongoDB'],
-  rest: ['GSAP', 'Framer Motion', 'Neon DB', 'GCP', 'n8n', 'GoHighLevel', 'Groq', 'Vercel', 'Tailwind CSS', 'TypeScript', 'FastAPI', 'Twilio', 'Zapier', 'Airtable (API)', 'Shopify'],
-}
+import data from '../data.json'
 
 export default function TechStack() {
+  const tech = data.techStack
+
   return (
     <section id="tech" className="section">
       <div className="tech-layout">

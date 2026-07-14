@@ -1,35 +1,8 @@
-const testimonials = [
-  {
-    initials: 'JA',
-    name: 'Justin Ash',
-    role: 'Robbins Pest Control, USA',
-    quote:
-      'Faiq delivered our entire email automation and domain setup in days. Professional, fast, and the system works flawlessly. Will definitely work with him again.',
-  },
-  {
-    initials: 'MP',
-    name: 'Michael Pritsky',
-    role: 'Vocalis / MYNTZ INC',
-    quote:
-      'Most developers promise results. Faiq actually delivers. The EHR integration he built handles everything automatically — it saved us countless hours every week.',
-  },
-  {
-    initials: 'BT',
-    name: 'Brad Tucker',
-    role: 'Senior Pros Home Care, USA',
-    quote:
-      'Faiq migrated our entire phone system to OpenPhone smoothly. Zero downtime, zero complications. The whole setup was handled with great attention to detail.',
-  },
-  {
-    initials: 'MG',
-    name: 'Mike Godleski',
-    role: 'Prepare2Swim',
-    quote:
-      'Working with Faiq and the DevRolin team has been excellent. They understand what we need quickly and execute without back-and-forth. Genuinely impressive work.',
-  },
-]
+import data from '../data.json'
 
 export default function Testimonials() {
+  const testimonials = data.testimonials
+
   return (
     <section id="testimonials" className="section">
       <div className="sec-header" data-fade>

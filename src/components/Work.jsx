@@ -1,55 +1,8 @@
-const projects = [
-  {
-    tag: 'AI Platform',
-    year: '2024',
-    icon: '⚖',
-    title: 'Eylina — Legal Intake AI',
-    desc: 'AI-powered legal intake platform. Automates client onboarding, case triage, and document collection for law firms.',
-    stack: 'Next.js · OpenAI · MongoDB',
-  },
-  {
-    tag: 'Voice AI',
-    year: '2024',
-    icon: '◎',
-    title: 'CallRolin — TTS System',
-    desc: 'Multilingual voice AI platform on GCP. Custom VITS model training for Urdu, English, and Arabic TTS synthesis.',
-    stack: 'Python · GCP · VITS · React',
-  },
-  {
-    tag: 'CRM Automation',
-    year: '2024',
-    icon: '⬡',
-    title: 'BuyerSide Spain CRM',
-    desc: 'Full real-estate CRM with GHL automation, property pipeline management, and client reactivation workflows.',
-    stack: 'GoHighLevel · Node.js · Zapier',
-  },
-  {
-    tag: 'EdTech Platform',
-    year: '2023',
-    icon: '▶',
-    title: 'ZEERO — AI Lecture Platform',
-    desc: 'AI-powered multilingual video lecture platform with real-time translation, quiz generation, and progress tracking.',
-    stack: 'React · OpenAI · Firebase',
-  },
-  {
-    tag: 'AI Automation',
-    year: '2024',
-    icon: '♦',
-    title: 'Cherrett Chiropractic AI',
-    desc: 'AI patient reactivation system that autonomously contacts lapsed patients and books appointments through SMS.',
-    stack: 'GHL · AI · Twilio',
-  },
-  {
-    tag: 'Web Platform',
-    year: '2024',
-    icon: '◐',
-    title: 'AtmoStreams — 3D Framer Site',
-    desc: 'Premium Framer website with custom 3D animations, particle effects, and scroll-linked visual storytelling.',
-    stack: 'Framer · Three.js · GSAP',
-  },
-]
+import data from '../data.json'
 
 export default function Work() {
+  const projects = data.work
+
   return (
     <section id="work" className="section">
       <div className="sec-header" data-fade>

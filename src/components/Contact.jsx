@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import data from '../data.json'
 
 export default function Contact() {
   const [form, setForm]     = useState({ name: '', email: '', message: '' })
@@ -25,10 +26,7 @@ export default function Contact() {
           <h2 className="contact-h">
             Let's make something<br />that doesn't exist yet.
           </h2>
-          <p className="contact-sub">
-            Agentic AI · Automations · 3D Web · Full-stack<br />
-            Global clients. No templates. No shortcuts.
-          </p>
+          <p className="contact-sub" dangerouslySetInnerHTML={{ __html: data.contact.subTextHtml }} />
         </div>
 
         <form className="contact-form" onSubmit={handleSubmit} data-fade data-delay="0.2" noValidate>

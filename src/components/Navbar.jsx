@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-
-const links = ['work', 'services', 'about', 'contact']
+import data from '../data.json'
 
 export default function Navbar() {
+  const links = data.nav.links
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -24,7 +24,7 @@ export default function Navbar() {
         <div className="logo-circle" aria-hidden="true">
           <div className="logo-dot" />
         </div>
-        FAIQ
+        {data.nav.logoText}
       </div>
 
       <div className="nav-links">

@@ -1,16 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-const stats = [
-  { num: '30+', label: 'Projects shipped' },
-  { num: '12+', label: 'Countries served' },
-  { num: '3',   label: 'Companies built' },
-  { num: '5yr', label: 'Experience' },
-]
+import data from '../data.json'
 
 export default function About() {
   const statsRef = useRef(null)
+  const { stats, descriptionHtml } = data.about
 
   useEffect(() => {
     if (!statsRef.current) return
@@ -44,17 +39,7 @@ export default function About() {
 
       <div className="about-grid">
         <div data-fade data-delay="0.1">
-          <p className="about-text">
-            Everything I ship is <strong>custom-built</strong> — no templates, no
-            drag-and-drop shortcuts. I work at the intersection of AI, automation,
-            and premium web development. If something doesn't exist yet, I build it.<br /><br />
-            My focus is on <strong>agentic systems</strong> that operate autonomously,
-            handling complex tasks without human intervention. From legal intake AI
-            to multilingual voice platforms, I build software that scales.<br /><br />
-            DevRolin serves global clients with a remote-first team of engineers
-            and designers. Eylina is our AI-native product — redefining how law
-            firms handle client intake.
-          </p>
+          <p className="about-text" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         </div>
 
         <div className="about-stats" ref={statsRef}>

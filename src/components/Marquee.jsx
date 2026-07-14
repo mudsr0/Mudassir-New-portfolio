@@ -1,10 +1,7 @@
-const items = [
-  'Agentic AI', 'Automations', 'Full-stack SaaS', '3D Web',
-  'Mobile Apps', 'AI Systems', 'Voice AI', 'Next.js',
-  'Three.js', 'GSAP', 'Flutter', 'DevRolin', 'Eylina',
-]
+import data from '../data.json'
 
 export default function Marquee() {
+  const items = data.marquee.items
   const doubled = [...items, ...items]
 
   return (
