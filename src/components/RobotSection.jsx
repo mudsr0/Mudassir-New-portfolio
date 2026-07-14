@@ -166,8 +166,8 @@ function buildRobot(mat) {
   const lArm = mkArm('L')
   const rLeg = mkLeg('R')
   const lLeg = mkLeg('L')
-  torso.add(rArm.ag,lArm.ag,rLeg.lg,lLeg.lg)
-  root.add(torso,head,neck,nkRg)
+  torso.add(rArm.ag,lArm.ag,rLeg.lg,lLeg.lg,head,neck,nkRg)
+  root.add(torso)
   return {root,torso,head,rArm,lArm,eyeL,eyeR}
 }
 
@@ -397,23 +397,25 @@ export default function RobotSection() {
 
     /* phase 2 — DRAMATIC PAUSE (2.4 → 3.5s) */
 
-    /* phase 3 — LEFT robot: BOW + right hand presentation */
-    tl.to(botL.torso.rotation,{x:0.20,duration:1.05,ease:'power3.out'},3.5)
-    tl.to(botL.head.rotation,{x:-0.17,y:0.08,duration:1.05,ease:'power3.out'},3.5)
-    /* right arm → gesture forward */
-    tl.to(botL.rArm.uP.rotation,{x:-0.60,y:0,z:0.25,duration:0.95,ease:'power3.out'},3.62)
-    tl.to(botL.rArm.fP.rotation,{x:-1.20,y:0,z:0,duration:0.88,ease:'power3.out'},3.78)
-    /* left arm stays natural at side */
-    tl.to(botL.lArm.uP.rotation,{x:0.06,y:0,z:-0.20,duration:0.7,ease:'power2.out'},3.5)
+    /* phase 3 — LEFT robot: Majesty Presentation */
+    tl.to(botL.torso.rotation,{x:0.17,y:0.32,duration:1.05,ease:'power3.out'},3.5)
+    tl.to(botL.head.rotation,{x:-0.06,y:-0.30,duration:1.05,ease:'power3.out'},3.5)
+    /* right arm (inner) → presenting, palm up */
+    tl.to(botL.rArm.uP.rotation,{x:-0.35,y:0.50,z:0.12,duration:0.95,ease:'power3.out'},3.62)
+    tl.to(botL.rArm.fP.rotation,{x:-1.25,y:0,z:0,duration:0.88,ease:'power3.out'},3.78)
+    /* left arm (outer) → forearm tucked behind lower back */
+    tl.to(botL.lArm.uP.rotation,{x:0.62,y:0,z:-0.10,duration:0.95,ease:'power3.out'},3.62)
+    tl.to(botL.lArm.fP.rotation,{x:-0.35,y:0,z:0.95,duration:0.88,ease:'power3.out'},3.78)
 
-    /* phase 4 — RIGHT robot: BOW + left hand presentation */
-    tl.to(botR.torso.rotation,{x:0.20,duration:1.05,ease:'power3.out'},3.5)
-    tl.to(botR.head.rotation, {x:-0.17,y:-0.08,duration:1.05,ease:'power3.out'},3.5)
-    /* left arm → gesture forward */
-    tl.to(botR.lArm.uP.rotation,{x:-0.60,y:0,z:-0.25,duration:0.95,ease:'power3.out'},3.62)
-    tl.to(botR.lArm.fP.rotation,{x:-1.20,y:0,z:0,duration:0.88,ease:'power3.out'},3.78)
-    /* right arm stays natural at side */
-    tl.to(botR.rArm.uP.rotation,{x:0.06,y:0,z:0.20,duration:0.7,ease:'power2.out'},3.5)
+    /* phase 4 — RIGHT robot: Majesty Presentation */
+    tl.to(botR.torso.rotation,{x:0.17,y:-0.32,duration:1.05,ease:'power3.out'},3.5)
+    tl.to(botR.head.rotation, {x:-0.06,y:0.30,duration:1.05,ease:'power3.out'},3.5)
+    /* left arm (inner) → presenting, palm up */
+    tl.to(botR.lArm.uP.rotation,{x:-0.35,y:-0.50,z:-0.12,duration:0.95,ease:'power3.out'},3.62)
+    tl.to(botR.lArm.fP.rotation,{x:-1.25,y:0,z:0,duration:0.88,ease:'power3.out'},3.78)
+    /* right arm (outer) → forearm tucked behind lower back */
+    tl.to(botR.rArm.uP.rotation,{x:0.62,y:0,z:0.10,duration:0.95,ease:'power3.out'},3.62)
+    tl.to(botR.rArm.fP.rotation,{x:-0.35,y:0,z:-0.95,duration:0.88,ease:'power3.out'},3.78)
 
     /* phase 5 — orbs appear */
     orbs.forEach((o,i)=>tl.to(o.grp.scale,{x:1,y:1,z:1,duration:0.72,ease:'back.out(2.2)'},4.65+i*0.22))
@@ -460,24 +462,23 @@ export default function RobotSection() {
       /* breathing */
       const br=Math.sin(t*0.90)*0.0088
       botL.torso.position.y=br; botR.torso.position.y=br
-      botL.head.position.y=1.66+br; botR.head.position.y=1.66+br
 
       /* body sway — gentle left-right rock, always running */
       botL.root.rotation.z=Math.sin(t*0.55)*0.016
       botR.root.rotation.z=Math.sin(t*0.55+Math.PI)*0.016
 
-      /* head scan */
-      if(prog<0.85){
+      /* head scan (pre-pose) → GSAP owns 0.54-0.85 → mouse tracking around pose base */
+      if(prog<0.54){
         botL.head.rotation.y=Math.sin(t*0.52)*0.22
         botR.head.rotation.y=Math.sin(t*0.48+1)*0.22
-      } else {
+      } else if(prog>0.85){
         const mx=mouse.current.x, my=mouse.current.y
         const ty2=mx*0.20+Math.sin(t*0.28)*0.05
-        const tx2=my*0.10+0.04
-        botL.head.rotation.y+=(ty2-botL.head.rotation.y)*0.055
-        botL.head.rotation.x+=(tx2-botL.head.rotation.x)*0.055
-        botR.head.rotation.y+=(ty2-botR.head.rotation.y)*0.055
-        botR.head.rotation.x+=((tx2-0.17)-botR.head.rotation.x)*0.055
+        const tx2=my*0.10+0.02
+        botL.head.rotation.y+=((-0.30+ty2)-botL.head.rotation.y)*0.055
+        botL.head.rotation.x+=((-0.06+tx2)-botL.head.rotation.x)*0.055
+        botR.head.rotation.y+=((0.30+ty2)-botR.head.rotation.y)*0.055
+        botR.head.rotation.x+=((-0.06+tx2)-botR.head.rotation.x)*0.055
       }
 
       /* eye blink */
@@ -486,11 +487,13 @@ export default function RobotSection() {
 
       /* arm micro-float post welcome */
       if(prog>0.96){
-        botL.torso.rotation.x=0.20+Math.sin(t*0.65)*0.016
-        botL.rArm.uP.rotation.x=-0.60+Math.sin(t*0.9)*0.02
-        
-        botR.torso.rotation.x=0.20+Math.sin(t*0.65+Math.PI)*0.016
-        botR.lArm.uP.rotation.x=-0.60+Math.sin(t*0.9+Math.PI)*0.02
+        botL.torso.rotation.x=0.17+Math.sin(t*0.65)*0.012
+        botL.torso.rotation.y=0.32+Math.sin(t*0.3)*0.01
+        botL.rArm.uP.rotation.x=-0.35+Math.sin(t*0.9)*0.02
+
+        botR.torso.rotation.x=0.17+Math.sin(t*0.65+Math.PI)*0.012
+        botR.torso.rotation.y=-0.32+Math.sin(t*0.3+Math.PI)*0.01
+        botR.lArm.uP.rotation.x=-0.35+Math.sin(t*0.9+Math.PI)*0.02
       }
 
       /* eye glow pulse */
