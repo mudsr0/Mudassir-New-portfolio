@@ -75,9 +75,19 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
 .nav-logo:hover .logo-circle { border-color: var(--accent); }
 .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--white); transition: background .3s, box-shadow .3s; }
 .nav-logo:hover .logo-dot { background: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
-.nav-links { display: flex; gap: 40px; }
-.nav-link { font-size: 12px; color: var(--g2); letter-spacing: 0.1em; text-transform: uppercase; transition: color .3s, text-shadow .3s; font-weight: 500; }
+.nav-links { position: relative; display: flex; gap: 12px;}
+.nav-pill { position: absolute; top: 50%; left: 0; height: 34px; border-radius: 99px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-2); pointer-events: none; z-index: 0;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+.nav-link { position: relative; z-index: 1; padding: 8px 16px; border-radius: 99px; font-size: 12px; color: var(--g2); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; transition: color .3s, text-shadow .3s; }
 .nav-link:hover { color: var(--white); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.nav-link.active { color: var(--white); }
+
 .nav-right { display: flex; align-items: center; gap: 24px; }
 .avail { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--g2); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
 .avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: pulse-green 2.4s ease-in-out infinite; }
@@ -109,8 +119,10 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
     linear-gradient(to bottom, rgba(2,4,10,0.4) 0%, transparent 20%, transparent 80%, rgba(2,4,10,0.9) 100%);
 }
 .hero-content {
-  position: relative; z-index: 3; text-align: center;
-  padding: 0 24px; max-width: 900px;
+  position: relative; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 24px; max-width: 900px;
+  height: 100%; min-height: 100vh;
 }
 .hero-eyebrow {
   display: flex; align-items: center; justify-content: center; gap: 16px;
@@ -133,7 +145,7 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
   padding-bottom: 10px;
 }
 .hero-caption { font-size: 14px; color: var(--g2); line-height: 2.2; letter-spacing: 0.08em; margin-bottom: 48px; max-width: 600px; margin-inline: auto; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: center; }
 .btn-primary {
   font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em;
   padding: 16px 42px; border-radius: 99px;
@@ -148,7 +160,8 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
   transition: all .4s var(--ease); cursor: pointer; backdrop-filter: blur(10px);
 }
 .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: var(--white); color: var(--white); transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
-.scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.scroll-hint { position: absolute; bottom: -1.5rem; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; pointer-events: none; user-select: none; transition: opacity 0.3s ease; }
+.scroll-hint:hover { opacity: 0.7; }
 .scroll-label { font-size: 10px; font-weight: 600; letter-spacing: 0.25em; color: var(--g3); text-transform: uppercase; }
 .scroll-line { width: 2px; height: 50px; background: linear-gradient(to bottom, var(--accent), transparent); animation: drop-line 2s ease-in-out infinite; border-radius: 2px; }
 @keyframes drop-line { 0% { opacity:0; transform: scaleY(0); transform-origin: top; } 50% { opacity:1; transform: scaleY(1); } 100% { opacity:0; transform: scaleY(0); transform-origin: bottom; } }
