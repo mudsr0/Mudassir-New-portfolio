@@ -122,7 +122,7 @@ export default function Hero() {
     envGroup.add(new THREE.Points(hGeo, hMat))
 
     // 7. Floating ambient dust
-    const DUST = 800
+    const DUST = 1000
     const dPos = new Float32Array(DUST * 3)
     for (let i = 0; i < DUST; i++) {
       dPos[i * 3] = (Math.random() - 0.5) * 20
@@ -138,25 +138,18 @@ export default function Hero() {
     // Hide orb initially for entrance timeline
     orbGroup.scale.set(0.001, 0.001, 0.001)
 
-    // Set initial UI states
-    gsap.set('.hero-eyebrow', { opacity: 0, y: 20 })
-    gsap.set('.hero-h1', { opacity: 0, y: 30 })
-    gsap.set('.hero-caption', { opacity: 0, y: 20 })
-    gsap.set('.hero-actions', { opacity: 0, scale: 0.95 })
-    gsap.set('.scroll-hint', { opacity: 0, y: -10 })
-
     // Entrance timeline
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
     tlRef.current = tl
 
-    tl.to(orbGroup.scale, { x: 1, y: 1, z: 1, duration: 2.2, delay: 0.1 })
+    tl.to(orbGroup.scale, { x: 1, y: 1, z: 1, duration: 0.4, delay: 0 })
       .to(cMat, { opacity: 0.85, duration: 2.5, ease: 'power2.out' }, '<0.2')
       .to(lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
-      .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=1.8')
-      .to('.hero-h1', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.8')
-      .to('.hero-caption', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.6')
-      .to('.hero-actions', { opacity: 1, scale: 1, duration: 1, ease: 'expo.out' }, '-=0.5')
-      .to('.scroll-hint', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.3')
+      .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=1.8')
+      .to('.hero-h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
+      .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+      .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '-=0.5')
+      .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
 
     // ScrollTrigger camera fly-through
     gsap.to(camera.position, {
@@ -268,19 +261,19 @@ export default function Hero() {
       {/* Radial gradient overlay */}
       <div className="hero-vignette" aria-hidden="true" />
 
-      {/* Main hero content */}
+      {/* Main hero content with initial inline styles to prevent FOUC / flashing */}
       <div ref={heroContentRef} className="hero-content">
-        <div className="hero-eyebrow">
+        <div className="hero-eyebrow" style={{ opacity: 0, transform: 'translateY(20px)' }}>
           <span className="eyebrow-line" />
           {data.hero.eyebrowText}
           <span className="eyebrow-line" />
         </div>
 
-        <h1 className="hero-h1" dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
+        <h1 className="hero-h1" style={{ opacity: 0, transform: 'translateY(30px)' }} dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
 
-        <p className="hero-caption" dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
+        <p className="hero-caption" style={{ opacity: 0, transform: 'translateY(20px)' }} dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
 
-        <div className="hero-actions">
+        <div className="hero-actions" style={{ opacity: 0, transform: 'scale(0.95)' }}>
           <button className="btn-primary" onClick={() => scrollTo('work')}>view work</button>
           <button className="btn-ghost" onClick={() => scrollTo('contact')}>start a project →</button>
         </div>
@@ -292,7 +285,7 @@ export default function Hero() {
         onClick={handleScrollDown}
         role="button"
         tabIndex={0}
-        style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+        style={{ opacity: 0, transform: 'translateY(-10px)', cursor: 'pointer', pointerEvents: 'auto' }}
       >
         <span className="scroll-label">scroll</span>
         <div className="scroll-line" />

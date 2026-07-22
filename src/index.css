@@ -82,6 +82,7 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
   display: flex;
   align-items: center;
   gap: 12px;
+  position: relative;
 }
 
 .pill-toggle {
@@ -96,6 +97,7 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
   color: var(--white);
   cursor: pointer;
   transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0;
 }
 
 .pill-toggle:hover {
@@ -239,6 +241,72 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
   color: var(--white); 
 }
 
+/* ─── Mobile Logo Capsule ────────────────────────────────── */
+.mobile-logo-capsule {
+  display: none;
+  align-items: center;
+  height: 44px;
+  border-radius: 99px;
+  border: 1px solid var(--border-2);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ─── Mobile Dropdown Menu ───────────────────────────────── */
+.mobile-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 54px;
+  left: 0;
+  width: 220px;
+  background: rgba(10, 14, 26, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-2);
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  z-index: 1100;
+  animation: fadeInMenu 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.mobile-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-link {
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: capitalize;
+  color: var(--g2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover, .mobile-nav-link.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
+@keyframes fadeInMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─── Right Side & Responsive Media Queries ──────────────── */
 .nav-right { 
   display: flex; 
   align-items: center; 
@@ -294,6 +362,29 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
   border-color: var(--white); 
   transform: translateY(-2px); 
   box-shadow: 0 10px 20px rgba(255,255,255,0.2); 
+}
+
+/* Media Query for Mobile */
+@media (max-width: 900px) {
+  .navbar, .navbar.scrolled {
+    padding: 16px 20px;
+  }
+  
+  .desktop-capsule {
+    display: none !important;
+  }
+
+  .mobile-logo-capsule {
+    display: flex;
+  }
+
+  .mobile-dropdown-menu {
+    display: block;
+  }
+  
+  .avail {
+    display: none;
+  }
 }
 
 /* ─── Responsive Adjustments ─────────────────────────────────── */

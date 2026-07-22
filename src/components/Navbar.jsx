@@ -43,7 +43,6 @@ export default function Navbar() {
           }
         })
 
-        // Set active link only if current section exists in navbar links
         if (currentId && links.includes(currentId)) {
           setActiveLink(currentId)
         } else {
@@ -53,7 +52,6 @@ export default function Navbar() {
       { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.1, 0.5, 1] }
     )
 
-    // Observe all page sections with an id attribute
     const sections = document.querySelectorAll('section[id], div[id]')
     sections.forEach((el) => {
       if (el.id) observer.observe(el)
@@ -62,7 +60,7 @@ export default function Navbar() {
     return () => observer.disconnect()
   }, [links])
 
-  // Move floating highlight pill to hovered or active link
+  // Move floating highlight pill to hovered or active link (Desktop only)
   const movePillTo = (target) => {
     const el = target ? linkRefs.current[target] : null
     const parent = navLinksRef.current
@@ -82,7 +80,6 @@ export default function Navbar() {
     })
   }
 
-  // Update pill position when state changes
   useEffect(() => {
     const timeout = setTimeout(() => {
       movePillTo(hoveredLink ?? activeLink)
@@ -90,7 +87,6 @@ export default function Navbar() {
     return () => clearTimeout(timeout)
   }, [hoveredLink, activeLink, menuOpen])
 
-  // Recompute pill position on window resize
   useEffect(() => {
     const onResize = () => movePillTo(hoveredLink ?? activeLink)
     window.addEventListener('resize', onResize)
@@ -100,12 +96,13 @@ export default function Navbar() {
   const scrollTo = (id) => {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
+    setMenuOpen(false)
   }
 
   return (
     <nav className={`navbar${scrolled ? ' scrolled' : ''}`} role="navigation" aria-label="main navigation">
       
-      {/* Left side: Toggle button and Dynamic Capsule */}
+      {/* Left side: Toggle button, Desktop Capsule, Mobile Logo Capsule, and Mobile Dropdown */}
       <div className="nav-left-group">
         <button 
           className="pill-toggle" 
@@ -114,7 +111,7 @@ export default function Navbar() {
           aria-label="Toggle Navigation"
         >
           {menuOpen ? (
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -127,9 +124,8 @@ export default function Navbar() {
           )}
         </button>
 
-        <div className={`dynamic-capsule ${menuOpen ? 'is-open' : 'is-closed'}`}>
-          
-          {/* Logo View */}
+        {/* Desktop Dynamic Capsule */}
+        <div className={`dynamic-capsule desktop-capsule ${menuOpen ? 'is-open' : 'is-closed'}`}>
           <div className="capsule-logo" aria-hidden={menuOpen}>
             <div className="logo-circle">
               <div className="logo-dot" />
@@ -137,7 +133,6 @@ export default function Navbar() {
             <span>{data.nav.logoText}</span>
           </div>
 
-          {/* Links View */}
           <div
             className="capsule-links"
             ref={navLinksRef}
@@ -168,8 +163,36 @@ export default function Navbar() {
               </button>
             ))}
           </div>
-
         </div>
+
+        {/* Mobile Logo Capsule (Visible only on mobile when menu is closed) */}
+        {!menuOpen && (
+          <div className="mobile-logo-capsule">
+            <div className="capsule-logo">
+              <div className="logo-circle">
+                <div className="logo-dot" />
+              </div>
+              <span>{data.nav.logoText}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Mobile Dropdown Menu */}
+        {menuOpen && (
+          <div className="mobile-dropdown-menu">
+            <div className="mobile-links-list">
+              {links.map((l) => (
+                <button
+                  key={l}
+                  className={`mobile-nav-link${activeLink === l ? ' active' : ''}`}
+                  onClick={() => scrollTo(l)}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Right side */}
