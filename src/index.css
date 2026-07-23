@@ -483,6 +483,7 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
 
 /* ─── Sections ───────────────────────────────────────────── */
 .section { padding: 140px 80px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+.section-sm { padding: 70px 80px 0px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
 .sec-header { margin-bottom: 80px; }
 .sec-eyebrow { display: flex; align-items: center; gap: 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.25em; color: var(--accent); text-transform: uppercase; margin-bottom: 24px; text-shadow: 0 0 10px var(--accent-glow); }
 .eyebrow-num { font-variant-numeric: tabular-nums; padding-right: 14px; border-right: 1px solid var(--border-2); }
@@ -768,7 +769,7 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
 @media (max-width: 768px) { .work-grid { grid-template-columns: 1fr; } }
 
 /* ─── TechStack ──────────────────────────────────────────── */
-.tech-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center; }
+.tech-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center;  background: radial-gradient(400px circle at 73% 100%, rgba(59,130,246,0.12), transparent 73%); }
 .tech-desc { font-size: 16px; color: var(--g2); line-height: 2; margin-top: 20px; font-weight: 400; }
 .tech-pills { display: flex; flex-wrap: wrap; gap: 12px; }
 .tech-pill { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; border: 1px solid var(--border); border-radius: 99px; padding: 10px 22px; color: var(--g2); transition: all .4s var(--ease); cursor: default; background: rgba(255,255,255,0.02); }
@@ -777,6 +778,106 @@ a, button { font-family: var(--font); text-decoration: none; color: inherit; cur
 .tech-pill.featured:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.2); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
 @media (max-width: 900px) { .tech-layout { grid-template-columns: 1fr; gap: 50px; } }
 
+/* ─── Tech Orbit Globe ───────────────────────────────────── */
+.tech-orbit-wrap {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  overflow: hidden;
+}
+
+.tech-orbit-dome {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 45%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.tech-dome-canvas {
+  display: block;
+}
+
+.tech-orbit-ring-outline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* the reference point that everything orbits around — sits at the bottom
+   center of the wrapper, matching where the ring outlines are centered */
+.tech-orbit-center {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.tech-orbit-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: -22px;
+  margin-top: -22px;
+  will-change: transform;
+  z-index: 2;
+}
+
+.tech-orbit-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
+}
+
+.tech-orbit-icon-wrap:hover {
+  transform: scale(1.18);
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.35);
+}
+
+.tech-orbit-icon-wrap.featured {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.tech-orbit-icon-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.tech-orbit-icon-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  background: rgba(59, 130, 246, 0.25);
+}
+
+@media (max-width: 900px) {
+  .tech-orbit-wrap { height: 360px; }
+}
+
+@media (max-width: 640px) {
+  .tech-orbit-wrap { height: 280px; transform: scale(0.8); transform-origin: top center; }
+}
 /* ─── Testimonials ───────────────────────────────────────── */
 .testi-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
 .testi-card { background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg) 100%); border: 1px solid var(--border); border-radius: 28px; padding: 44px 36px; transition: all .4s var(--ease); position: relative; overflow: hidden; }
