@@ -1,10 +1,16 @@
 import data from '../data.json'
+import TechOrbitGlobe from './common/TechOrbitGlobe'
 
 export default function TechStack() {
   const tech = data.techStack
 
+  const orbitItems = [
+    ...tech.featured.map((name) => ({ name, featured: true })),
+    ...tech.rest.map((name) => ({ name, featured: false })),
+  ]
+
   return (
-    <section id="tech" className="section">
+    <section id="tech" className="section-sm">
       <div className="tech-layout">
         <div data-fade>
           <div className="sec-eyebrow">
@@ -20,14 +26,7 @@ export default function TechStack() {
         </div>
 
         <div data-fade data-delay="0.15">
-          <div className="tech-pills">
-            {tech.featured.map((t) => (
-              <span key={t} className="tech-pill featured">{t}</span>
-            ))}
-            {tech.rest.map((t) => (
-              <span key={t} className="tech-pill">{t}</span>
-            ))}
-          </div>
+          <TechOrbitGlobe items={orbitItems} />
         </div>
       </div>
     </section>
