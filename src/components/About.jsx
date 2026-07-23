@@ -102,7 +102,7 @@ export default function About() {
     return () => ctx.revert()
   }, [])
 
-  // particle network — clipped to the exact same shape as the hero image
+  // particle network 
   useEffect(() => {
     const canvas = canvasRef.current
     const container = imgRef.current
@@ -153,7 +153,6 @@ export default function About() {
     }
 
     const resize = () => {
-      // Use the SVG size instead of the container
       const svg = container.querySelector(".about-hero-svg")
 
       const rect = svg.getBoundingClientRect()
@@ -168,7 +167,6 @@ export default function About() {
 
       context.setTransform(dpr, 0, 0, dpr, 0, 0)
 
-      // remove inline width/height
       canvas.style.width = ""
       canvas.style.height = ""
 
@@ -194,15 +192,21 @@ export default function About() {
       context.clearRect(0, 0, width, height)
 
       // ----------------------------
-      // BACKGROUND (UNCHANGED)
+      // BACKGROUND
       // ----------------------------
 
-      const bg = context.createLinearGradient(0, 0, width, height)
+      const bg = context.createLinearGradient(
+        0,
+        0,
+        width,
+        height
+      )
 
-      bg.addColorStop(0, "#0b0f18")
-      bg.addColorStop(0.35, "#16142d")
-      bg.addColorStop(0.7, "#22164a")
-      bg.addColorStop(1, "#140d2c")
+      bg.addColorStop(0.00, "#133a79e6")
+      bg.addColorStop(0.20, "#152d52e6")
+      bg.addColorStop(0.45, "#0E1421")
+      bg.addColorStop(0.70, "#0d131f")
+      bg.addColorStop(1.00, "#1b2331")
 
       context.fillStyle = bg
       context.fillRect(0, 0, width, height)
@@ -258,12 +262,11 @@ export default function About() {
           const dy = p.y - q.y
 
           const dist = Math.sqrt(dx * dx + dy * dy)
-
+          const alpha = 0.22 * (1 - dist / linkDistance)
           if (dist < linkDistance) {
             context.beginPath()
 
-            context.strokeStyle = `rgba(80,150,255,${0.18 * (1 - dist / linkDistance)
-              })`
+            context.strokeStyle = `rgba(200,215,255,${alpha})`
 
             context.lineWidth = 0.7
 
@@ -284,7 +287,7 @@ export default function About() {
 
         context.arc(p.x, p.y, p.r, 0, Math.PI * 2)
 
-        context.fillStyle = "rgba(230,240,255,.95)"
+        context.fillStyle = "rgba(255,255,255,.95)"
 
         context.fill()
 
@@ -297,8 +300,9 @@ export default function About() {
           p.r * 6
         )
 
-        glow.addColorStop(0, "rgba(90,170,255,.20)")
-        glow.addColorStop(1, "rgba(90,170,255,0)")
+        glow.addColorStop(0, "rgba(170,195,255,.28)")
+        glow.addColorStop(.55, "rgba(120,150,255,.10)")
+        glow.addColorStop(1, "rgba(120,150,255,0)")
 
         context.beginPath()
 
