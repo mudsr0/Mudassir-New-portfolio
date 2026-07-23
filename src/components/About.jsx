@@ -153,20 +153,24 @@ export default function About() {
     }
 
     const resize = () => {
-      const rect = container.getBoundingClientRect()
+      // Use the SVG size instead of the container
+      const svg = container.querySelector(".about-hero-svg")
 
-      width = rect.width
-      height = rect.height
+      const rect = svg.getBoundingClientRect()
+
+      width = Math.round(rect.width)
+      height = Math.round(rect.height)
 
       const dpr = window.devicePixelRatio || 1
 
       canvas.width = width * dpr
       canvas.height = height * dpr
 
-      canvas.style.width = `${width}px`
-      canvas.style.height = `${height}px`
-
       context.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+      // remove inline width/height
+      canvas.style.width = ""
+      canvas.style.height = ""
 
       createParticles()
     }
