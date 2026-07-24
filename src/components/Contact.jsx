@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import WaveBackground from './common/WaveBackground'
 import data from '../data.json'
 
 export default function Contact() {
@@ -21,6 +22,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="contact">
+      <WaveBackground color="#ffffff" dotCount={200} />
       <div className="contact-inner">
         <div data-fade>
           <div className="contact-eyebrow">ready to build?</div>
