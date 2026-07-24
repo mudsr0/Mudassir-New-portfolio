@@ -125,7 +125,7 @@ export default function Work() {
 
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: stackRef.current, // Pins the outer 100% width container
+            trigger: stackRef.current,
             start: `top top+=${startOffset}`,
             end: () => "+=" + ((cards.length - 1) * window.innerHeight), 
             pin: true,
@@ -175,9 +175,7 @@ export default function Work() {
       </div>
 
       <div className="work-list">
-        {/* Outer container gets pinned by GSAP. It is strictly 100% width. */}
         <div className="work-stack" ref={stackRef}>
-          {/* Inner container handles the 85% width safely without GSAP interference */}
           <div className="work-stack-inner">
             {projects.map((p, i) => (
               <WorkCard key={p.title} p={p} index={i} />
