@@ -1,4 +1,5 @@
 import data from '../data.json'
+import Footer3DText from './common/Footer3DText'
 
 export default function Footer() {
   const links = data.footer.links
@@ -6,15 +7,54 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <span className="footer-copy">© {year} Mudassir · DevRolin</span>
-      <nav className="footer-links" aria-label="Social links">
-        {links.map((l) => (
-          <a key={l.label} href={l.href} className="footer-link"
-            target="_blank" rel="noopener noreferrer">
-            {l.label}
-          </a>
-        ))}
-      </nav>
+      <div className="footer-glow" aria-hidden="true"></div>
+
+      <div className="footer-top" data-fade data-delay="0.2">
+        <div className="footer-brand">
+          <div className="footer-status">
+            <span className="status-dot"></span>
+            Available for work
+          </div>
+          
+          {/* 3D Text Replacement */}
+          <div className="footer-logo-3d-wrapper">
+            {/* Hidden H2 for SEO & Accessibility */}
+            <h2 className="footer-logo" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}>
+              Mudassir<span>.</span>
+            </h2>
+            <Footer3DText />
+          </div>
+          
+          <p className="footer-tagline">
+            Building premium digital experiences.
+          </p>
+        </div>
+
+        <div className="footer-nav">
+          <span className="footer-nav-label">Connect</span>
+          <nav className="footer-links" aria-label="Social links">
+            {links.map((l) => (
+              <a 
+                key={l.label} 
+                href={l.href} 
+                className="footer-link" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                {l.label}
+                <span className="link-arrow">↗</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      <div className="footer-divider"></div>
+
+      <div className="footer-bottom" >
+        <span className="footer-copy">© {year} Mudassir · DevRolin</span>
+        <span className="footer-credits">Designed & Built with precision</span>
+      </div>
     </footer>
   )
 }
