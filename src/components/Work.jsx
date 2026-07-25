@@ -19,9 +19,7 @@ function splitStack(stack) {
   return stack.split(/[·,]/).map((s) => s.trim()).filter(Boolean)
 }
 
-function WorkCard({ p, index }) {
-  const cardRef = useRef(null)
-
+function WorkCard({ p, index, cardRef }) {
   const handleMove = (e) => {
     const el = cardRef.current
     if (!el) return
@@ -49,7 +47,7 @@ function WorkCard({ p, index }) {
             loop
             muted
             playsInline
-            preload="metadata" 
+            preload="metadata"
           />
         </div>
 
@@ -76,6 +74,7 @@ function WorkCard({ p, index }) {
             View project <span aria-hidden="true">↗</span>
           </a>
         </div>
+        <div className="wcard-dim" />
       </div>
     </div>
   )
@@ -84,12 +83,17 @@ function WorkCard({ p, index }) {
 export default function Work() {
   const sectionRef = useRef(null)
   const stackRef = useRef(null)
+  const cardRefs = useRef([])
   const projects = data.work
 
   useLayoutEffect(() => {
+    let refreshTimer
+    let resizeTimer
+    let vvResizeTimer
+
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray('.wcard')
-      
+
       const mm = gsap.matchMedia()
 
       mm.add({
@@ -100,39 +104,51 @@ export default function Work() {
         const { isTablet, isMobile } = context.conditions
 
         const scaleAmount = isMobile ? 0.96 : isTablet ? 0.94 : 0.92
-        const opacityAmount = isMobile ? 0.8 : 0.6
-        const yShift = isMobile ? -2 : -4
-        const startOffset = "10%"
-        const scrubVal = 1 
+        
+        /* ── Fix: Set yShift to 0 on mobile so cards never move upward ── */
+        const yShift = isMobile ? 0 : -4
+        
+        const scrubVal = 1
 
         cards.forEach((card, i) => {
-          if (i > 0) {
-            gsap.set(card, { 
-              yPercent: 100, 
-              opacity: 1, 
-              scale: 1,
-              transformOrigin: "center top" 
-            })
-          } else {
-            gsap.set(card, { 
-              yPercent: 0, 
-              opacity: 1, 
-              scale: 1,
-              transformOrigin: "center top"
-            })
-          }
+          gsap.set(card, {
+            xPercent: 0,
+            yPercent: i === 0 ? 0 : 100,
+            opacity: 1,
+            scale: 1,
+            transformOrigin: "center top",
+            '--dim': 0,
+          })
         })
+
+        const getScrollDistance = () => {
+          if (isMobile && stackRef.current) {
+            return stackRef.current.offsetHeight
+          }
+          return window.innerHeight
+        }
 
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: stackRef.current,
-            start: `top top+=${startOffset}`,
-            end: () => "+=" + ((cards.length - 1) * window.innerHeight), 
-            pin: true,
+            trigger: isMobile ? sectionRef.current : stackRef.current,
+            start: isMobile ? "top top" : "top top+=10%",
+            end: () => "+=" + ((cards.length - 1) * getScrollDistance()),
+            pin: isMobile ? sectionRef.current : true,
             pinSpacing: true,
+            pinType: "transform",
             scrub: scrubVal,
             invalidateOnRefresh: true,
-            anticipatePin: 1
+            anticipatePin: 1,
+            onLeaveBack: () => {
+              cards.forEach((card, i) => {
+                gsap.set(card, {
+                  xPercent: 0,
+                  yPercent: i === 0 ? 0 : 100,
+                  scale: 1,
+                  '--dim': 0,
+                })
+              })
+            },
           }
         })
 
@@ -140,6 +156,7 @@ export default function Work() {
           if (i === 0) return
 
           tl.to(card, {
+            xPercent: 0,
             yPercent: 0,
             duration: 1,
             ease: "power2.inOut",
@@ -147,9 +164,10 @@ export default function Work() {
           })
 
           tl.to(cards[i - 1], {
+            xPercent: 0,
             scale: scaleAmount,
             yPercent: yShift,
-            opacity: opacityAmount,
+            '--dim': 0.55,
             duration: 1,
             ease: "power2.inOut",
             force3D: true,
@@ -160,7 +178,45 @@ export default function Work() {
 
     }, sectionRef)
 
-    return () => ctx.revert()
+    // ── Fix: Safe, debounced refresh to prevent DOM removal errors ──
+    const safeRefresh = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        // Only refresh if the section is still in the DOM
+        if (sectionRef.current && document.body.contains(sectionRef.current)) {
+          ScrollTrigger.refresh()
+        }
+      }, 150)
+    }
+
+    refreshTimer = setTimeout(safeRefresh, 300)
+
+    const onVVResize = () => {
+      clearTimeout(vvResizeTimer)
+      vvResizeTimer = setTimeout(safeRefresh, 200)
+    }
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', onVVResize)
+    }
+
+    const ro = new ResizeObserver(safeRefresh)
+    if (stackRef.current) ro.observe(stackRef.current)
+
+    window.addEventListener('resize', safeRefresh)
+    window.addEventListener('orientationchange', safeRefresh)
+
+    return () => {
+      ctx.revert()
+      clearTimeout(refreshTimer)
+      clearTimeout(resizeTimer)
+      clearTimeout(vvResizeTimer)
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', onVVResize)
+      }
+      ro.disconnect()
+      window.removeEventListener('resize', safeRefresh)
+      window.removeEventListener('orientationchange', safeRefresh)
+    }
   }, [])
 
   return (
@@ -178,7 +234,12 @@ export default function Work() {
         <div className="work-stack" ref={stackRef}>
           <div className="work-stack-inner">
             {projects.map((p, i) => (
-              <WorkCard key={p.title} p={p} index={i} />
+              <WorkCard
+                key={p.title}
+                p={p}
+                index={i}
+                cardRef={(el) => (cardRefs.current[i] = el)}
+              />
             ))}
           </div>
         </div>
