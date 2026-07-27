@@ -152,12 +152,6 @@ export default function App() {
     <>
       <div className="noise" aria-hidden="true" />
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
-      
-      {/* Global Parallax Background Orbs */}
-      <div className="parallax-bg bg-1" data-parallax="0.25" aria-hidden="true" />
-      <div className="parallax-bg bg-2" data-parallax="-0.35" aria-hidden="true" />
-      <div className="parallax-bg bg-3" data-parallax="0.45" aria-hidden="true" />
-      <div className="parallax-bg bg-4" data-parallax="-0.25" aria-hidden="true" />
 
       <Navbar />
       <main>
