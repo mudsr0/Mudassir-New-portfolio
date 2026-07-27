@@ -2298,7 +2298,7 @@ button {
     }
 
     .footer-brand {
-        width: 20rem
+        width: 85vw
     }
 
     .footer-nav {
@@ -2443,7 +2443,7 @@ button {
     }
 }
 
-.parallax-bg {
+/* .parallax-bg {
     position: absolute;
     border-radius: 50%;
     filter: blur(140px);
@@ -2482,4 +2482,4 @@ button {
     width: 30vw;
     height: 30vw;
     background: #a855f7
-}
+} */
