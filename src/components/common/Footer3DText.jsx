@@ -25,7 +25,7 @@ function TextMesh() {
         <Text3D
           ref={meshRef}
           font={FONT_URL}
-          size={1.4}
+          size={1.2}
           height={0.2} // 3D depth/extrusion
           curveSegments={12}
           bevelEnabled
@@ -52,7 +52,7 @@ export default function Footer3DText() {
   return (
     <Canvas
       camera={{ position: [0, 0, 5], fov: 45 }}
-      style={{ width: '100%', height: '200px' }}
+      style={{ width: '100%', height: '100%', flex: '1 1 100%' }}
       dpr={[1, 2]}
     >
       <Suspense fallback={null}>
