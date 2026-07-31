@@ -12,6 +12,7 @@ import Services     from './components/Services'
 import Work         from './components/Work'
 import TechStack    from './components/TechStack'
 import Testimonials from './components/Testimonials'
+import VideoTestimonials from './components/VideoTestimonials'
 import Contact      from './components/Contact'
 import Footer       from './components/Footer'
 
@@ -163,6 +164,7 @@ export default function App() {
         <Work />
         <TechStack />
         <Testimonials />
+        <VideoTestimonials />
         <Contact />
       </main>
       <Footer />

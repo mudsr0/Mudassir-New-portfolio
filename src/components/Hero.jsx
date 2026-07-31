@@ -139,17 +139,18 @@ export default function Hero() {
     orbGroup.scale.set(0.001, 0.001, 0.001)
 
     // Entrance timeline
-    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
+    const tl = gsap.timeline({ delay: 1.8, defaults: { ease: 'expo.out' } })
     tlRef.current = tl
 
-    tl.to(orbGroup.scale, { x: 1, y: 1, z: 1, duration: 0.4, delay: 0 })
+    tl.to(orbGroup.scale, { x: 1, y: 1, z: 1, duration: 0.4 })
       .to(cMat, { opacity: 0.85, duration: 2.5, ease: 'power2.out' }, '<0.2')
       .to(lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
-      .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=1.8')
-      .to('.hero-h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
-      .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
-      .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '-=0.5')
-      .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
+
+      .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
+      .to('.hero-h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '0.4')
+      .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+      .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
+      .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
 
     // ScrollTrigger camera fly-through
     gsap.to(camera.position, {

@@ -6,35 +6,6 @@ import data from '../data.json'
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1600&auto=format&fit=crop&q=80'
 
-const platformIcons = {
-  github: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.19-3.37-1.19-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.95.68 1.92 0 1.39-.01 2.5-.01 2.84 0 .28.18.61.69.5A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2z" />
-    </svg>
-  ),
-  linkedin: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="3" />
-      <line x1="7.5" y1="9.5" x2="7.5" y2="17" />
-      <circle cx="7.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
-      <line x1="12" y1="17" x2="12" y2="12.2" />
-      <path d="M12 13.5c0-1.4 1-2.3 2.3-2.3 1.4 0 2.2.9 2.2 2.4V17" />
-    </svg>
-  ),
-  upwork: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6 9v3.2a3 3 0 0 0 6 0V9" />
-      <path d="M12 12.2c0 2 1.4 3.6 3.2 3.6 1.7 0 2.8-1.2 2.8-2.8 0-1.5-1-2.6-2.4-2.9-1.1-.2-1.9-1-2-2.4" />
-    </svg>
-  ),
-  email: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="M3 7l9 6 9-6" />
-    </svg>
-  ),
-}
-
 export default function About() {
   const sectionRef = useRef(null)
   const statsTopRef = useRef(null)
@@ -338,13 +309,6 @@ export default function About() {
         <div className="sec-eyebrow" data-fade>
           <span className="eyebrow-num">01</span>
           about
-        </div>
-        <div className="about-socials" data-fade data-delay="0.1">
-          {socialLinks.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
-              {platformIcons[s.label]}
-            </a>
-          ))}
         </div>
       </div>
 
