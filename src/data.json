@@ -9,9 +9,9 @@
     ]
   },
   "hero": {
-    "eyebrowText": "agentic ai · automations · 3d web",
+    "eyebrowText": "ai automation · crm engineer · python",
     "headlineHtml": "I build what<br /><em>doesn't exist</em><br />yet.",
-    "caption": "AI Agents · Autonomous Systems · Full-stack SaaS · 3D Experiences<br />DevRolin · Eylina · Based in Pakistan · Serving globally"
+    "caption": "AI Agents · Zoho CRM · GHL · Automations<br />DevRolin · Eylina · Based in Pakistan · Serving globally"
   },
   "marquee": {
     "items": [
@@ -83,7 +83,7 @@
       "num": "04",
       "icon": "◉",
       "title": "3D Web",
-      "desc": "Three.js and React Three Fiber experiences \u2014 portfolios, product showcases, interactive installations."
+      "desc": "Three.js and React Three Fiber experiences — portfolios, product showcases, interactive installations."
     },
     {
       "num": "05",
@@ -103,7 +103,7 @@
       "tag": "AI Platform",
       "year": "2024",
       "icon": "⚖",
-      "title": "Eylina \u2014 Legal Intake AI",
+      "title": "Eylina — Legal Intake AI",
       "desc": "AI-powered legal intake platform. Automates client onboarding, case triage, and document collection for law firms.",
       "stack": "Next.js · OpenAI · MongoDB"
     },
@@ -111,7 +111,7 @@
       "tag": "Voice AI",
       "year": "2024",
       "icon": "◎",
-      "title": "CallRolin \u2014 TTS System",
+      "title": "CallRolin — TTS System",
       "desc": "Multilingual voice AI platform on GCP. Custom VITS model training for Urdu, English, and Arabic TTS synthesis.",
       "stack": "Python · GCP · VITS · React"
     },
@@ -127,7 +127,7 @@
       "tag": "EdTech Platform",
       "year": "2023",
       "icon": "▶",
-      "title": "ZEERO \u2014 AI Lecture Platform",
+      "title": "ZEERO — AI Lecture Platform",
       "desc": "AI-powered multilingual video lecture platform with real-time translation, quiz generation, and progress tracking.",
       "stack": "React · OpenAI · Firebase"
     },
@@ -143,7 +143,7 @@
       "tag": "Web Platform",
       "year": "2024",
       "icon": "◐",
-      "title": "AtmoStreams \u2014 3D Framer Site",
+      "title": "AtmoStreams — 3D Framer Site",
       "desc": "Premium Framer website with custom 3D animations, particle effects, and scroll-linked visual storytelling.",
       "stack": "Framer · Three.js · GSAP"
     }
@@ -194,7 +194,7 @@
             "initials": "MP",
             "name": "Michael Pritsky",
             "role": "Vocalis / MYNTZ INC",
-            "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically \u2014 it saved us countless hours every week.",
+            "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically — it saved us countless hours every week.",
             "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
           },
           {
@@ -243,48 +243,63 @@
             "initials": "MP",
             "name": "Michael Pritsky",
             "role": "Vocalis / MYNTZ INC",
-            "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically \u2014 it saved us countless hours every week.",
+            "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically — it saved us countless hours every week.",
             "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
-          }
-        ]
-      },
-      {
-        "id": "row-3",
-        "speed": "50s",
-        "direction": "left",
-        "testimonials": [
-          {
-            "initials": "MG",
-            "name": "Mike Godleski",
-            "role": "Prepare2Swim",
-            "quote": "Working with Mudassir and the DevRolin team has been excellent. They understand what we need quickly and execute without back-and-forth. Genuinely impressive work.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
-          },
-          {
-            "initials": "JA",
-            "name": "Justin Ash",
-            "role": "Robbins Pest Control, USA",
-            "quote": "Mudassir delivered our entire email automation and domain setup in days. Professional, fast, and the system works flawlessly. Will definitely work with him again.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
-          },
-          {
-            "initials": "MP",
-            "name": "Michael Pritsky",
-            "role": "Vocalis / MYNTZ INC",
-            "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically \u2014 it saved us countless hours every week.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
-          },
-          {
-            "initials": "BT",
-            "name": "Brad Tucker",
-            "role": "Senior Pros Home Care, USA",
-            "quote": "Mudassir migrated our entire phone system to OpenPhone smoothly. Zero downtime, zero complications. The whole setup was handled with great attention to detail.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
           }
         ]
       }
     ]
   },
+  "videoTestimonials": [
+    {
+      "id": 1,
+      "name": "Sarah Chen",
+      "role": "Lead Product Designer",
+      "company": "Stripe",
+      "avatar": "https://i.pravatar.cc/120?img=47",
+      "quote": "The attention to detail and creative vision exceeded every expectation we had. Every interaction feels intentional, every pixel purposeful. Truly exceptional work.",
+      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
+      "poster": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&q=80",
+      "duration": "2:48",
+      "rating": 5
+    },
+    {
+      "id": 2,
+      "name": "Marcus Holloway",
+      "role": "Founder & CEO",
+      "company": "Linear",
+      "avatar": "https://i.pravatar.cc/120?img=12",
+      "quote": "We've worked with dozens of agencies. None come close to this level of execution. The 3D work alone converted visitors into customers overnight.",
+      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
+      "poster": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80",
+      "duration": "3:21",
+      "rating": 5
+    },
+    {
+      "id": 3,
+      "name": "Elena Rodriguez",
+      "role": "VP of Marketing",
+      "company": "Vercel",
+      "avatar": "https://i.pravatar.cc/120?img=44",
+      "quote": "From the first call to the final delivery, the process was seamless. The result? A site that doesn't just look stunning but performs flawlessly.",
+      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
+      "poster": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&q=80",
+      "duration": "1:54",
+      "rating": 5
+    },
+    {
+      "id": 4,
+      "name": "David Park",
+      "role": "Chief Technology Officer",
+      "company": "Framer",
+      "avatar": "https://i.pravatar.cc/120?img=33",
+      "quote": "Technical excellence meets design poetry. Rare to find someone who can speak both languages fluently and deliver at this caliber consistently.",
+      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
+      "poster": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1200&q=80",
+      "duration": "2:12",
+      "rating": 5
+    }
+  ],
   "contact": {
     "subTextHtml": "Agentic AI · Automations · 3D Web · Full-stack<br/>Global clients. No templates. No shortcuts."
   },
