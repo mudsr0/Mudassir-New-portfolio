@@ -4,6 +4,7 @@ import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import Hero from './components/Hero';
 import Preloader from './components/common/Preloader'
 import Navbar from './components/Navbar'
 import Marquee from './components/Marquee'
@@ -17,7 +18,6 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 
 // Lazy load heavy 3D components to reduce initial JS bundle
-const Hero = lazy(() => import('./components/Hero'))
 const RobotSection = lazy(() => import('./components/RobotSection'))
 
 gsap.registerPlugin(ScrollTrigger)
@@ -169,14 +169,17 @@ export default function App() {
       })
     }
 
-    init()
+    // ── Defer GSAP initialization to prevent main-thread blocking ──
+    const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+    const idleId = idleCallback(() => init());
 
     return () => {
       lenis.destroy()
       window.removeEventListener('mousemove', moveCursor)
-      cancelAnimationFrame(rafId) // Kill the cursor loop
+      cancelAnimationFrame(rafId)
       hoverEls.forEach(el => { el.removeEventListener('mouseenter', enterBig); el.removeEventListener('mouseleave', leaveBig) })
       ScrollTrigger.getAll().forEach(t => t.kill())
+      if (window.cancelIdleCallback) window.cancelIdleCallback(idleId);
     }
   }, [isLoading]) // <-- Added isLoading dependency so this runs when preloader finishes
 
@@ -193,22 +196,15 @@ export default function App() {
 
       <Navbar />
       <main>
-        {/* Wrap Hero in Suspense to allow the 3D code to load async */}
-        <Suspense fallback={<div className="hero-section" />}>
-          <Hero />
-        </Suspense>
-        
+        <Hero />
         <Marquee />
+        <Suspense fallback={<div className="robot-section" />}>
+          <RobotSection />
+        </Suspense>
         <Services />
         <Work />
         <About />
         <TechStack />
-        
-        {/* Wrap RobotSection in Suspense */}
-        <Suspense fallback={<div className="robot-section" />}>
-          <RobotSection />
-        </Suspense>
-        
         <Testimonials />
         <VideoTestimonials />
         <Contact />

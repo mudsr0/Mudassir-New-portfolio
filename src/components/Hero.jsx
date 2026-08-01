@@ -64,7 +64,7 @@ export default function Hero() {
 
     // 2. Neural connection lines
     const lineVerts = []
-    const SAMPLE = 400
+    const SAMPLE = 150
     for (let i = 0; i < SAMPLE; i++) {
       for (let j = i + 1; j < SAMPLE; j++) {
         const dx = cPos[i * 3] - cPos[j * 3]

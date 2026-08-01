@@ -6,11 +6,12 @@ import data from '../data.json'
 gsap.registerPlugin(ScrollTrigger)
 
 const DUMMY_VIDEOS = [
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
-  "https://media.w3.org/2010/05/sintel/trailer.mp4",
-  "https://media.w3.org/2010/05/bunny/movie.mp4",
-  "https://media.w3.org/2010/05/video/movie_300.mp4",
+  "https://static.videezy.com/system/resources/previews/000/019/011/original/ICON-VERSION5.mp4",
+  "https://static.videezy.com/system/resources/previews/000/036/766/original/earth_stock2.mp4",
+  "https://static.videezy.com/system/resources/previews/000/044/890/original/Comp-1_4_1.mp4",
+  "https://static.videezy.com/system/resources/previews/000/019/000/original/ICON-VERSION1.mp4",
+  "https://static.videezy.com/system/resources/previews/000/039/602/original/4K.mp4"
+
 ]
 
 function splitStack(stack) {
@@ -104,10 +105,10 @@ export default function Work() {
         const { isTablet, isMobile } = context.conditions
 
         const scaleAmount = isMobile ? 0.96 : isTablet ? 0.94 : 0.92
-        
+
         /* ── Fix: Set yShift to 0 on mobile so cards never move upward ── */
         const yShift = isMobile ? 0 : -4
-        
+
         const scrubVal = 1
 
         cards.forEach((card, i) => {
