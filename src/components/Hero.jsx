@@ -224,6 +224,15 @@ export default function Hero() {
     // PRELOADER SYNC LOGIC
     // ==========================================
     const startHeroIntro = () => {
+      // 1. Immediately set the initial hidden states via GSAP inline styles
+      gsap.set(['.hero-eyebrow', '.hero-h1', '.hero-caption'], { opacity: 0, y: 30 });
+      gsap.set('.hero-actions', { opacity: 0, scale: 0.9 });
+      gsap.set('.scroll-hint', { opacity: 0, y: -10 });
+
+      // 2. Now that GSAP has applied inline opacity:0, it is safe to remove the CSS fallback class
+      document.body.classList.remove('js-loading');
+
+      // 3. Build and play the timeline
       const tl = gsap.timeline({ delay: 0.2, defaults: { ease: 'expo.out' } })
       tlRef.current = tl
 
@@ -279,17 +288,17 @@ export default function Hero() {
 
       {/* Main hero content with initial inline styles to prevent FOUC / flashing */}
       <div ref={heroContentRef} className="hero-content">
-        <div className="hero-eyebrow" style={{ opacity: 0, transform: 'translateY(20px)' }}>
+        <div className="hero-eyebrow" >
           <span className="eyebrow-line" />
           {data.hero.eyebrowText}
           <span className="eyebrow-line" />
         </div>
 
-        <h1 className="hero-h1" style={{ opacity: 0, transform: 'translateY(30px)' }} dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
+        <h1 className="hero-h1" dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
 
-        <p className="hero-caption" style={{ opacity: 0, transform: 'translateY(20px)' }} dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
+        <p className="hero-caption" dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
 
-        <div className="hero-actions" style={{ opacity: 0, transform: 'scale(0.95)' }}>
+        <div className="hero-actions" >
           <button className="btn-primary" onClick={() => scrollTo('work')}>view work</button>
           <button className="btn-ghost" onClick={() => scrollTo('contact')}>start a project →</button>
         </div>
@@ -301,7 +310,7 @@ export default function Hero() {
         onClick={handleScrollDown}
         role="button"
         tabIndex={0}
-        style={{ opacity: 0, transform: 'translateY(-10px)', cursor: 'pointer', pointerEvents: 'auto' }}
+        style={{ cursor: 'pointer', pointerEvents: 'auto' }}
       >
         <span className="scroll-label">scroll</span>
         <div className="scroll-line" />
