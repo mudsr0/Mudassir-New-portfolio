@@ -4,19 +4,19 @@ import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import Preloader      from './components/common/Preloader'
-import Navbar       from './components/Navbar'
-import Hero         from './components/Hero'
+import Preloader from './components/common/Preloader'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
 import RobotSection from './components/RobotSection'
-import Marquee      from './components/Marquee'
-import About        from './components/About'
-import Services     from './components/Services'
-import Work         from './components/Work'
-import TechStack    from './components/TechStack'
+import Marquee from './components/Marquee'
+import About from './components/About'
+import Services from './components/Services'
+import Work from './components/Work'
+import TechStack from './components/TechStack'
 import Testimonials from './components/Testimonials'
 import VideoTestimonials from './components/VideoTestimonials'
-import Contact      from './components/Contact'
-import Footer       from './components/Footer'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -176,9 +176,9 @@ export default function App() {
         <Hero />
         <Marquee />
         <RobotSection />
-        <About />
         <Services />
         <Work />
+        <About />
         <TechStack />
         <Testimonials />
         <VideoTestimonials />

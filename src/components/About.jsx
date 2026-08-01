@@ -307,7 +307,7 @@ export default function About() {
     <section id="about" className="section about-v2" ref={sectionRef}>
       <div className="about-topbar">
         <div className="sec-eyebrow" data-fade>
-          <span className="eyebrow-num">01</span>
+          <span className="eyebrow-num">03</span>
           about
         </div>
       </div>
