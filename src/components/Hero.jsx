@@ -138,20 +138,6 @@ export default function Hero() {
     // Hide orb initially for entrance timeline
     orbGroup.scale.set(0.001, 0.001, 0.001)
 
-    // Entrance timeline
-    const tl = gsap.timeline({ delay: 1.8, defaults: { ease: 'expo.out' } })
-    tlRef.current = tl
-
-    tl.to(orbGroup.scale, { x: 1, y: 1, z: 1, duration: 0.4 })
-      .to(cMat, { opacity: 0.85, duration: 2.5, ease: 'power2.out' }, '<0.2')
-      .to(lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
-
-      .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
-      .to('.hero-h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '0.4')
-      .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
-      .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
-      .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
-
     // ScrollTrigger camera fly-through
     gsap.to(camera.position, {
       z: -1.5,
@@ -234,12 +220,41 @@ export default function Hero() {
     }
     animate()
 
+    // ==========================================
+    // PRELOADER SYNC LOGIC
+    // ==========================================
+    const startHeroIntro = () => {
+      const tl = gsap.timeline({ delay: 0.2, defaults: { ease: 'expo.out' } })
+      tlRef.current = tl
+
+      tl.to(orbGroup.scale, { x: 1, y: 1, z: 1, duration: 0.4 })
+        .to(cMat, { opacity: 0.85, duration: 2.5, ease: 'power2.out' }, '<0.2')
+        .to(lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
+
+        .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
+        .to('.hero-h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '0.4')
+        .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+        .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
+        .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+    }
+
+    // Check if preloader is active
+    let introTimer = null;
+    if (document.querySelector('.loader-screen')) {
+      window.addEventListener('app-loaded', startHeroIntro);
+    } else {
+      // Fallback if preloader is somehow gone already
+      introTimer = setTimeout(startHeroIntro, 300);
+    }
+
     // Cleanup function
     return () => {
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('touchmove', onTouch)
       window.removeEventListener('resize', onResize)
+      window.removeEventListener('app-loaded', startHeroIntro) // Clean up event listener
+      if (introTimer) clearTimeout(introTimer)
       mount.removeChild(renderer.domElement)
       renderer.dispose()
       ScrollTrigger.getAll().forEach(t => t.kill())

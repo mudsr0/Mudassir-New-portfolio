@@ -223,7 +223,7 @@ export default function Work() {
     <section id="work" className="section" ref={sectionRef}>
       <div className="sec-header" data-fade>
         <div className="sec-eyebrow">
-          <span className="eyebrow-num">03</span>
+          <span className="eyebrow-num">02</span>
           selected work
         </div>
         <h2 className="sec-h">Case studies.</h2>

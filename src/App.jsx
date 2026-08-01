@@ -1,27 +1,38 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import Navbar       from './components/Navbar'
-import Hero         from './components/Hero'
+import Preloader from './components/common/Preloader'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
 import RobotSection from './components/RobotSection'
-import Marquee      from './components/Marquee'
-import About        from './components/About'
-import Services     from './components/Services'
-import Work         from './components/Work'
-import TechStack    from './components/TechStack'
+import Marquee from './components/Marquee'
+import About from './components/About'
+import Services from './components/Services'
+import Work from './components/Work'
+import TechStack from './components/TechStack'
 import Testimonials from './components/Testimonials'
 import VideoTestimonials from './components/VideoTestimonials'
-import Contact      from './components/Contact'
-import Footer       from './components/Footer'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   const cursorRef = useRef(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Lock body scroll while preloader is active
+  useEffect(() => {
+    document.body.style.overflow = isLoading ? 'hidden' : 'auto'
+  }, [isLoading])
 
   useEffect(() => {
+    // Prevent GSAP/Lenis from initializing until preloader is done
+    if (isLoading) return
+
     // ── Lenis smooth scroll ────────────────────────────────
     const lenis = new Lenis({
       duration: 1.2,
@@ -147,10 +158,16 @@ export default function App() {
       hoverEls.forEach(el => { el.removeEventListener('mouseenter', enterBig); el.removeEventListener('mouseleave', leaveBig) })
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
-  }, [])
+  }, [isLoading]) // <-- Added isLoading dependency so this runs when preloader finishes
 
   return (
     <>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <Preloader key="preloader" onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
       <div className="noise" aria-hidden="true" />
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
 
@@ -159,9 +176,9 @@ export default function App() {
         <Hero />
         <Marquee />
         <RobotSection />
-        <About />
         <Services />
         <Work />
+        <About />
         <TechStack />
         <Testimonials />
         <VideoTestimonials />

@@ -59,7 +59,7 @@ const VideoTestimonials = () => {
         transition={{ duration: 0.7, ease: easeOut }}
       >
         <div className="sec-eyebrow">
-          <span className="eyebrow-num">05</span>
+          <span className="eyebrow-num">06</span>
           Video Testimonials
         </div>
         <h2 className="sec-h">
