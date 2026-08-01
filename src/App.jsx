@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, Suspense, lazy } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
@@ -6,8 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import Preloader from './components/common/Preloader'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import RobotSection from './components/RobotSection'
 import Marquee from './components/Marquee'
 import About from './components/About'
 import Services from './components/Services'
@@ -18,13 +16,17 @@ import VideoTestimonials from './components/VideoTestimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
+// Lazy load heavy 3D components to reduce initial JS bundle
+const Hero = lazy(() => import('./components/Hero'))
+const RobotSection = lazy(() => import('./components/RobotSection'))
+
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   const cursorRef = useRef(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Lock body scroll while preloader is active
+  // Lock body scroll and manage initial load styles
   useEffect(() => {
     document.body.style.overflow = isLoading ? 'hidden' : 'auto'
   }, [isLoading])
@@ -45,14 +47,31 @@ export default function App() {
     gsap.ticker.add((time) => lenis.raf(time * 1000))
     gsap.ticker.lagSmoothing(0)
 
-    // ── Custom cursor ──────────────────────────────────────
+    // ── Custom cursor ─────────────────────────
     const cursor = cursorRef.current
-    let cx = -100, cy = -100
+    let mouseX = 0, mouseY = 0;
+    let cursorX = -100, cursorY = -100;
+    const speed = 0.15;
+    let rafId;
 
     const moveCursor = (e) => {
-      gsap.to(cursor, { left: e.clientX, top: e.clientY, duration: 0.55, ease: 'power3.out' })
-    }
-    window.addEventListener('mousemove', moveCursor)
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+    window.addEventListener('mousemove', moveCursor);
+
+    const animateCursor = () => {
+      // Lerp for smooth trailing
+      cursorX += (mouseX - cursorX) * speed;
+      cursorY += (mouseY - cursorY) * speed;
+
+      // Use translate3d to force GPU acceleration (no reflows)
+      if (cursor) {
+        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+      }
+      rafId = requestAnimationFrame(animateCursor);
+    };
+    animateCursor();
 
     const enterBig = () => cursor?.classList.add('lg')
     const leaveBig = () => cursor?.classList.remove('lg')
@@ -155,6 +174,7 @@ export default function App() {
     return () => {
       lenis.destroy()
       window.removeEventListener('mousemove', moveCursor)
+      cancelAnimationFrame(rafId) // Kill the cursor loop
       hoverEls.forEach(el => { el.removeEventListener('mouseenter', enterBig); el.removeEventListener('mouseleave', leaveBig) })
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
@@ -173,13 +193,22 @@ export default function App() {
 
       <Navbar />
       <main>
-        <Hero />
+        {/* Wrap Hero in Suspense to allow the 3D code to load async */}
+        <Suspense fallback={<div className="hero-section" />}>
+          <Hero />
+        </Suspense>
+        
         <Marquee />
-        <RobotSection />
         <Services />
         <Work />
         <About />
         <TechStack />
+        
+        {/* Wrap RobotSection in Suspense */}
+        <Suspense fallback={<div className="robot-section" />}>
+          <RobotSection />
+        </Suspense>
+        
         <Testimonials />
         <VideoTestimonials />
         <Contact />
