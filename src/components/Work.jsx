@@ -19,9 +19,6 @@ function splitStack(stack) {
   return stack.split(/[·,]/).map((s) => s.trim()).filter(Boolean)
 }
 
-/* =========================================================
-   WORK CARD
-   ========================================================= */
 function WorkCard({ p, index, cardRef }) {
   const boundsRef = useRef(null)
   const videoSrc = p.video || DUMMY_VIDEOS[index % DUMMY_VIDEOS.length]
@@ -78,9 +75,6 @@ function WorkCard({ p, index, cardRef }) {
   )
 }
 
-/* =========================================================
-   VIDEO VISIBILITY OPTIMIZATION
-   ========================================================= */
 function useVideoVisibility(sectionRef) {
   useEffect(() => {
     const section = sectionRef.current
@@ -107,9 +101,6 @@ function useVideoVisibility(sectionRef) {
   }, [sectionRef])
 }
 
-/* =========================================================
-   WORK
-   ========================================================= */
 export default function Work() {
   const sectionRef = useRef(null), stackRef = useRef(null), cardRefs = useRef([])
   const projects = data.work || []

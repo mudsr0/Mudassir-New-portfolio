@@ -6,10 +6,6 @@ import data from '../data.json'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/* ─────────────────────────────────────────────────────────────
-   Run expensive work when the browser is idle.
-   This allows the critical Hero HTML/H1 to paint first.
-───────────────────────────────────────────────────────────── */
 const runWhenIdle = (callback) => {
   if ('requestIdleCallback' in window) return window.requestIdleCallback(callback, { timeout: 1200 })
   return window.setTimeout(callback, 100)
@@ -36,24 +32,16 @@ export default function Hero() {
     let cancelled = false
     let idleId = null
 
-    // Keep the viewport values outside the deferred initializer. 
-    // This avoids unnecessary work before the browser paints.
     let W = window.innerWidth
     let H = window.innerHeight
 
-    /* ─────────────────────────────────────────────────────────
-       THREE.JS INITIALIZATION
-    ───────────────────────────────────────────────────────── */
     const initThree = () => {
       if (cancelled) return
       W = window.innerWidth
       H = window.innerHeight
 
-      /* ─── WebGL renderer ─── */
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
       renderer.setSize(W, H)
-      // 1.5x is enough for a fullscreen decorative WebGL scene and significantly cheaper than allowing 2x on Retina.
-      // Mobile uses 1x to reduce GPU pressure.
       renderer.setPixelRatio(window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 1.5))
       renderer.setClearColor(0x000000, 0)
       mount.appendChild(renderer.domElement)
@@ -62,22 +50,16 @@ export default function Hero() {
         position: 'absolute', inset: '0', width: '100%', height: '100%', pointerEvents: 'none',
       })
 
-      /* ─── Scene + camera ─── */
       const scene = new THREE.Scene()
       const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 200)
       camera.position.set(0, 0, 4.5)
 
-      /* ─── Main scene groups ─── */
       const orbGroup = new THREE.Group()
-      // Separate group keeps the breathing animation independent from the GSAP entrance scale.
       const innerGroup = new THREE.Group()
       const envGroup = new THREE.Group()
       orbGroup.add(innerGroup)
       scene.add(orbGroup, envGroup)
 
-      /* ========================================================
-         1. CORE SPHERE PARTICLES
-      ======================================================== */
       const CORE = 1800
       const cPos = new Float32Array(CORE * 3)
 
@@ -98,11 +80,7 @@ export default function Hero() {
       const corePts = new THREE.Points(cGeo, cMat)
       innerGroup.add(corePts)
 
-      /* ========================================================
-         2. NEURAL CONNECTION LINES
-      ======================================================== */
       const lineVerts = []
-      // Kept at 100 exactly as in your current version. No visual reduction here.
       const SAMPLE = 100
 
       for (let i = 0; i < SAMPLE; i++) {
@@ -126,23 +104,14 @@ export default function Hero() {
       const neuralLines = new THREE.LineSegments(lGeo, lMat)
       innerGroup.add(neuralLines)
 
-      /* ========================================================
-         3. INNER GLOW SPHERE
-      ======================================================== */
       const glowGeo = new THREE.SphereGeometry(0.72, 32, 32)
       const glowMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.025, side: THREE.FrontSide })
       innerGroup.add(new THREE.Mesh(glowGeo, glowMat))
 
-      /* ========================================================
-         4. WIREFRAME SHELL
-      ======================================================== */
       const wfGeo = new THREE.IcosahedronGeometry(1.04, 2)
       const wfMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.055 })
       innerGroup.add(new THREE.Mesh(wfGeo, wfMat))
 
-      /* ========================================================
-         5. ORBIT RINGS
-      ======================================================== */
       const addRing = (r, op, rx, ry, rz) => {
         const g = new THREE.TorusGeometry(r, 0.003, 6, 120)
         const m = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: op })
@@ -156,9 +125,6 @@ export default function Hero() {
       const ring2 = addRing(1.55, 0.14, Math.PI / 3.5, Math.PI / 5, 0)
       const ring3 = addRing(1.8, 0.07, Math.PI / 6, Math.PI / 3, Math.PI / 8)
 
-      /* ========================================================
-         6. OUTER HALO PARTICLES
-      ======================================================== */
       const HALO = 500
       const hPos = new Float32Array(HALO * 3)
 
@@ -177,9 +143,6 @@ export default function Hero() {
       const hMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.014, transparent: true, opacity: 0.3, sizeAttenuation: true, depthWrite: false })
       envGroup.add(new THREE.Points(hGeo, hMat))
 
-      /* ========================================================
-         7. FLOATING AMBIENT DUST
-      ======================================================== */
       const DUST = 1000
       const dPos = new Float32Array(DUST * 3)
 
@@ -195,12 +158,8 @@ export default function Hero() {
       const dust = new THREE.Points(dGeo, dMat)
       scene.add(dust)
 
-      /* ─── Initial orb state ─── */
       orbGroup.scale.set(0.001, 0.001, 0.001)
 
-      /* ========================================================
-         SCROLLTRIGGER
-      ======================================================== */
       gsap.to(camera.position, {
         z: -1.5, ease: 'none',
         scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true },
@@ -211,9 +170,6 @@ export default function Hero() {
         scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true },
       })
 
-      /* ========================================================
-         MOUSE / TOUCH
-      ======================================================== */
       const onMove = (e) => {
         mouse.current.tx = (e.clientX / W - 0.5) * 2
         mouse.current.ty = -(e.clientY / H - 0.5) * 2
@@ -228,24 +184,17 @@ export default function Hero() {
       window.addEventListener('mousemove', onMove, { passive: true })
       window.addEventListener('touchmove', onTouch, { passive: true })
 
-      /* ========================================================
-         RESIZE
-      ======================================================== */
       const onResize = () => {
         const w = window.innerWidth
         const h = window.innerHeight
         camera.aspect = w / h
         camera.updateProjectionMatrix()
         renderer.setSize(w, h)
-        // Keep the existing adaptive pixel ratio.
         renderer.setPixelRatio(w < 768 ? 1 : Math.min(window.devicePixelRatio, 1.5))
       }
 
       window.addEventListener('resize', onResize)
 
-      /* ========================================================
-         RENDER LOOP
-      ======================================================== */
       let t = 0
 
       const animate = () => {
@@ -253,29 +202,23 @@ export default function Hero() {
         rafRef.current = requestAnimationFrame(animate)
         t += 0.008
 
-        /* Smooth mouse easing */
         mouse.current.x += (mouse.current.tx - mouse.current.x) * 0.045
         mouse.current.y += (mouse.current.ty - mouse.current.y) * 0.045
 
-        /* Orb rotation */
         orbGroup.rotation.y += 0.003 + mouse.current.x * 0.0008
         orbGroup.rotation.x = mouse.current.y * 0.15
         orbGroup.rotation.z += 0.0005
 
-        /* Camera drift */
         camera.position.x += (mouse.current.x * 0.35 - camera.position.x) * 0.04
         camera.position.y += (mouse.current.y * 0.25 - camera.position.y) * 0.04
 
-        /* Orbit ring spin */
         ring1.rotation.z += 0.004
         ring2.rotation.z -= 0.002
         ring3.rotation.x += 0.001
 
-        /* Breathing animation */
         const breathe = 1 + Math.sin(t * 0.7) * 0.018
         innerGroup.scale.set(breathe, breathe, breathe)
 
-        /* Background drift */
         envGroup.rotation.y += 0.0006
         dust.rotation.y -= 0.0002
 
@@ -284,23 +227,14 @@ export default function Hero() {
 
       animate()
 
-      /* ========================================================
-         PRELOADER / HERO INTRO
-      ======================================================== */
       const startHeroIntro = () => {
         if (cancelled) return
 
-        // IMPORTANT: Do NOT hide the H1 with opacity: 0.
-        // Keeping opacity at 1 allows the browser to treat the H1 as a paintable LCP element.
-        // We only animate its transform.
         gsap.set(['.hero-eyebrow', '.hero-caption'], { opacity: 0, y: 30 })
         gsap.set('.hero-actions', { opacity: 0, scale: 0.9 })
         gsap.set('.scroll-hint', { opacity: 0, y: -10 })
-        
-        // H1 remains visible. Only its position is animated.
         gsap.set('.hero-h1', { opacity: 1, y: 30 })
 
-        // Remove fallback loading class after GSAP has established the animation states.
         document.body.classList.remove('js-loading')
 
         const tl = gsap.timeline({ delay: 0.2, defaults: { ease: 'expo.out' } })
@@ -310,14 +244,12 @@ export default function Hero() {
           .to(cMat, { opacity: 0.85, duration: 2.5, ease: 'power2.out' }, '<0.2')
           .to(lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
           .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
-          // H1 animation preserved: same 30px starting offset and 1s duration. Only opacity is no longer animated from zero.
           .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.4')
           .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
           .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
           .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
       }
 
-      // Preloader synchronization remains unchanged.
       let introTimer = null
       if (document.querySelector('.loader-screen')) {
         window.addEventListener('app-loaded', startHeroIntro)
@@ -325,9 +257,6 @@ export default function Hero() {
         introTimer = setTimeout(startHeroIntro, 300)
       }
 
-      /* ========================================================
-         CLEANUP
-      ======================================================== */
       const cleanup = () => {
         cancelAnimationFrame(rafRef.current)
         window.removeEventListener('mousemove', onMove)
@@ -338,7 +267,6 @@ export default function Hero() {
         if (introTimer) clearTimeout(introTimer)
         if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
 
-        // Dispose GPU resources.
         cGeo.dispose(); cMat.dispose()
         lGeo.dispose(); lMat.dispose()
         glowGeo.dispose(); glowMat.dispose()
@@ -352,36 +280,25 @@ export default function Hero() {
           tlRef.current = null
         }
 
-        // Kill only the triggers created by this Hero.
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
       }
 
-      // Store cleanup function on the initializer.
       initThree.cleanup = cleanup
     }
 
-    // IMPORTANT: Delay the expensive WebGL setup until after the browser
-    // has had an opportunity to paint the HTML Hero.
     idleId = runWhenIdle(() => {
       if (!cancelled) initThree()
     })
 
-    /* ========================================================
-       EFFECT CLEANUP
-    ======================================================== */
     return () => {
       cancelled = true
       cancelIdle(idleId)
       cancelAnimationFrame(rafRef.current)
 
-      // If Three.js already initialized, perform its full cleanup.
       if (initThree.cleanup) initThree.cleanup()
     }
   }, [])
 
-  /* ───────────────────────────────────────────────────────────
-     Scroll helpers
-  ─────────────────────────────────────────────────────────── */
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -390,18 +307,11 @@ export default function Hero() {
     window.scrollBy({ top: window.innerHeight * 0.65, behavior: 'smooth' })
   }
 
-  /* ───────────────────────────────────────────────────────────
-     Render
-  ─────────────────────────────────────────────────────────── */
   return (
     <section className="hero-section">
-      {/* Three.js canvas mount */}
       <div ref={mountRef} className="hero-canvas-wrap" aria-hidden="true" />
-      
-      {/* Radial gradient overlay */}
       <div className="hero-vignette" aria-hidden="true" />
       
-      {/* Main hero content */}
       <div ref={heroContentRef} className="hero-content">
         <div className="hero-eyebrow">
           <span className="eyebrow-line" />
@@ -418,7 +328,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Interactive scroll hint */}
       <div
         className="scroll-hint"
         onClick={handleScrollDown}

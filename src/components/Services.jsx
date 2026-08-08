@@ -2,11 +2,6 @@ import { useRef, useEffect, useState } from 'react'
 import WaveBackground from './common/WaveBackground'
 import data from '../data.json'
 
-/* ─────────────────────────────────────────────────────────────
-   Intersection observer hook
-   - Fires once when the card becomes visible
-   - Automatically disconnects afterwards
-   ───────────────────────────────────────────────────────────── */
 function useInView(ref) {
   const [inView, setInView] = useState(false)
 
@@ -38,17 +33,6 @@ function ServiceCard({ s }) {
   const cellRef = useRef(null), numRef = useRef(null)
   const inView = useInView(cellRef)
 
-  /*
-   * Keep the counter animation out of React state.
-   *
-   * Previously:
-   *   setDisplayNum(...)
-   *
-   * caused React to re-render the card ~20 times.
-   *
-   * Now we update the text node directly. Same visual result,
-   * much less React work.
-   */
   useEffect(() => {
     if (!inView || !numRef.current) return
 
@@ -84,12 +68,7 @@ function ServiceCard({ s }) {
     }
   }, [inView, s.num])
 
-  /* ───────────────────────────────────────────────────────────
-     Mouse interaction
 
-     Keep the exact same spotlight behavior, but avoid repeatedly
-     querying layout more than necessary.
-     ─────────────────────────────────────────────────────────── */
   const handleMove = (e) => {
     const cell = cellRef.current
     if (!cell) return
@@ -146,18 +125,12 @@ function ServiceCard({ s }) {
   )
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Services Section
-   ───────────────────────────────────────────────────────────── */
 export default function Services() {
   const services = data.services
 
   return (
     <section id="services" className="section">
-      {/*
-        The WebGL background now pauses automatically when this
-        section is outside the viewport.
-      */}
+
       <WaveBackground color="#ffffff" dotCount={170} />
 
       <div className="sec-header" data-fade>
