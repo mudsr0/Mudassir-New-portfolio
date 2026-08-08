@@ -3,13 +3,16 @@ import WaveBackground from './common/WaveBackground'
 import data from '../data.json'
 
 export default function Contact() {
-  const [form, setForm]     = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState('')
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setForm((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleSubmit = (e) => {
-    
+
     e.preventDefault()
     if (!form.name || !form.email || !form.message) {
       setStatus('Please fill in all fields.')
@@ -22,7 +25,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="contact">
-      <WaveBackground color="#ffffff" dotCount={200} />
+      <WaveBackground color="#ffffff" dotCount={170} />
       <div className="contact-inner">
         <div data-fade>
           <div className="contact-eyebrow">ready to build?</div>
