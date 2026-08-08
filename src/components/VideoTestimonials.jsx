@@ -108,7 +108,7 @@ const VideoTestimonials = () => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <img src={active.poster} alt={`${active.name} testimonial preview`} className="vtesti-poster" loading="eager" fetchPriority="high" decoding="async" />
+                  <img src={active.poster} alt={`${active.name} testimonial preview`} className="vtesti-poster" loading="eager" decoding="async" />
                   <div className="vtesti-poster-overlay" />
                   <div className="vtesti-poster-grain" />
                   <button className="vtesti-play-btn" onClick={handlePlay} aria-label={`Play ${active.name} testimonial`}>
