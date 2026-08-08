@@ -98,6 +98,52 @@
       "desc": "TTS model training, EEG signal classification, BCI pipelines, voice synthesis, Groq & OpenAI integration."
     }
   ],
+  "partners": [
+    {
+      "name": "Prepare2Swim",
+      "logo": "/images/partners/p2s.png"
+    },
+    {
+      "name": "A&A Plastering",
+      "logo": "/images/partners/AandA Plastering.png"
+    },
+    {
+      "name": "Bright",
+      "logo": "/images/partners/Bright.png"
+    },
+    {
+      "name": "CV Labz",
+      "logo": "/images/partners/CV Labz.png"
+    },
+    {
+      "name": "Keys & Confidence Driving School",
+      "logo": "/images/partners/Keys & Confidence Driving School.png"
+    },
+    {
+      "name": "NC Dental U",
+      "logo": "/images/partners/NC Dental U.png"
+    },
+    {
+      "name": "Pixellift",
+      "logo": "/images/partners/Pixellift.png"
+    },
+    {
+      "name": "PMF Creative",
+      "logo": "/images/partners/PMF Creative.png"
+    },
+    {
+      "name": "Zerodown Smart Start",
+      "logo": "/images/partners/Zerodown Smart Start.png"
+    },
+    {
+      "name": "Qbo",
+      "logo": "/images/partners/Qbo.png"
+    },
+    {
+      "name": "Anatome",
+      "logo": "/images/partners/Anatome.png"
+    }
+  ],
   "work": [
     {
       "tag": "AI Platform",

@@ -16,6 +16,7 @@ import Testimonials from './components/Testimonials'
 import VideoTestimonials from './components/VideoTestimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Partners from './components/partners'
 
 // Lazy load heavy 3D components to reduce initial JS bundle
 const RobotSection = lazy(() => import('./components/RobotSection'))
@@ -37,45 +38,44 @@ export default function App() {
 
     // ── Lenis smooth scroll ────────────────────────────────
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.8,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
       smoothWheel: true,
-      wheelMultiplier: 0.85,
-      touchMultiplier: 1.6,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.2,
     })
     lenis.on('scroll', ScrollTrigger.update)
-    gsap.ticker.add((time) => lenis.raf(time * 1000))
+
+    const raf = (time) => {
+      lenis.raf(time * 1000)
+    }
+
+    gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
 
-    // ── Custom cursor ─────────────────────────
+    // ── Custom cursor ─────────────────────────────────────
     const cursor = cursorRef.current
-    let mouseX = 0, mouseY = 0;
-    let cursorX = -100, cursorY = -100;
-    const speed = 0.15;
-    let rafId;
+
+    const cursorX = gsap.quickTo(cursor, "x", {
+      duration: 0.45,
+      ease: "power3.out",
+    })
+
+    const cursorY = gsap.quickTo(cursor, "y", {
+      duration: 0.45,
+      ease: "power3.out",
+    })
 
     const moveCursor = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-    window.addEventListener('mousemove', moveCursor);
+      cursorX(e.clientX)
+      cursorY(e.clientY)
+    }
 
-    const animateCursor = () => {
-      // Lerp for smooth trailing
-      cursorX += (mouseX - cursorX) * speed;
-      cursorY += (mouseY - cursorY) * speed;
-
-      // Use translate3d to force GPU acceleration (no reflows)
-      if (cursor) {
-        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
-      }
-      rafId = requestAnimationFrame(animateCursor);
-    };
-    animateCursor();
+    window.addEventListener("pointermove", moveCursor)
 
     const enterBig = () => cursor?.classList.add('lg')
     const leaveBig = () => cursor?.classList.remove('lg')
-    const hoverEls = document.querySelectorAll('button, a, .svc-cell, .work-card, .stat-card, .tech-pill, .testi-card')
+    const hoverEls = document.querySelectorAll('button, a, .svc-cell, .work-card, .stat-card, .tech-pill, .testi-card, .partner-card')
     hoverEls.forEach(el => { el.addEventListener('mouseenter', enterBig); el.addEventListener('mouseleave', leaveBig) })
 
     // ── Fade-up animations ─────────────────────────────────
@@ -118,53 +118,11 @@ export default function App() {
         )
       })
 
-      // ── Background Parallax on sections ──────────────────
-      document.querySelectorAll('.section').forEach((sec) => {
-        gsap.fromTo(sec,
-          { backgroundPositionY: '-25%' },
-          {
-            backgroundPositionY: '25%',
-            ease: 'none',
-            scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true },
-          }
-        )
-      })
-
-      // ── Card Parallax (Scrubbing yPercent) ────────────────
-      document.querySelectorAll('.work-card, .stat-card').forEach((el, i) => {
-        const speed = i % 2 === 0 ? -12 : -6;
-        gsap.to(el, {
-          yPercent: speed,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el.closest('.section') || el.parentElement,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          }
-        });
-      });
-
       // ── Stat cards counter ────────────────────────────────
       document.querySelectorAll('.stat-num').forEach((el) => {
         ScrollTrigger.create({
           trigger: el, start: 'top 85%', once: true,
           onEnter: () => gsap.fromTo(el, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.8)' })
-        })
-      })
-
-      // ── Vertical Parallax ────────────────────────────────
-      document.querySelectorAll('[data-parallax]').forEach((el) => {
-        const speed = parseFloat(el.dataset.parallax) || 0.15;
-        gsap.to(el, {
-          y: () => -(document.documentElement.scrollHeight * speed),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: document.body,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 1.5,
-          }
         })
       })
     }
@@ -175,8 +133,8 @@ export default function App() {
 
     return () => {
       lenis.destroy()
-      window.removeEventListener('mousemove', moveCursor)
-      cancelAnimationFrame(rafId)
+      gsap.ticker.remove(raf)
+      window.removeEventListener('pointermove', moveCursor)
       hoverEls.forEach(el => { el.removeEventListener('mouseenter', enterBig); el.removeEventListener('mouseleave', leaveBig) })
       ScrollTrigger.getAll().forEach(t => t.kill())
       if (window.cancelIdleCallback) window.cancelIdleCallback(idleId);
@@ -202,6 +160,7 @@ export default function App() {
           <RobotSection />
         </Suspense>
         <Services />
+        <Partners />
         <Work />
         <About />
         <TechStack />

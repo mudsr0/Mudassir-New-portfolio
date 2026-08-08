@@ -8,37 +8,42 @@ export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
     const mount = mountRef.current
     if (!mount) return
 
-    const width = mount.clientWidth
-    const height = mount.clientHeight
+    let destroyed = false, frameId = null
 
-    // ── Scene setup ──
+    const getSize = () => ({ width: mount.clientWidth, height: mount.clientHeight })
+    let { width, height } = getSize()
+    if (!width || !height) return
+
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000)
     camera.position.set(0, 18, 32)
     camera.lookAt(0, 0, 0)
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
     renderer.setSize(width, height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
+    renderer.setClearColor(0x000000, 0)
     mount.appendChild(renderer.domElement)
 
-    // ── Grid of points ── (store ORIGINAL x/z so we can push outward from a fixed base each frame)
-    const spacing = 1.4
-    const rows = dotCount
-    const cols = dotCount
-    const count = rows * cols
+    Object.assign(renderer.domElement.style, {
+      position: 'absolute', inset: '0', width: '100%', height: '100%', pointerEvents: 'none',
+    })
+
+    const spacing = 1.4, rows = dotCount, cols = dotCount, count = rows * cols
     const positions = new Float32Array(count * 3)
-    const baseX = new Float32Array(count)
-    const baseZ = new Float32Array(count)
+    const baseX = new Float32Array(count), baseZ = new Float32Array(count)
 
     let idx = 0
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
         const x = (i - rows / 2) * spacing
         const z = (j - cols / 2) * spacing
-        positions[idx * 3] = x
-        positions[idx * 3 + 1] = 0
-        positions[idx * 3 + 2] = z
+        const offset = idx * 3
+
+        positions[offset] = x
+        positions[offset + 1] = 0
+        positions[offset + 2] = z
+
         baseX[idx] = x
         baseZ[idx] = z
         idx++
@@ -46,20 +51,14 @@ export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
     }
 
     const geometry = new THREE.BufferGeometry()
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    const positionAttribute = new THREE.BufferAttribute(positions, 3)
+    geometry.setAttribute('position', positionAttribute)
 
     const material = new THREE.PointsMaterial({
-      color: new THREE.Color(color),
-      size: 0.12,
-      transparent: true,
-      opacity: 0.8,
-      sizeAttenuation: true,
+      color: new THREE.Color(color), size: 0.12, transparent: true, opacity: 0.8, sizeAttenuation: true, depthWrite: false,
     })
+    scene.add(new THREE.Points(geometry, material))
 
-    const points = new THREE.Points(geometry, material)
-    scene.add(points)
-
-    // ── Invisible plane for raycasting mouse position onto the grid ──
     const planeGeo = new THREE.PlaneGeometry(rows * spacing * 2, cols * spacing * 2)
     const planeMat = new THREE.MeshBasicMaterial({ visible: false })
     const plane = new THREE.Mesh(planeGeo, planeMat)
@@ -68,112 +67,135 @@ export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
 
     const raycaster = new THREE.Raycaster()
     const mouseNDC = new THREE.Vector2(-100, -100)
-    let mouseActive = false
+    const mouseTarget = new THREE.Vector3(9999, 0, 9999)
+    const currentMouse = new THREE.Vector3(9999, 0, 9999)
+    let mouseActive = false, sectionVisible = false
 
-    // ── Listen globally so hovering over cards (which sit on top) still updates the wave ──
+    let mountRect = mount.getBoundingClientRect()
+    const updateRect = () => { mountRect = mount.getBoundingClientRect() }
+
     const handlePointerMove = (e) => {
-      const rect = mount.getBoundingClientRect()
-      const insideX = e.clientX >= rect.left && e.clientX <= rect.right
-      const insideY = e.clientY >= rect.top && e.clientY <= rect.bottom
+      if (!sectionVisible) return
+
+      const insideX = e.clientX >= mountRect.left && e.clientX <= mountRect.right
+      const insideY = e.clientY >= mountRect.top && e.clientY <= mountRect.bottom
 
       if (insideX && insideY) {
-        mouseNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
-        mouseNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
+        mouseNDC.x = ((e.clientX - mountRect.left) / mountRect.width) * 2 - 1
+        mouseNDC.y = -(((e.clientY - mountRect.top) / mountRect.height) * 2 - 1)
         mouseActive = true
       } else {
         mouseActive = false
       }
     }
 
-    window.addEventListener('mousemove', handlePointerMove)
+    window.addEventListener('pointermove', handlePointerMove, { passive: true })
 
-    // ── Animation loop ──
-    let frameId
+    const handleResize = () => {
+      if (destroyed) return
+      const size = getSize()
+      if (!size.width || !size.height) return
+
+      width = size.width
+      height = size.height
+      mountRect = mount.getBoundingClientRect()
+      camera.aspect = width / height
+      camera.updateProjectionMatrix()
+      renderer.setSize(width, height, false)
+    }
+
+    window.addEventListener('resize', handleResize, { passive: true })
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (destroyed) return
+        sectionVisible = entry.isIntersecting
+
+        if (sectionVisible) {
+          updateRect()
+          renderer.render(scene, camera)
+          if (!frameId) frameId = requestAnimationFrame(animate)
+        } else {
+          if (frameId) { cancelAnimationFrame(frameId); frameId = null }
+          mouseActive = false
+          mouseTarget.set(9999, 0, 9999)
+        }
+      },
+      { rootMargin: '250px 0px 250px 0px', threshold: 0 }
+    )
+    visibilityObserver.observe(mount)
+
+    const REPEL_RADIUS = 9, REPEL_STRENGTH = 5.5, LIFT_STRENGTH = 2.5
     const clock = new THREE.Clock()
-    const currentMouse = new THREE.Vector3(9999, 0, 9999)
-
-    // repulsion tuning
-    const REPEL_RADIUS = 9      // how far the push effect reaches
-    const REPEL_STRENGTH = 5.5  // how hard particles get shoved away (bigger = more dramatic)
-    const LIFT_STRENGTH = 2.5   // how much particles near cursor rise up
+    const inverseRadius = 1 / REPEL_RADIUS, radiusSq = REPEL_RADIUS * REPEL_RADIUS
 
     const animate = () => {
+      if (destroyed || !sectionVisible) { frameId = null; return }
+
+      frameId = requestAnimationFrame(animate)
       const t = clock.getElapsedTime()
 
       if (mouseActive) {
         raycaster.setFromCamera(mouseNDC, camera)
-        const hit = raycaster.intersectObject(plane)[0]
-        if (hit) {
-          currentMouse.lerp(hit.point, 0.2)
+        const intersections = raycaster.intersectObject(plane, false)
+        if (intersections.length > 0) {
+          mouseTarget.copy(intersections[0].point)
+          currentMouse.lerp(mouseTarget, 0.2)
         }
       } else {
-        currentMouse.lerp(new THREE.Vector3(9999, 0, 9999), 0.06)
+        mouseTarget.set(9999, 0, 9999)
+        currentMouse.lerp(mouseTarget, 0.06)
       }
 
-      const posAttr = geometry.attributes.position
+      const mouseX = currentMouse.x, mouseZ = currentMouse.z, posArray = positionAttribute.array
 
       for (let i = 0; i < count; i++) {
-        const x = baseX[i]
-        const z = baseZ[i]
+        const x = baseX[i], z = baseZ[i]
+        
+        const wave = Math.sin(x * 0.25 + t * 1.2) * 1.2 + Math.sin(z * 0.2 + t * 0.8) * 1.2 + Math.sin((x + z) * 0.15 + t * 0.6) * 0.6
+        
+        const dx = x - mouseX, dz = z - mouseZ
 
-        // ambient wave (base motion, always running)
-        const wave =
-          Math.sin(x * 0.25 + t * 1.2) * 1.2 +
-          Math.sin(z * 0.2 + t * 0.8) * 1.2 +
-          Math.sin((x + z) * 0.15 + t * 0.6) * 0.6
+        const distSq = dx * dx + dz * dz
+        let pushX = 0, pushZ = 0, lift = 0
 
-        // vector from cursor to this particle
-        const dx = x - currentMouse.x
-        const dz = z - currentMouse.z
-        const dist = Math.sqrt(dx * dx + dz * dz)
+        if (distSq < radiusSq) {
+          const dist = Math.sqrt(distSq)
+          const falloff = 1 - dist * inverseRadius
+          const eased = falloff * falloff
 
-        let pushX = 0
-        let pushZ = 0
-        let lift = 0
-
-        if (dist < REPEL_RADIUS) {
-          const falloff = 1 - dist / REPEL_RADIUS // 1 at center, 0 at edge
-          const eased = falloff * falloff          // sharper falloff = more "punchy" feel
-          const dirX = dist > 0.0001 ? dx / dist : 0
-          const dirZ = dist > 0.0001 ? dz / dist : 0
-
-          pushX = dirX * eased * REPEL_STRENGTH
-          pushZ = dirZ * eased * REPEL_STRENGTH
+          if (dist > 0.0001) {
+            const dirX = dx / dist, dirZ = dz / dist
+            pushX = dirX * eased * REPEL_STRENGTH
+            pushZ = dirZ * eased * REPEL_STRENGTH
+          }
           lift = eased * LIFT_STRENGTH
         }
 
-        posAttr.array[i * 3] = x + pushX
-        posAttr.array[i * 3 + 1] = wave + lift
-        posAttr.array[i * 3 + 2] = z + pushZ
+        const offset = i * 3
+        posArray[offset] = x + pushX
+        posArray[offset + 1] = wave + lift
+        posArray[offset + 2] = z + pushZ
       }
-      posAttr.needsUpdate = true
 
+      positionAttribute.needsUpdate = true
       renderer.render(scene, camera)
-      frameId = requestAnimationFrame(animate)
     }
-    animate()
 
-    const handleResize = () => {
-      const w = mount.clientWidth
-      const h = mount.clientHeight
-      camera.aspect = w / h
-      camera.updateProjectionMatrix()
-      renderer.setSize(w, h)
-    }
-    window.addEventListener('resize', handleResize)
+    renderer.render(scene, camera)
 
     return () => {
-      cancelAnimationFrame(frameId)
+      destroyed = true
+      if (frameId) { cancelAnimationFrame(frameId); frameId = null }
+      visibilityObserver.disconnect()
       window.removeEventListener('resize', handleResize)
-      window.removeEventListener('mousemove', handlePointerMove)
-      geometry.dispose()
-      material.dispose()
-      planeGeo.dispose()
-      planeMat.dispose()
+      window.removeEventListener('pointermove', handlePointerMove)
+      
+      geometry.dispose(); material.dispose()
+      planeGeo.dispose(); planeMat.dispose()
       renderer.dispose()
-      if (mount.contains(renderer.domElement)) {
-        mount.removeChild(renderer.domElement)
-      }
+
+      if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
     }
   }, [color, dotCount])
 

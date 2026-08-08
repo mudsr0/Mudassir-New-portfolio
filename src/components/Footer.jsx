@@ -15,16 +15,21 @@ export default function Footer() {
             <span className="status-dot"></span>
             Available for work
           </div>
-          
-          {/* 3D Text Replacement */}
+
           <div className="footer-logo-3d-wrapper">
-            {/* Hidden H2 for SEO & Accessibility */}
-            <h2 className="footer-logo" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}>
+            <h2
+              className="footer-logo"
+              style={{
+                position: 'absolute',
+                opacity: 0,
+                pointerEvents: 'none',
+              }}
+            >
               Mudassir<span>.</span>
             </h2>
             <Footer3DText />
           </div>
-          
+
           <p className="footer-tagline">
             Building premium digital experiences.
           </p>
@@ -34,11 +39,11 @@ export default function Footer() {
           <span className="footer-nav-label">Connect</span>
           <nav className="footer-links" aria-label="Social links">
             {links.map((l) => (
-              <a 
-                key={l.label} 
-                href={l.href} 
-                className="footer-link" 
-                target="_blank" 
+              <a
+                key={l.label}
+                href={l.href}
+                className="footer-link"
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 {l.label}
@@ -51,9 +56,11 @@ export default function Footer() {
 
       <div className="footer-divider"></div>
 
-      <div className="footer-bottom" >
+      <div className="footer-bottom">
         <span className="footer-copy">© {year} Mudassir · DevRolin</span>
-        <span className="footer-credits">Designed & Built with precision</span>
+        <span className="footer-credits">
+          Designed & Built with precision
+        </span>
       </div>
     </footer>
   )
