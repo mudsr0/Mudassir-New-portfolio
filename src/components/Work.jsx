@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from 'react'
+import { useRef, useLayoutEffect, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
@@ -6,12 +6,11 @@ import data from '../data.json'
 gsap.registerPlugin(ScrollTrigger)
 
 const DUMMY_VIDEOS = [
-  "https://static.videezy.com/system/resources/previews/000/019/011/original/ICON-VERSION5.mp4",
-  "https://static.videezy.com/system/resources/previews/000/036/766/original/earth_stock2.mp4",
-  "https://static.videezy.com/system/resources/previews/000/044/890/original/Comp-1_4_1.mp4",
-  "https://static.videezy.com/system/resources/previews/000/019/000/original/ICON-VERSION1.mp4",
-  "https://static.videezy.com/system/resources/previews/000/039/602/original/4K.mp4"
-
+  'https://static.videezy.com/system/resources/previews/000/019/011/original/ICON-VERSION5.mp4',
+  'https://static.videezy.com/system/resources/previews/000/036/766/original/earth_stock2.mp4',
+  'https://static.videezy.com/system/resources/previews/000/044/890/original/Comp-1_4_1.mp4',
+  'https://static.videezy.com/system/resources/previews/000/019/000/original/ICON-VERSION1.mp4',
+  'https://static.videezy.com/system/resources/previews/000/039/602/original/4K.mp4',
 ]
 
 function splitStack(stack) {
@@ -20,208 +19,222 @@ function splitStack(stack) {
   return stack.split(/[·,]/).map((s) => s.trim()).filter(Boolean)
 }
 
+/* =========================================================
+   WORK CARD
+   ========================================================= */
 function WorkCard({ p, index, cardRef }) {
+  const boundsRef = useRef(null)
+  const videoSrc = p.video || DUMMY_VIDEOS[index % DUMMY_VIDEOS.length]
+  const stackItems = splitStack(p.stack)
+
+  const handleEnter = () => {
+    const el = cardRef.current
+    if (!el) return
+    boundsRef.current = el.getBoundingClientRect()
+  }
+
   const handleMove = (e) => {
     const el = cardRef.current
     if (!el) return
-    const rect = el.getBoundingClientRect()
+    // Reuse cached bounds instead of calling getBoundingClientRect() on every mouse event.
+    const rect = boundsRef.current || (boundsRef.current = el.getBoundingClientRect())
     el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
     el.style.setProperty('--my', `${e.clientY - rect.top}px`)
   }
 
-  const videoSrc = p.video || DUMMY_VIDEOS[index % DUMMY_VIDEOS.length]
-  const stackItems = splitStack(p.stack)
+  const handleLeave = () => { boundsRef.current = null }
 
   return (
-    <div
-      className="wcard"
-      ref={cardRef}
-      style={{ zIndex: index + 1 }}
-      onMouseMove={handleMove}
-    >
+    <div ref={cardRef} className="wcard" style={{ zIndex: index + 1 }} onMouseEnter={handleEnter} onMouseMove={handleMove} onMouseLeave={handleLeave}>
       <div className="wcard-inner">
+        {/* MEDIA */}
         <div className="wcard-media">
-          <video
-            className="wcard-video"
-            src={videoSrc}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-          />
+          <video className="wcard-video" src={videoSrc}  muted playsInline preload="metadata" aria-hidden="true" />
         </div>
 
+        {/* CONTENT */}
         <div className="wcard-text">
           <span className="wcard-index">{String(index + 1).padStart(2, '0')}</span>
-
           <div className="wcard-pills">
             {p.tag && <span className="wcard-pill">{p.tag}</span>}
             {p.year && <span className="wcard-pill wcard-pill-muted">{p.year}</span>}
           </div>
-
           <h3 className="wcard-title">{p.title}</h3>
           <p className="wcard-desc">{p.desc}</p>
-
           {stackItems.length > 0 && (
             <div className="wcard-stack">
-              {stackItems.map((s) => (
-                <span key={s} className="wcard-stack-item">{s}</span>
-              ))}
+              {stackItems.map((item) => <span key={item} className="wcard-stack-item">{item}</span>)}
             </div>
           )}
-
-          <a href={p.link || '#'} className="wcard-cta" onClick={(e) => e.preventDefault()}>
-            View project <span aria-hidden="true">↗</span>
+          <a href={p.link || '#'} className="wcard-cta" onClick={(e) => { if (!p.link) e.preventDefault() }}>
+            View project
+            <span aria-hidden="true">↗</span>
           </a>
         </div>
-        <div className="wcard-dim" />
+
+        <div className="wcard-dim" aria-hidden="true" />
       </div>
     </div>
   )
 }
 
+/* =========================================================
+   VIDEO VISIBILITY OPTIMIZATION
+   ========================================================= */
+function useVideoVisibility(sectionRef) {
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target
+        if (entry.isIntersecting) {
+          // Resume only when the card is reasonably visible. play() can reject due to browser state, so safely ignore the promise rejection.
+          if (video.paused) {
+            const promise = video.play()
+            if (promise?.catch) promise.catch(() => {})
+          }
+        } else {
+          // Stop decoding/rendering videos that are far outside the viewport.
+          if (!video.paused) video.pause()
+        }
+      })
+    }, { root: null, rootMargin: '300px 0px', threshold: 0.01 })
+
+    section.querySelectorAll('.wcard-video').forEach((video) => observer.observe(video))
+    return () => observer.disconnect()
+  }, [sectionRef])
+}
+
+/* =========================================================
+   WORK
+   ========================================================= */
 export default function Work() {
-  const sectionRef = useRef(null)
-  const stackRef = useRef(null)
-  const cardRefs = useRef([])
-  const projects = data.work
+  const sectionRef = useRef(null), stackRef = useRef(null), cardRefs = useRef([])
+  const projects = data.work || []
+
+  // Pause videos when they're sufficiently outside the viewport.
+  useVideoVisibility(sectionRef)
 
   useLayoutEffect(() => {
-    let refreshTimer
-    let resizeTimer
-    let vvResizeTimer
+    const section = sectionRef.current
+    const stack = stackRef.current
+    if (!section || !stack || projects.length === 0) return
+
+    let refreshTimer = null, visualViewportTimer = null
 
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray('.wcard')
+      if (!cards.length) return
 
       const mm = gsap.matchMedia()
-
       mm.add({
-        isDesktop: "(min-width: 1025px)",
-        isTablet: "(min-width: 768px) and (max-width: 1024px)",
-        isMobile: "(max-width: 767px)"
+        isDesktop: '(min-width: 1025px)',
+        isTablet: '(min-width: 768px) and (max-width: 1024px)',
+        isMobile: '(max-width: 767px)',
       }, (context) => {
         const { isTablet, isMobile } = context.conditions
 
+        // Preserve original visual values.
         const scaleAmount = isMobile ? 0.96 : isTablet ? 0.94 : 0.92
-
-        /* ── Fix: Set yShift to 0 on mobile so cards never move upward ── */
         const yShift = isMobile ? 0 : -4
+        const scrubValue = 1
 
-        const scrubVal = 1
-
-        cards.forEach((card, i) => {
+        /* ============== INITIAL CARD STATES ============== */
+        cards.forEach((card, index) => {
           gsap.set(card, {
-            xPercent: 0,
-            yPercent: i === 0 ? 0 : 100,
-            opacity: 1,
-            scale: 1,
-            transformOrigin: "center top",
-            '--dim': 0,
+            xPercent: 0, yPercent: index === 0 ? 0 : 100, opacity: 1, scale: 1,
+            transformOrigin: 'center top', '--dim': 0, force3D: true,
           })
         })
 
-        const getScrollDistance = () => {
-          if (isMobile && stackRef.current) {
-            return stackRef.current.offsetHeight
-          }
-          return window.innerHeight
-        }
+        /* ============== SCROLL DISTANCE ============== */
+        const getScrollDistance = () => isMobile ? stack.offsetHeight : window.innerHeight
 
-        const tl = gsap.timeline({
+        /* ============== STACK TIMELINE ============== */
+        const timeline = gsap.timeline({
           scrollTrigger: {
-            trigger: isMobile ? sectionRef.current : stackRef.current,
-            start: isMobile ? "top top" : "top top+=10%",
-            end: () => "+=" + ((cards.length - 1) * getScrollDistance()),
-            pin: isMobile ? sectionRef.current : true,
+            trigger: isMobile ? section : stack,
+            start: isMobile ? 'top top' : 'top top+=10%',
+            end: () => '+=' + ((cards.length - 1) * getScrollDistance()),
+            pin: isMobile ? section : true,
             pinSpacing: true,
-            pinType: "transform",
-            scrub: scrubVal,
+            pinType: 'transform', // Keep original transform pinning.
+            scrub: scrubValue,
             invalidateOnRefresh: true,
             anticipatePin: 1,
             onLeaveBack: () => {
-              cards.forEach((card, i) => {
-                gsap.set(card, {
-                  xPercent: 0,
-                  yPercent: i === 0 ? 0 : 100,
-                  scale: 1,
-                  '--dim': 0,
-                })
+              cards.forEach((card, index) => {
+                gsap.set(card, { xPercent: 0, yPercent: index === 0 ? 0 : 100, scale: 1, '--dim': 0 })
               })
             },
-          }
+          },
         })
 
-        cards.forEach((card, i) => {
-          if (i === 0) return
-
-          tl.to(card, {
-            xPercent: 0,
-            yPercent: 0,
-            duration: 1,
-            ease: "power2.inOut",
-            force3D: true
-          })
-
-          tl.to(cards[i - 1], {
-            xPercent: 0,
-            scale: scaleAmount,
-            yPercent: yShift,
-            '--dim': 0.55,
-            duration: 1,
-            ease: "power2.inOut",
-            force3D: true,
-            transformOrigin: "center top"
-          }, "<")
+        /* ============== CARD TRANSITIONS ============== */
+        cards.forEach((card, index) => {
+          if (index === 0) return
+          const previousCard = cards[index - 1]
+          
+          // Incoming card
+          timeline.to(card, { xPercent: 0, yPercent: 0, duration: 1, ease: 'power2.inOut', force3D: true })
+          
+          // Previous card scales/dims at exactly the same time.
+          timeline.to(previousCard, {
+            xPercent: 0, scale: scaleAmount, yPercent: yShift, '--dim': 0.55,
+            duration: 1, ease: 'power2.inOut', force3D: true, transformOrigin: 'center top',
+          }, '<')
         })
       })
+    }, section)
 
-    }, sectionRef)
-
-    // ── Fix: Safe, debounced refresh to prevent DOM removal errors ──
-    const safeRefresh = () => {
-      clearTimeout(resizeTimer)
-      resizeTimer = setTimeout(() => {
-        // Only refresh if the section is still in the DOM
-        if (sectionRef.current && document.body.contains(sectionRef.current)) {
-          ScrollTrigger.refresh()
-        }
-      }, 150)
+    /* ============== DEBOUNCED SCROLLTRIGGER REFRESH ============== */
+    const scheduleRefresh = (delay = 150) => {
+      clearTimeout(refreshTimer)
+      refreshTimer = setTimeout(() => {
+        if (sectionRef.current && document.body.contains(sectionRef.current)) ScrollTrigger.refresh()
+      }, delay)
     }
+    // One initial refresh after layout settles.
+    scheduleRefresh(300)
 
-    refreshTimer = setTimeout(safeRefresh, 300)
+    /* ============== RESIZE ============== */
+    const handleResize = () => scheduleRefresh(150)
+    const handleOrientationChange = () => scheduleRefresh(250)
+    window.addEventListener('resize', handleResize, { passive: true })
+    window.addEventListener('orientationchange', handleOrientationChange, { passive: true })
 
-    const onVVResize = () => {
-      clearTimeout(vvResizeTimer)
-      vvResizeTimer = setTimeout(safeRefresh, 200)
+    /* ============== MOBILE VISUAL VIEWPORT ============== */
+    const handleVisualViewportResize = () => {
+      clearTimeout(visualViewportTimer)
+      visualViewportTimer = setTimeout(() => scheduleRefresh(100), 150)
     }
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', onVVResize)
+      window.visualViewport.addEventListener('resize', handleVisualViewportResize, { passive: true })
     }
 
-    const ro = new ResizeObserver(safeRefresh)
-    if (stackRef.current) ro.observe(stackRef.current)
+    /* ============== RESIZE OBSERVER ============== */
+    const resizeObserver = new ResizeObserver(() => scheduleRefresh(150))
+    resizeObserver.observe(stack)
 
-    window.addEventListener('resize', safeRefresh)
-    window.addEventListener('orientationchange', safeRefresh)
-
+    /* ============== CLEANUP ============== */
     return () => {
       ctx.revert()
       clearTimeout(refreshTimer)
-      clearTimeout(resizeTimer)
-      clearTimeout(vvResizeTimer)
+      clearTimeout(visualViewportTimer)
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleOrientationChange)
       if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', onVVResize)
+        window.visualViewport.removeEventListener('resize', handleVisualViewportResize)
       }
-      ro.disconnect()
-      window.removeEventListener('resize', safeRefresh)
-      window.removeEventListener('orientationchange', safeRefresh)
     }
-  }, [])
+  }, [projects.length])
 
   return (
     <section id="work" className="section" ref={sectionRef}>
+      {/* HEADER */}
       <div className="sec-header" data-fade>
         <div className="sec-eyebrow">
           <span className="eyebrow-num">02</span>
@@ -231,15 +244,16 @@ export default function Work() {
         <p className="sec-p">A selection of projects across AI, automation, and full-stack development.</p>
       </div>
 
+      {/* WORK STACK */}
       <div className="work-list">
         <div className="work-stack" ref={stackRef}>
           <div className="work-stack-inner">
-            {projects.map((p, i) => (
+            {projects.map((project, index) => (
               <WorkCard
-                key={p.title}
-                p={p}
-                index={i}
-                cardRef={(el) => (cardRefs.current[i] = el)}
+                key={project.title}
+                p={project}
+                index={index}
+                cardRef={(element) => { cardRefs.current[index] = element }}
               />
             ))}
           </div>
