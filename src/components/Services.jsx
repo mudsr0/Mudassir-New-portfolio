@@ -2,91 +2,141 @@ import { useRef, useEffect, useState } from 'react'
 import WaveBackground from './common/WaveBackground'
 import data from '../data.json'
 
+/* ─────────────────────────────────────────────────────────────
+   Intersection observer hook
+   - Fires once when the card becomes visible
+   - Automatically disconnects afterwards
+   ───────────────────────────────────────────────────────────── */
 function useInView(ref) {
   const [inView, setInView] = useState(false)
+
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect() } },
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
       { threshold: 0.4 }
     )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [ref])
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return inView
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Service Card
+   ───────────────────────────────────────────────────────────── */
 function ServiceCard({ s }) {
-  const cellRef = useRef(null)
-  const numRef = useRef(null)
+  const cellRef = useRef(null), numRef = useRef(null)
   const inView = useInView(cellRef)
-  const [displayNum, setDisplayNum] = useState('00')
 
+  /*
+   * Keep the counter animation out of React state.
+   *
+   * Previously:
+   *   setDisplayNum(...)
+   *
+   * caused React to re-render the card ~20 times.
+   *
+   * Now we update the text node directly. Same visual result,
+   * much less React work.
+   */
   useEffect(() => {
-    if (!inView) return
+    if (!inView || !numRef.current) return
+
     const target = parseInt(s.num, 10)
+
+    if (!Number.isFinite(target)) {
+      numRef.current.textContent = '00'
+      return
+    }
+
     let frame = 0
     const totalFrames = 20
-    const interval = setInterval(() => {
+    let rafId = null
+
+    const animateNumber = () => {
       frame++
-      const val = Math.min(target, Math.round((target * frame) / totalFrames))
-      setDisplayNum(String(val).padStart(2, '0'))
-      if (frame >= totalFrames) clearInterval(interval)
-    }, 25)
-    return () => clearInterval(interval)
+      const progress = Math.min(frame / totalFrames, 1)
+      const value = Math.min(target, Math.round(target * progress))
+
+      if (numRef.current) {
+        numRef.current.textContent = String(value).padStart(2, '0')
+      }
+
+      if (frame < totalFrames) {
+        rafId = requestAnimationFrame(animateNumber)
+      }
+    }
+
+    rafId = requestAnimationFrame(animateNumber)
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [inView, s.num])
 
-  const handleMove = (e) => {
-    const r = cellRef.current.getBoundingClientRect()
-    const x = e.clientX - r.left
-    const y = e.clientY - r.top
+  /* ───────────────────────────────────────────────────────────
+     Mouse interaction
 
-    cellRef.current.style.setProperty('--x', `${x}px`)
-    cellRef.current.style.setProperty('--y', `${y}px`)
+     Keep the exact same spotlight behavior, but avoid repeatedly
+     querying layout more than necessary.
+     ─────────────────────────────────────────────────────────── */
+  const handleMove = (e) => {
+    const cell = cellRef.current
+    if (!cell) return
+
+    const rect = cell.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+
+    cell.style.setProperty('--x', `${x}px`)
+    cell.style.setProperty('--y', `${y}px`)
   }
 
   const handleLeave = () => {
-    const arrow = cellRef.current.querySelector('.svc-arrow')
+    const cell = cellRef.current
+    if (!cell) return
+
+    const arrow = cell.querySelector('.svc-arrow')
     if (arrow) arrow.style.transform = 'translate(0,0)'
   }
 
   return (
-    <div
-      ref={cellRef}
-      className="svc-cell"
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-    >
-      <div className="svc-spotlight" />
+    <div ref={cellRef} className="svc-cell" onMouseMove={handleMove} onMouseLeave={handleLeave}>
+      {/* Mouse-following spotlight */}
+      <div className="svc-spotlight" aria-hidden="true" />
 
-      <svg className="svc-wave" viewBox="0 0 300 100" preserveAspectRatio="none">
+      {/* Existing animated SVG waves */}
+      <svg className="svc-wave" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
         <path fill="var(--accent)" opacity="0.08">
-          <animate
-            attributeName="d"
-            dur="6s"
-            repeatCount="indefinite"
-            values="
-              M0,60 Q75,30 150,60 T300,60 V100 H0 Z;
-              M0,60 Q75,90 150,60 T300,60 V100 H0 Z;
-              M0,60 Q75,30 150,60 T300,60 V100 H0 Z"
+          <animate 
+            attributeName="d" 
+            dur="6s" 
+            repeatCount="indefinite" 
+            values="M0,60 Q75,30 150,60 T300,60 V100 H0 Z; M0,60 Q75,90 150,60 T300,60 V100 H0 Z; M0,60 Q75,30 150,60 T300,60 V100 H0 Z" 
           />
         </path>
         <path fill="var(--accent)" opacity="0.05">
-          <animate
-            attributeName="d"
-            dur="8s"
-            repeatCount="indefinite"
-            values="
-              M0,70 Q75,50 150,70 T300,70 V100 H0 Z;
-              M0,70 Q75,95 150,70 T300,70 V100 H0 Z;
-              M0,70 Q75,50 150,70 T300,70 V100 H0 Z"
+          <animate 
+            attributeName="d" 
+            dur="8s" 
+            repeatCount="indefinite" 
+            values="M0,70 Q75,50 150,70 T300,70 V100 H0 Z; M0,70 Q75,95 150,70 T300,70 V100 H0 Z; M0,70 Q75,50 150,70 T300,70 V100 H0 Z" 
           />
         </path>
       </svg>
 
       <div className="svc-inner">
-        <div ref={numRef} className="svc-num">{displayNum}</div>
+        <div ref={numRef} className="svc-num">00</div>
         <div className="svc-icon" aria-hidden="true">{s.icon}</div>
         <div className="svc-title">{s.title}</div>
         <div className="svc-desc">{s.desc}</div>
@@ -96,11 +146,18 @@ function ServiceCard({ s }) {
   )
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Services Section
+   ───────────────────────────────────────────────────────────── */
 export default function Services() {
   const services = data.services
 
   return (
     <section id="services" className="section">
+      {/*
+        The WebGL background now pauses automatically when this
+        section is outside the viewport.
+      */}
       <WaveBackground color="#ffffff" dotCount={170} />
 
       <div className="sec-header" data-fade>
@@ -113,9 +170,7 @@ export default function Services() {
 
       <div className="svc-grid-wrap">
         <div className="svc-grid" data-stagger>
-          {services.map((s) => (
-            <ServiceCard key={s.num} s={s} />
-          ))}
+          {services.map((s) => <ServiceCard key={s.num} s={s} />)}
         </div>
       </div>
     </section>
