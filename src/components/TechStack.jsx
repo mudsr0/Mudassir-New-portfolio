@@ -17,7 +17,9 @@ export default function TechStack() {
             <span className="eyebrow-num">04</span>
             tech stack
           </div>
+
           <h2 className="sec-h">My arsenal.</h2>
+
           <p className="tech-desc">
             Code-first always. I choose the right tool for each problem — from
             Three.js for immersive 3D to n8n for automation pipelines. No

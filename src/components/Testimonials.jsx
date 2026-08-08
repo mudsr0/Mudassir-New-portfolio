@@ -1,38 +1,48 @@
+import { memo } from 'react'
 import data from '../data.json'
 
-const TestimonialCard = ({ t }) => (
-  <div className="testi-card">
-    <div className="testi-stars" aria-label="5 stars">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <span key={i} className="star">★</span>
-      ))}
-    </div>
-    
-    <p className="testi-quote">"{t.quote}"</p>
-    
-    <div className="testi-author">
-      {t.avatarUrl ? (
-        <img 
-          src={t.avatarUrl} 
-          alt={t.name} 
-          className="testi-avatar-img" 
-          loading="lazy"
-        />
-      ) : (
-        <div className="testi-avatar" aria-hidden="true">
-          {t.initials}
+const STARS = ['★', '★', '★', '★', '★']
+
+const TestimonialCard = memo(function TestimonialCard({ t }) {
+  return (
+    <div className="testi-card">
+      <div className="testi-stars" aria-label="5 stars">
+        {STARS.map((star, i) => <span key={i} className="star">{star}</span>)}
+      </div>
+      <p className="testi-quote">"{t.quote}"</p>
+      <div className="testi-author">
+        {t.avatarUrl ? (
+          <img src={t.avatarUrl} alt={t.name} className="testi-avatar-img" loading="lazy" decoding="async" />
+        ) : (
+          <div className="testi-avatar" aria-hidden="true">{t.initials}</div>
+        )}
+        <div className="testi-info">
+          <div className="testi-name">{t.name}</div>
+          <div className="testi-role">{t.role}</div>
         </div>
-      )}
-      <div className="testi-info">
-        <div className="testi-name">{t.name}</div>
-        <div className="testi-role">{t.role}</div>
       </div>
     </div>
-  </div>
-);
+  )
+})
+
+function TestimonialRow({ row }) {
+  const cards = row.testimonials
+
+  return (
+    <div 
+      className={`testi-scroller ${row.direction === 'right' ? 'scroll-right' : 'scroll-left'}`}
+      style={{ '--scroll-duration': row.speed }}
+    >
+      <div className="testi-track">
+        {cards.map((t, index) => <TestimonialCard key={`${row.id}-${index}`} t={t} />)}
+        {cards.map((t, index) => <TestimonialCard key={`${row.id}-duplicate-${index}`} t={t} />)}
+      </div>
+    </div>
+  )
+}
 
 export default function Testimonials() {
-  const testimonialsData = data.testimonials;
+  const rows = data.testimonials.rows
 
   return (
     <section id="testimonials" className="section">
@@ -43,26 +53,8 @@ export default function Testimonials() {
         </div>
         <h2 className="sec-h">Client words.</h2>
       </div>
-
       <div className="testi-rows-container" data-fade>
-        {testimonialsData.rows.map((row) => (
-          <div 
-            key={row.id} 
-            className={`testi-scroller ${row.direction === 'right' ? 'scroll-right' : 'scroll-left'}`}
-            style={{ '--scroll-duration': row.speed }}
-          >
-            <div className="testi-track">
-              {/* Render original items with index-based key */}
-              {row.testimonials.map((t, index) => (
-                <TestimonialCard key={`${row.id}-card-${index}`} t={t} />
-              ))}
-              {/* Duplicate items for seamless scroll with unique duplicate keys */}
-              {row.testimonials.map((t, index) => (
-                <TestimonialCard key={`${row.id}-card-dup-${index}`} t={t} />
-              ))}
-            </div>
-          </div>
-        ))}
+        {rows.map((row) => <TestimonialRow key={row.id} row={row} />)}
       </div>
     </section>
   )
