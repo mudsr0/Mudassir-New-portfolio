@@ -97,19 +97,19 @@ function ServiceCard({ s }) {
       {/* Existing animated SVG waves */}
       <svg className="svc-wave" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
         <path fill="var(--accent)" opacity="0.08">
-          <animate 
-            attributeName="d" 
-            dur="6s" 
-            repeatCount="indefinite" 
-            values="M0,60 Q75,30 150,60 T300,60 V100 H0 Z; M0,60 Q75,90 150,60 T300,60 V100 H0 Z; M0,60 Q75,30 150,60 T300,60 V100 H0 Z" 
+          <animate
+            attributeName="d"
+            dur="6s"
+            repeatCount="indefinite"
+            values="M0,60 Q75,30 150,60 T300,60 V100 H0 Z; M0,60 Q75,90 150,60 T300,60 V100 H0 Z; M0,60 Q75,30 150,60 T300,60 V100 H0 Z"
           />
         </path>
         <path fill="var(--accent)" opacity="0.05">
-          <animate 
-            attributeName="d" 
-            dur="8s" 
-            repeatCount="indefinite" 
-            values="M0,70 Q75,50 150,70 T300,70 V100 H0 Z; M0,70 Q75,95 150,70 T300,70 V100 H0 Z; M0,70 Q75,50 150,70 T300,70 V100 H0 Z" 
+          <animate
+            attributeName="d"
+            dur="8s"
+            repeatCount="indefinite"
+            values="M0,70 Q75,50 150,70 T300,70 V100 H0 Z; M0,70 Q75,95 150,70 T300,70 V100 H0 Z; M0,70 Q75,50 150,70 T300,70 V100 H0 Z"
           />
         </path>
       </svg>
@@ -130,38 +130,6 @@ export default function Services() {
 
   return (
     <>
-      {/* Scoped styles to convert the grid into a horizontal swipeable carousel on mobile devices */}
-      <style>{`
-        @media only screen and (max-width: 767px) {
-          .svc-grid {
-            display: flex !important;
-            overflow-x: auto !important;
-            scroll-snap-type: x mandatory !important;
-            gap: 16px !important;
-            padding: 0 20px 30px 20px !important;
-            -webkit-overflow-scrolling: touch; /* Smooth momentum scrolling on iOS */
-            scrollbar-width: none; /* Hide scrollbar on Firefox */
-          }
-          .svc-grid::-webkit-scrollbar {
-            display: none; /* Hide scrollbar on Chrome/Safari */
-          }
-          .svc-cell {
-            flex: 0 0 85% !important; /* Each card takes 85% of the screen width */
-            scroll-snap-align: center !important;
-            min-height: 320px !important; /* Give them a consistent height */
-          }
-          .svc-mobile-hint {
-            display: block !important;
-            text-align: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-          }
-        }
-      `}</style>
-
       <section id="services" className="section">
         <WaveBackground color="#ffffff" dotCount={170} />
 

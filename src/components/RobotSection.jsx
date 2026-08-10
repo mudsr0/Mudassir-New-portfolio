@@ -122,7 +122,7 @@ function buildRobot(mat) {
   function mkArm(side) {
     const s = side === 'R' ? 1 : -1
     const ag = new THREE.Group(); ag.position.set(s * 0.38, 1.37, 0)
-    
+
     const shS = sph(0.098, mat.joint, 12)
     const shR = tor(0.098, 0.013, mat.dark); shR.rotation.z = Math.PI / 2
     const shC = box(0.074, 0.074, 0.148, mat.chrome); shC.position.set(s * 0.042, -0.021, 0)
@@ -160,7 +160,7 @@ function buildRobot(mat) {
     const t1 = box(0.026, 0.057, 0.024, mat.chrome); t1.position.y = -0.029
     const t2 = box(0.022, 0.045, 0.020, mat.silver); t2.position.y = -0.069
     th.add(t1, t2); hP.add(plm, th)
-    
+
     fP.add(fa, faD, faA, wr, wrR, hP); uP.add(fP); ag.add(uP)
     return { ag, uP, fP }
   }
@@ -201,7 +201,7 @@ function buildRobot(mat) {
     const toeCapO = box(0.080, 0.032, 0.06, mat.joint); toeCapO.position.set(0.048, -0.050, 0.28)
     const soleGlow = box(0.17, 0.012, 0.36, mat.glow); soleGlow.position.set(0, -0.070, 0.08)
     const solePad = box(0.19, 0.010, 0.38, mat.dark); solePad.position.set(0, -0.078, 0.08)
-    
+
     footGroup.add(ftBase, ftHeel, ftSideL, ftSideR, toeInner, toeOuter, toeCapI, toeCapO, soleGlow, solePad)
     shP.add(sh2, shD, ank, footGroup); thP.add(shP); lg.add(thP)
     return { lg }
@@ -262,7 +262,7 @@ function drawPanel(p) {
 
   ctx.strokeStyle = 'rgba(40,70,180,0.22)'; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(4, 94); ctx.lineTo(252, 94); ctx.stroke()
   ctx.beginPath(); ctx.strokeStyle = 'rgba(100,200,255,0.78)'; ctx.lineWidth = 1.4
-  
+
   for (let x = 4; x < 252; x += 2) {
     const y = 122 + Math.sin((x / 252) * Math.PI * 4 + t * 1.9) * 11 + Math.sin((x / 252) * Math.PI * 9 + t * 2.5) * 5
     if (x === 4) { ctx.moveTo(x, y) } else { ctx.lineTo(x, y) }
@@ -326,7 +326,7 @@ export default function RobotSection() {
 
     /* ===================== LIGHTING ===================== */
     scene.add(new THREE.AmbientLight(0xffffff, 0.90))
-    
+
     const key = new THREE.DirectionalLight(0xffffff, 3.8)
     key.position.set(2, 7, 6); key.castShadow = true
     key.shadow.mapSize.set(512, 512)
@@ -423,7 +423,7 @@ export default function RobotSection() {
     tl.to(botL.root.scale, { x: 1.18, y: 1.18, z: 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.74)
     tl.to(botR.root.scale, { x: 1.22, y: 1.14, z: 1.22, duration: 0.14, ease: 'power2.out' }, 1.78)
     tl.to(botR.root.scale, { x: 1.18, y: 1.18, z: 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.92)
-    
+
     tl.to(ss, {
       i: 5.5, b: 0.078, eI: 1.3, duration: 0.5, ease: 'power2.out',
       onUpdate: () => {
@@ -565,7 +565,7 @@ export default function RobotSection() {
       window.removeEventListener('resize', onResize)
       entranceTrigger.kill()
       tl.kill()
-      
+
       scene.traverse((object) => {
         if (object.geometry) object.geometry.dispose()
         if (object.material) {
@@ -591,38 +591,15 @@ export default function RobotSection() {
 
   return (
     <>
-      {/* Scoped styles to improve mobile text readability without touching desktop or 3D logic */}
-      <style>{`
-        @media only screen and (max-width: 767px) {
-          .robot-overlay {
-            background: rgba(0, 0, 8, 0.65);
-            padding: 24px 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-            max-width: 88vw;
-          }
-          .robot-overlay .robot-h {
-            font-size: 1.85rem; /* Slightly increased for mobile readability */
-            line-height: 1.3;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
-          }
-          .robot-overlay .robot-eyebrow,
-          .robot-overlay .robot-sub {
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-          }
-        }
-      `}</style>
-      
       <section className="robot-section" id="robots">
         <div ref={mountRef} className="robot-canvas" role="img" aria-label="Two AI robots welcoming visitors with animated holographic displays" />
-        
+
         <div className="robot-overlay" ref={overlayRef}>
           <p className="robot-eyebrow" data-fade>built different</p>
           <h2 className="robot-h" data-fade data-delay="0.1">Welcome to the future<br />of development.</h2>
           <p className="robot-sub" data-fade data-delay="0.2">Agentic systems that think. Automations that run themselves.<br />Code that doesn't need babysitting.</p>
         </div>
-        
+
         <div className="robot-scroll-hint" onClick={handleScrollDown} role="button" tabIndex={0} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
           <span>scroll</span>
           <div className="robot-scroll-line" />
