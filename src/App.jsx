@@ -160,8 +160,8 @@ export default function App() {
           <RobotSection />
         </Suspense>
         <Services />
-        <Partners />
         <Work />
+        <Partners />
         <About />
         <TechStack />
         <Testimonials />
