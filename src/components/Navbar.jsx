@@ -12,14 +12,12 @@ export default function Navbar() {
   const linkRefs = useRef({})
   const navLinksRef = useRef(null)
 
-  // Navbar background change on scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Track active section and clear active state if section is unlisted or out of view
   useEffect(() => {
     const visibleSections = new Map()
 
@@ -60,7 +58,6 @@ export default function Navbar() {
     return () => observer.disconnect()
   }, [links])
 
-  // Move floating highlight pill to hovered or active link (Desktop only)
   const movePillTo = (target) => {
     const el = target ? linkRefs.current[target] : null
     const parent = navLinksRef.current
@@ -95,14 +92,39 @@ export default function Navbar() {
 
   const scrollTo = (id) => {
     const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    if (!el) return
+    
     setMenuOpen(false)
+
+    const startPosition = window.pageYOffset
+    const targetPosition = el.getBoundingClientRect().top + startPosition
+    const distance = targetPosition - startPosition
+    const duration = 1500 // Duration in milliseconds (1.5 seconds)
+    let startTimestamp = null
+
+    // Easing function for smooth acceleration and deceleration
+    const easeInOutCubic = (t) => {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+    }
+
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp
+      const elapsed = timestamp - startTimestamp
+      const progress = Math.min(elapsed / duration, 1)
+      const easedProgress = easeInOutCubic(progress)
+
+      window.scrollTo(0, startPosition + distance * easedProgress)
+
+      if (elapsed < duration) {
+        requestAnimationFrame(step)
+      }
+    }
+
+    requestAnimationFrame(step)
   }
 
   return (
     <nav className={`navbar${scrolled ? ' scrolled' : ''}`} role="navigation" aria-label="main navigation">
-
-      {/* Left side: Toggle button, Desktop Capsule, Mobile Logo Capsule, and Mobile Dropdown */}
       <div className="nav-left-group">
         <button
           className="pill-toggle"
@@ -124,7 +146,6 @@ export default function Navbar() {
           )}
         </button>
 
-        {/* Desktop Dynamic Capsule */}
         <div className={`dynamic-capsule desktop-capsule ${menuOpen ? 'is-open' : 'is-closed'}`}>
           <div className="capsule-logo" aria-hidden={menuOpen}>
             <div className="logo-circle">
@@ -165,7 +186,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Logo Capsule (Visible only on mobile when menu is closed) */}
         {!menuOpen && (
           <div className="mobile-logo-capsule">
             <div className="capsule-logo">
@@ -177,7 +197,6 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Mobile Dropdown Menu */}
         {menuOpen && (
           <div className="mobile-dropdown-menu">
             <div className="mobile-links-list">
@@ -195,7 +214,6 @@ export default function Navbar() {
         )}
       </div>
 
-      {/* Right side */}
       <div className="nav-right">
         <div className="avail">
           <span className="avail-dot" />
@@ -207,4 +225,4 @@ export default function Navbar() {
       </div>
     </nav>
   )
-} 
+}

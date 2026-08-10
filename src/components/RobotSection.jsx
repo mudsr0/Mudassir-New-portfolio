@@ -590,17 +590,44 @@ export default function RobotSection() {
   }
 
   return (
-    <section className="robot-section" id="robots">
-      <div ref={mountRef} className="robot-canvas" role="img" aria-label="Two AI robots welcoming visitors with animated holographic displays" />
-      <div className="robot-overlay" ref={overlayRef}>
-        <p className="robot-eyebrow" data-fade>built different</p>
-        <h2 className="robot-h" data-fade data-delay="0.1">Welcome to the future<br />of development.</h2>
-        <p className="robot-sub" data-fade data-delay="0.2">Agentic systems that think. Automations that run themselves.<br />Code that doesn't need babysitting.</p>
-      </div>
-      <div className="robot-scroll-hint" onClick={handleScrollDown} role="button" tabIndex={0} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
-        <span>scroll</span>
-        <div className="robot-scroll-line" />
-      </div>
-    </section>
+    <>
+      {/* Scoped styles to improve mobile text readability without touching desktop or 3D logic */}
+      <style>{`
+        @media only screen and (max-width: 767px) {
+          .robot-overlay {
+            background: rgba(0, 0, 8, 0.65);
+            padding: 24px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            max-width: 88vw;
+          }
+          .robot-overlay .robot-h {
+            font-size: 1.85rem; /* Slightly increased for mobile readability */
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+          }
+          .robot-overlay .robot-eyebrow,
+          .robot-overlay .robot-sub {
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+          }
+        }
+      `}</style>
+      
+      <section className="robot-section" id="robots">
+        <div ref={mountRef} className="robot-canvas" role="img" aria-label="Two AI robots welcoming visitors with animated holographic displays" />
+        
+        <div className="robot-overlay" ref={overlayRef}>
+          <p className="robot-eyebrow" data-fade>built different</p>
+          <h2 className="robot-h" data-fade data-delay="0.1">Welcome to the future<br />of development.</h2>
+          <p className="robot-sub" data-fade data-delay="0.2">Agentic systems that think. Automations that run themselves.<br />Code that doesn't need babysitting.</p>
+        </div>
+        
+        <div className="robot-scroll-hint" onClick={handleScrollDown} role="button" tabIndex={0} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
+          <span>scroll</span>
+          <div className="robot-scroll-line" />
+        </div>
+      </section>
+    </>
   )
 }

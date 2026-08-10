@@ -129,23 +129,61 @@ export default function Services() {
   const services = data.services
 
   return (
-    <section id="services" className="section">
+    <>
+      {/* Scoped styles to convert the grid into a horizontal swipeable carousel on mobile devices */}
+      <style>{`
+        @media only screen and (max-width: 767px) {
+          .svc-grid {
+            display: flex !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            gap: 16px !important;
+            padding: 0 20px 30px 20px !important;
+            -webkit-overflow-scrolling: touch; /* Smooth momentum scrolling on iOS */
+            scrollbar-width: none; /* Hide scrollbar on Firefox */
+          }
+          .svc-grid::-webkit-scrollbar {
+            display: none; /* Hide scrollbar on Chrome/Safari */
+          }
+          .svc-cell {
+            flex: 0 0 85% !important; /* Each card takes 85% of the screen width */
+            scroll-snap-align: center !important;
+            min-height: 320px !important; /* Give them a consistent height */
+          }
+          .svc-mobile-hint {
+            display: block !important;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+          }
+        }
+      `}</style>
 
-      <WaveBackground color="#ffffff" dotCount={170} />
+      <section id="services" className="section">
+        <WaveBackground color="#ffffff" dotCount={170} />
 
-      <div className="sec-header" data-fade>
-        <div className="sec-eyebrow">
-          <span className="eyebrow-num">01</span>
-          services
+        <div className="sec-header" data-fade>
+          <div className="sec-eyebrow">
+            <span className="eyebrow-num">01</span>
+            services
+          </div>
+          <h2 className="sec-h">What I build.</h2>
         </div>
-        <h2 className="sec-h">What I build.</h2>
-      </div>
 
-      <div className="svc-grid-wrap">
-        <div className="svc-grid" data-stagger>
-          {services.map((s) => <ServiceCard key={s.num} s={s} />)}
+        {/* Mobile swipe hint (hidden on desktop via CSS) */}
+        <div className="svc-mobile-hint" style={{ display: 'none' }}>
+          ← Swipe to explore →
         </div>
-      </div>
-    </section>
+
+        <div className="svc-grid-wrap">
+          <div className="svc-grid" data-stagger>
+            {services.map((s) => <ServiceCard key={s.num} s={s} />)}
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
