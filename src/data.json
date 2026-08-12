@@ -11,7 +11,7 @@
   "hero": {
     "eyebrowText": "ai automation · crm engineer · python",
     "headlineHtml": "I build what<br /><em>doesn't exist</em><br />yet.",
-    "caption": "AI Agents · Zoho CRM · GHL · Automations<br />DevRolin · Eylina · Based in Pakistan · Serving globally"
+    "caption": "AI Agents · Zoho CRM · GHL · Automations<br />DevRolin · Based in Pakistan · Serving globally"
   },
   "marquee": {
     "items": [
@@ -26,8 +26,7 @@
       "Three.js",
       "GSAP",
       "Flutter",
-      "DevRolin",
-      "Eylina"
+      "DevRolin"
     ]
   },
   "about": {
@@ -36,7 +35,7 @@
       "one system at a time."
     ],
     "brand": "DEVROLIN",
-    "role": "COO & Co-founder, Eylina",
+    "role": "COO & Co-founder, Devrolin",
     "ctaLine": "Ready to automate your next system?",
     "ctaLabel": "LET'S TALK",
     "ctaHref": "#contact",
@@ -58,7 +57,7 @@
         "label": "Experience"
       }
     ],
-    "descriptionHtml": "COO at <strong>DevRolin</strong> and co-founder of <strong>Eylina</strong>. I architect agentic AI systems, automate complex workflows, and build premium digital products for clients across the US, UK, UAE, and beyond.<br /><br />Everything I ship is <strong>custom-built</strong> — no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers, while Eylina is our AI-native product focused on redefining how law firms handle client intake."
+    "descriptionHtml": "COO and co-founder of <strong>DevRolin</strong>. I architect agentic AI systems, automate complex workflows, and build premium digital products for clients across the US, UK, UAE, and beyond.<br /><br />Everything I ship is <strong>custom-built</strong> — no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers."
   },
   "services": [
     {
@@ -146,52 +145,63 @@
   ],
   "work": [
     {
-      "tag": "AI Platform",
-      "year": "2024",
+      "tag": "AI Resume Builder",
+      "year": "2025",
       "icon": "⚖",
-      "title": "Eylina — Legal Intake AI",
-      "desc": "AI-powered legal intake platform. Automates client onboarding, case triage, and document collection for law firms.",
-      "stack": "Next.js · OpenAI · MongoDB"
+      "title": "CV Labz",
+      "desc": "The AI resume builder that gets you hired faster CV Labz builds your CV, scores your LinkedIn, matches you to any vacancy, and writes your cover letter. All in one place",
+      "stack": "Next.js · OpenAI · MongoDB",
+      "link": "https://cvlabz.com",
+      "image": "/images/work/cvlabz.jpg"
     },
     {
-      "tag": "Voice AI",
+      "tag": "SaaS Platform",
       "year": "2024",
       "icon": "◎",
-      "title": "CallRolin — TTS System",
-      "desc": "Multilingual voice AI platform on GCP. Custom VITS model training for Urdu, English, and Arabic TTS synthesis.",
-      "stack": "Python · GCP · VITS · React"
+      "title": "PixelLift",
+      "desc": "Enhance your product image. Turn ordinary photos into eye-catching visuals. Showcase your products with clarity and style. Let AI make your images market-ready in seconds.",
+      "stack": "React . GSAP . OpenAI",
+      "link": "https://pixellift.ai",
+      "image": "/images/work/pixellift.jpg"
     },
     {
-      "tag": "CRM Automation",
-      "year": "2024",
+      "tag": "Real estate video generation",
+      "year": "2026",
       "icon": "⬡",
-      "title": "BuyerSide Spain CRM",
-      "desc": "Full real-estate CRM with GHL automation, property pipeline management, and client reactivation workflows.",
-      "stack": "GoHighLevel · Node.js · Zapier"
-    },
-    {
-      "tag": "EdTech Platform",
-      "year": "2023",
-      "icon": "▶",
-      "title": "ZEERO — AI Lecture Platform",
-      "desc": "AI-powered multilingual video lecture platform with real-time translation, quiz generation, and progress tracking.",
-      "stack": "React · OpenAI · Firebase"
+      "title": "Loomo",
+      "desc": "The fastest way to create property videos. Period. Just paste your link and let AI do the rest.",
+      "stack": "React . Framer . Next.js . Goober",
+      "link": "https://video-gen-neon.vercel.app/",
+      "image": "/images/work/loomo.jpg"
     },
     {
       "tag": "AI Automation",
+      "year": "2026",
+      "icon": "▶",
+      "title": "The Digital Counsel",
+      "desc": "To Create Whole 14 Email and SMS Campaign with Number A2P Verification ",
+      "stack": "GHL · AI · Wordpress",
+      "link": "https://thedigitalcounsel.net/",
+      "image": "/images/work/TGC.jpg"
+    },
+    {
+      "tag": "GoHighLevel Automation",
       "year": "2024",
       "icon": "♦",
       "title": "Cherrett Chiropractic AI",
       "desc": "AI patient reactivation system that autonomously contacts lapsed patients and books appointments through SMS.",
-      "stack": "GHL · AI · Twilio"
+      "stack": "GHL · AI · Twilio",
+      "image": "/images/work/cherrett.jpg"
     },
     {
-      "tag": "Web Platform",
-      "year": "2024",
+      "tag": "Construction Business",
+      "year": "2026",
       "icon": "◐",
-      "title": "AtmoStreams — 3D Framer Site",
-      "desc": "Premium Framer website with custom 3D animations, particle effects, and scroll-linked visual storytelling.",
-      "stack": "Framer · Three.js · GSAP"
+      "title": "A&A Plastering ",
+      "desc": "Transform Your Home with Precision Stucco Craftsmanship!",
+      "stack": "Framer · Next.js · React",
+      "link": "https://www.aandaplastering.com/",
+      "image": "/images/work/a&a.jpg"
     }
   ],
   "techStack": {
@@ -299,50 +309,9 @@
   "videoTestimonials": [
     {
       "id": 1,
-      "name": "Sarah Chen",
-      "role": "Lead Product Designer",
-      "company": "Stripe",
-      "avatar": "https://i.pravatar.cc/120?img=47",
       "quote": "The attention to detail and creative vision exceeded every expectation we had. Every interaction feels intentional, every pixel purposeful. Truly exceptional work.",
-      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
-      "poster": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&q=80",
-      "duration": "2:48",
-      "rating": 5
-    },
-    {
-      "id": 2,
-      "name": "Marcus Holloway",
-      "role": "Founder & CEO",
-      "company": "Linear",
-      "avatar": "https://i.pravatar.cc/120?img=12",
-      "quote": "We've worked with dozens of agencies. None come close to this level of execution. The 3D work alone converted visitors into customers overnight.",
-      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
-      "poster": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80",
-      "duration": "3:21",
-      "rating": 5
-    },
-    {
-      "id": 3,
-      "name": "Elena Rodriguez",
-      "role": "VP of Marketing",
-      "company": "Vercel",
-      "avatar": "https://i.pravatar.cc/120?img=44",
-      "quote": "From the first call to the final delivery, the process was seamless. The result? A site that doesn't just look stunning but performs flawlessly.",
-      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
-      "poster": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&q=80",
-      "duration": "1:54",
-      "rating": 5
-    },
-    {
-      "id": 4,
-      "name": "David Park",
-      "role": "Chief Technology Officer",
-      "company": "Framer",
-      "avatar": "https://i.pravatar.cc/120?img=33",
-      "quote": "Technical excellence meets design poetry. Rare to find someone who can speak both languages fluently and deliver at this caliber consistently.",
-      "embedUrl": "https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&rel=0&modestbranding=1&controls=1",
-      "poster": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1200&q=80",
-      "duration": "2:12",
+      "embedUrl": "https://www.youtube.com/embed/18Dot40sUrQ?si=EoknBt3mXTO6oRLI",
+      "duration": "1:45",
       "rating": 5
     }
   ],
