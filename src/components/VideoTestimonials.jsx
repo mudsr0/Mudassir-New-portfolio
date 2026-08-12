@@ -1,9 +1,20 @@
-import { memo,useMemo, useCallback, useRef, useState } from 'react'
+import { memo, useMemo, useCallback, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Play, Star, ArrowUpRight, BadgeCheck, ArrowLeft, ArrowRight } from 'lucide-react'
 import portfolioData from '../data.json'
 
 const easeOut = [0.16, 1, 0.3, 1]
+
+// Updated helper function using i.ytimg.com (the modern YouTube image CDN)
+const getYouTubeThumbnail = (url) => {
+  if (!url) return ''
+  // Extracts the video ID from URLs like https://www.youtube.com/embed/18Dot40sUrQ?...
+  const match = url.match(/\/embed\/([^?/]+)/)
+  if (match && match[1]) {
+    return `https://i.ytimg.com/vi/${match[1]}/maxresdefault.jpg`
+  }
+  return ''
+}
 
 const StarRating = memo(function StarRating({ rating }) {
   return (
@@ -18,6 +29,7 @@ const StarRating = memo(function StarRating({ rating }) {
 
 const TestimonialThumbnail = memo(function TestimonialThumbnail({ testimonial, index, isActive, onSelect }) {
   const quote = useMemo(() => `"${testimonial.quote.slice(0, 64)}..."`, [testimonial.quote])
+  const thumbUrl = getYouTubeThumbnail(testimonial.embedUrl)
 
   return (
     <motion.button
@@ -25,17 +37,28 @@ const TestimonialThumbnail = memo(function TestimonialThumbnail({ testimonial, i
       onClick={() => onSelect(index)}
       whileHover={{ x: 4 }}
       transition={{ duration: 0.3, ease: easeOut }}
-      aria-label={`Select ${testimonial.name} testimonial`}
+      aria-label={`Select testimonial ${index + 1}`}
     >
       {isActive && <motion.span className="vtesti-thumb-active-bar" layoutId="vtesti-active-bar" />}
       <div className="vtesti-thumb-media">
-        <img src={testimonial.poster} alt={testimonial.name} className="vtesti-thumb-image" loading="lazy" decoding="async" />
+        <img 
+          src={thumbUrl} 
+          alt="Testimonial thumbnail" 
+          className="vtesti-thumb-image" 
+          loading="lazy" 
+          decoding="async"
+          onError={(e) => {
+            // Fallback to hqdefault if maxresdefault doesn't exist for this video
+            const match = testimonial.embedUrl.match(/\/embed\/([^?/]+)/)
+            if (match) e.target.src = `https://i.ytimg.com/vi/${match[1]}/hqdefault.jpg`
+          }}
+        />
         <div className="vtesti-thumb-overlay" />
         <div className="vtesti-thumb-play"><Play size={13} fill="currentColor" /></div>
         <div className="vtesti-thumb-duration">{testimonial.duration}</div>
       </div>
       <div className="vtesti-thumb-info">
-        <div className="vtesti-thumb-name">{testimonial.name}</div>
+        <div className="vtesti-thumb-name">{testimonial.name || `Testimonial ${index + 1}`}</div>
         <div className="vtesti-thumb-role">{testimonial.role} · {testimonial.company}</div>
         <div className="vtesti-thumb-quote">{quote}</div>
       </div>
@@ -50,6 +73,8 @@ const VideoTestimonials = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const scrollRef = useRef(null)
   const active = testimonials[activeIndex]
+
+  const posterUrl = getYouTubeThumbnail(active?.embedUrl)
 
   const handleSelect = useCallback((index) => {
     if (index === activeIndex) { setIsPlaying((playing) => !playing); return }
@@ -88,8 +113,8 @@ const VideoTestimonials = () => {
                 <motion.iframe
                   key={`video-${active.id}`}
                   className="vtesti-iframe"
-                  src={active.embedUrl}
-                  title={`${active.name} testimonial video`}
+                  src={`${active.embedUrl}?autoplay=1&rel=0`}
+                  title={`Testimonial video ${active.id}`}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -108,10 +133,20 @@ const VideoTestimonials = () => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <img src={active.poster} alt={`${active.name} testimonial preview`} className="vtesti-poster" loading="eager" decoding="async" />
+                  <img 
+                    src={posterUrl} 
+                    alt="Testimonial preview" 
+                    className="vtesti-poster" 
+                    loading="eager" 
+                    decoding="async"
+                    onError={(e) => {
+                      const match = active.embedUrl.match(/\/embed\/([^?/]+)/)
+                      if (match) e.target.src = `https://i.ytimg.com/vi/${match[1]}/hqdefault.jpg`
+                    }}
+                  />
                   <div className="vtesti-poster-overlay" />
                   <div className="vtesti-poster-grain" />
-                  <button className="vtesti-play-btn" onClick={handlePlay} aria-label={`Play ${active.name} testimonial`}>
+                  <button className="vtesti-play-btn" onClick={handlePlay} aria-label="Play testimonial">
                     <span className="vtesti-play-icon"><Play size={28} fill="currentColor" /></span>
                     <span className="vtesti-play-ring" />
                     <span className="vtesti-play-ring vtesti-play-ring-2" />
@@ -135,19 +170,19 @@ const VideoTestimonials = () => {
             >
               <StarRating rating={active.rating} />
               <p className="vtesti-quote">"{active.quote}"</p>
-              <div className="vtesti-author">
+              {/* <div className="vtesti-author">
                 <img src={active.avatar} alt={active.name} className="vtesti-avatar" loading="lazy" decoding="async" />
                 <div className="vtesti-author-meta">
                   <div className="vtesti-name">{active.name}</div>
                   <div className="vtesti-role">{active.role} <span className="vtesti-company">· {active.company}</span></div>
                 </div>
                 <div className="vtesti-badge"><BadgeCheck size={12} />Verified</div>
-              </div>
+              </div> */}
             </motion.div>
           </AnimatePresence>
         </motion.div>
 
-        <motion.div className="vtesti-list" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.8, ease: easeOut, delay: 0.2 }}>
+        {/* <motion.div className="vtesti-list" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.8, ease: easeOut, delay: 0.2 }}>
           <div className="vtesti-list-label">
             <span>More Stories</span>
             <span className="vtesti-list-count">{String(testimonials.length).padStart(2, '0')} videos</span>
@@ -161,7 +196,7 @@ const VideoTestimonials = () => {
             <button className="vtesti-nav-btn" onClick={() => handleScroll('prev')} aria-label="Scroll left"><ArrowLeft size={16} />Prev</button>
             <button className="vtesti-nav-btn" onClick={() => handleScroll('next')} aria-label="Scroll right">Next<ArrowRight size={16} /></button>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   )

@@ -5,13 +5,13 @@ import data from '../data.json'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const DUMMY_VIDEOS = [
-  'https://static.videezy.com/system/resources/previews/000/019/011/original/ICON-VERSION5.mp4',
-  'https://static.videezy.com/system/resources/previews/000/036/766/original/earth_stock2.mp4',
-  'https://static.videezy.com/system/resources/previews/000/044/890/original/Comp-1_4_1.mp4',
-  'https://static.videezy.com/system/resources/previews/000/019/000/original/ICON-VERSION1.mp4',
-  'https://static.videezy.com/system/resources/previews/000/039/602/original/4K.mp4',
-]
+// const DUMMY_VIDEOS = [
+//   'https://static.videezy.com/system/resources/previews/000/019/011/original/ICON-VERSION5.mp4',
+//   'https://static.videezy.com/system/resources/previews/000/036/766/original/earth_stock2.mp4',
+//   'https://static.videezy.com/system/resources/previews/000/044/890/original/Comp-1_4_1.mp4',
+//   'https://static.videezy.com/system/resources/previews/000/019/000/original/ICON-VERSION1.mp4',
+//   'https://static.videezy.com/system/resources/previews/000/039/602/original/4K.mp4',
+// ]
 
 function splitStack(stack) {
   if (Array.isArray(stack)) return stack
@@ -21,7 +21,7 @@ function splitStack(stack) {
 
 function WorkCard({ p, index, cardRef }) {
   const boundsRef = useRef(null)
-  const videoSrc = p.video || DUMMY_VIDEOS[index % DUMMY_VIDEOS.length]
+  // const videoSrc = p.video || DUMMY_VIDEOS[index % DUMMY_VIDEOS.length]
   const stackItems = splitStack(p.stack)
 
   const handleEnter = () => {
@@ -33,7 +33,6 @@ function WorkCard({ p, index, cardRef }) {
   const handleMove = (e) => {
     const el = cardRef.current
     if (!el) return
-    // Reuse cached bounds instead of calling getBoundingClientRect() on every mouse event.
     const rect = boundsRef.current || (boundsRef.current = el.getBoundingClientRect())
     el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
     el.style.setProperty('--my', `${e.clientY - rect.top}px`)
@@ -44,12 +43,15 @@ function WorkCard({ p, index, cardRef }) {
   return (
     <div ref={cardRef} className="wcard" style={{ zIndex: index + 1 }} onMouseEnter={handleEnter} onMouseMove={handleMove} onMouseLeave={handleLeave}>
       <div className="wcard-inner">
-        {/* MEDIA */}
         <div className="wcard-media">
-          <video className="wcard-video" src={videoSrc}  muted playsInline preload="metadata" aria-hidden="true" />
+          {p.image && (
+            <img className="wcard-image" src={p.image} alt={`${p.title} project preview`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+          )}
+          {/* 
+          <video className="wcard-video" src={videoSrc} muted playsInline preload="metadata" aria-hidden="true" />
+          */}
         </div>
 
-        {/* CONTENT */}
         <div className="wcard-text">
           <span className="wcard-index">{String(index + 1).padStart(2, '0')}</span>
           <div className="wcard-pills">
@@ -58,59 +60,55 @@ function WorkCard({ p, index, cardRef }) {
           </div>
           <h3 className="wcard-title">{p.title}</h3>
           <p className="wcard-desc">{p.desc}</p>
+          
           {stackItems.length > 0 && (
             <div className="wcard-stack">
               {stackItems.map((item) => <span key={item} className="wcard-stack-item">{item}</span>)}
             </div>
           )}
-          <a href={p.link || '#'} className="wcard-cta" onClick={(e) => { if (!p.link) e.preventDefault() }}>
-            View project
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
 
+          {p.link && (
+            <a href={p.link} target="_blank" rel="noopener noreferrer" className="wcard-cta">
+              View project
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
         <div className="wcard-dim" aria-hidden="true" />
       </div>
     </div>
   )
 }
 
-function useVideoVisibility(sectionRef) {
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const video = entry.target
-        if (entry.isIntersecting) {
-          // Resume only when the card is reasonably visible. play() can reject due to browser state, so safely ignore the promise rejection.
-          if (video.paused) {
-            const promise = video.play()
-            if (promise?.catch) promise.catch(() => {})
-          }
-        } else {
-          // Stop decoding/rendering videos that are far outside the viewport.
-          if (!video.paused) video.pause()
-        }
-      })
-    }, { root: null, rootMargin: '300px 0px', threshold: 0.01 })
-
-    section.querySelectorAll('.wcard-video').forEach((video) => observer.observe(video))
-    return () => observer.disconnect()
-  }, [sectionRef])
-}
+// function useVideoVisibility(sectionRef) {
+//   useEffect(() => {
+//     const section = sectionRef.current
+//     if (!section) return
+//     const observer = new IntersectionObserver((entries) => {
+//       entries.forEach((entry) => {
+//         const video = entry.target
+//         if (entry.isIntersecting) {
+//           if (video.paused) {
+//             const promise = video.play()
+//             if (promise?.catch) promise.catch(() => {})
+//           }
+//         } else {
+//           if (!video.paused) video.pause()
+//         }
+//       })
+//     }, { root: null, rootMargin: '300px 0px', threshold: 0.01 })
+//     section.querySelectorAll('.wcard-video').forEach((video) => observer.observe(video))
+//     return () => observer.disconnect()
+//   }, [sectionRef])
+// }
 
 export default function Work() {
   const sectionRef = useRef(null), stackRef = useRef(null), cardRefs = useRef([])
   const projects = data.work || []
-
-  // Pause videos when they're sufficiently outside the viewport.
-  useVideoVisibility(sectionRef)
+  // useVideoVisibility(sectionRef)
 
   useLayoutEffect(() => {
-    const section = sectionRef.current
-    const stack = stackRef.current
+    const section = sectionRef.current, stack = stackRef.current
     if (!section || !stack || projects.length === 0) return
 
     let refreshTimer = null, visualViewportTimer = null
@@ -126,13 +124,10 @@ export default function Work() {
         isMobile: '(max-width: 767px)',
       }, (context) => {
         const { isTablet, isMobile } = context.conditions
-
-        // Preserve original visual values.
         const scaleAmount = isMobile ? 0.96 : isTablet ? 0.94 : 0.92
         const yShift = isMobile ? 0 : -4
         const scrubValue = 1
 
-        /* ============== INITIAL CARD STATES ============== */
         cards.forEach((card, index) => {
           gsap.set(card, {
             xPercent: 0, yPercent: index === 0 ? 0 : 100, opacity: 1, scale: 1,
@@ -140,21 +135,16 @@ export default function Work() {
           })
         })
 
-        /* ============== SCROLL DISTANCE ============== */
         const getScrollDistance = () => isMobile ? stack.offsetHeight : window.innerHeight
 
-        /* ============== STACK TIMELINE ============== */
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: isMobile ? section : stack,
             start: isMobile ? 'top top' : 'top top+=10%',
             end: () => '+=' + ((cards.length - 1) * getScrollDistance()),
             pin: isMobile ? section : true,
-            pinSpacing: true,
-            pinType: 'transform', // Keep original transform pinning.
-            scrub: scrubValue,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
+            pinSpacing: true, pinType: 'transform', scrub: scrubValue,
+            invalidateOnRefresh: true, anticipatePin: 1,
             onLeaveBack: () => {
               cards.forEach((card, index) => {
                 gsap.set(card, { xPercent: 0, yPercent: index === 0 ? 0 : 100, scale: 1, '--dim': 0 })
@@ -163,15 +153,11 @@ export default function Work() {
           },
         })
 
-        /* ============== CARD TRANSITIONS ============== */
         cards.forEach((card, index) => {
           if (index === 0) return
           const previousCard = cards[index - 1]
           
-          // Incoming card
           timeline.to(card, { xPercent: 0, yPercent: 0, duration: 1, ease: 'power2.inOut', force3D: true })
-          
-          // Previous card scales/dims at exactly the same time.
           timeline.to(previousCard, {
             xPercent: 0, scale: scaleAmount, yPercent: yShift, '--dim': 0.55,
             duration: 1, ease: 'power2.inOut', force3D: true, transformOrigin: 'center top',
@@ -180,23 +166,19 @@ export default function Work() {
       })
     }, section)
 
-    /* ============== DEBOUNCED SCROLLTRIGGER REFRESH ============== */
     const scheduleRefresh = (delay = 150) => {
       clearTimeout(refreshTimer)
       refreshTimer = setTimeout(() => {
         if (sectionRef.current && document.body.contains(sectionRef.current)) ScrollTrigger.refresh()
       }, delay)
     }
-    // One initial refresh after layout settles.
     scheduleRefresh(300)
 
-    /* ============== RESIZE ============== */
     const handleResize = () => scheduleRefresh(150)
     const handleOrientationChange = () => scheduleRefresh(250)
     window.addEventListener('resize', handleResize, { passive: true })
     window.addEventListener('orientationchange', handleOrientationChange, { passive: true })
 
-    /* ============== MOBILE VISUAL VIEWPORT ============== */
     const handleVisualViewportResize = () => {
       clearTimeout(visualViewportTimer)
       visualViewportTimer = setTimeout(() => scheduleRefresh(100), 150)
@@ -205,15 +187,12 @@ export default function Work() {
       window.visualViewport.addEventListener('resize', handleVisualViewportResize, { passive: true })
     }
 
-    /* ============== RESIZE OBSERVER ============== */
     const resizeObserver = new ResizeObserver(() => scheduleRefresh(150))
     resizeObserver.observe(stack)
 
-    /* ============== CLEANUP ============== */
     return () => {
       ctx.revert()
-      clearTimeout(refreshTimer)
-      clearTimeout(visualViewportTimer)
+      clearTimeout(refreshTimer); clearTimeout(visualViewportTimer)
       resizeObserver.disconnect()
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleOrientationChange)
@@ -225,7 +204,6 @@ export default function Work() {
 
   return (
     <section id="work" className="section" ref={sectionRef}>
-      {/* HEADER */}
       <div className="sec-header" data-fade>
         <div className="sec-eyebrow">
           <span className="eyebrow-num">02</span>
@@ -235,7 +213,6 @@ export default function Work() {
         <p className="sec-p">A selection of projects across AI, automation, and full-stack development.</p>
       </div>
 
-      {/* WORK STACK */}
       <div className="work-list">
         <div className="work-stack" ref={stackRef}>
           <div className="work-stack-inner">
