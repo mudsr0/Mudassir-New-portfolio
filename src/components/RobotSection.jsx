@@ -302,15 +302,21 @@ export default function RobotSection() {
 
     /* ===================== DEVICE SETTINGS ===================== */
     const isMobile = window.innerWidth < 768
-    const botX = isMobile ? 1.3 : 2.4, panX = isMobile ? 1.9 : 3.6, camZ = isMobile ? 7.5 : 5.9
+    // Scaled down slightly on mobile to fit both comfortably
+    const botX = isMobile ? 1.2 : 2.4
+    const panX = isMobile ? 1.8 : 3.6
+    const camZ = isMobile ? 6.5 : 5.9
 
     /* ===================== RENDERER ===================== */
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+    const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true, powerPreference: 'high-performance' })
     renderer.setSize(mount.clientWidth, mount.clientHeight, false)
-    const pixelRatio = isMobile ? Math.min(window.devicePixelRatio, 1) : Math.min(window.devicePixelRatio, 1.25)
+    const pixelRatio = isMobile ? Math.min(window.devicePixelRatio, 1) : Math.min(window.devicePixelRatio, 1.5)
     renderer.setPixelRatio(pixelRatio)
-    renderer.shadowMap.enabled = true
-    renderer.shadowMap.type = THREE.PCFShadowMap
+    
+    // Disable shadows entirely on mobile to save GPU and prevent context loss
+    renderer.shadowMap.enabled = !isMobile
+    if (!isMobile) renderer.shadowMap.type = THREE.PCFShadowMap
+    
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.3
     renderer.setClearColor(0x000000, 0)
@@ -325,17 +331,23 @@ export default function RobotSection() {
     camera.lookAt(0, 1.26, 0)
 
     /* ===================== LIGHTING ===================== */
-    scene.add(new THREE.AmbientLight(0xffffff, 0.90))
+    scene.add(new THREE.AmbientLight(0xffffff, isMobile ? 1.1 : 0.90))
 
-    const key = new THREE.DirectionalLight(0xffffff, 3.8)
-    key.position.set(2, 7, 6); key.castShadow = true
-    key.shadow.mapSize.set(512, 512)
-    key.shadow.camera.left = -7; key.shadow.camera.right = 7; key.shadow.camera.top = 9; key.shadow.camera.bottom = -2
+    const key = new THREE.DirectionalLight(0xffffff, isMobile ? 2.5 : 3.8)
+    key.position.set(2, 7, 6)
+    if (!isMobile) {
+        key.castShadow = true
+        key.shadow.mapSize.set(512, 512)
+        key.shadow.camera.left = -7; key.shadow.camera.right = 7; key.shadow.camera.top = 9; key.shadow.camera.bottom = -2
+    }
     scene.add(key)
 
-    const fill = new THREE.DirectionalLight(0x8899cc, 1.6); fill.position.set(-5, 4, 3); scene.add(fill)
-    const rim = new THREE.DirectionalLight(0xffffff, 2.2); rim.position.set(0, 6, -6); scene.add(rim)
-    const und = new THREE.DirectionalLight(0x2244ff, 0.8); und.position.set(0, -2, 3); scene.add(und)
+    // Skip heavy extra lights on mobile
+    if (!isMobile) {
+        const fill = new THREE.DirectionalLight(0x8899cc, 1.6); fill.position.set(-5, 4, 3); scene.add(fill)
+        const rim = new THREE.DirectionalLight(0xffffff, 2.2); rim.position.set(0, 6, -6); scene.add(rim)
+        const und = new THREE.DirectionalLight(0x2244ff, 0.8); und.position.set(0, -2, 3); scene.add(und)
+    }
 
     /* ===================== SPOTLIGHTS ===================== */
     const mkSpot = (x) => {
@@ -352,8 +364,8 @@ export default function RobotSection() {
       new THREE.PlaneGeometry(26, 26),
       new THREE.MeshPhysicalMaterial({ color: 0x030310, metalness: 1, roughness: 0.015, clearcoat: 1, clearcoatRoughness: 0.04 })
     )
-    floorMesh.rotation.x = -Math.PI / 2; floorMesh.receiveShadow = true; scene.add(floorMesh)
-    scene.add(new THREE.GridHelper(20, 40, 0x101030, 0x080820))
+    floorMesh.rotation.x = -Math.PI / 2; floorMesh.receiveShadow = !isMobile; scene.add(floorMesh)
+    if (!isMobile) scene.add(new THREE.GridHelper(20, 40, 0x101030, 0x080820))
 
     /* ===================== LIGHT BEAMS ===================== */
     const mkBeam = (x) => {
@@ -379,7 +391,9 @@ export default function RobotSection() {
 
     const updateRain = () => {
       rFrame++
-      if (rFrame % 5 !== 0) return
+      // Update rain less frequently on mobile
+      const rainFreq = isMobile ? 8 : 5;
+      if (rFrame % rainFreq !== 0) return
       rCtx.fillStyle = 'rgba(0,0,6,0.08)'; rCtx.fillRect(0, 0, 256, 256)
       drops.forEach((y, i) => {
         rCtx.font = '10px monospace'
@@ -399,7 +413,7 @@ export default function RobotSection() {
     /* ===================== ROBOTS ===================== */
     const mats = mkMats()
     const botL = buildRobot(mats), botR = buildRobot(mats)
-    botL.root.scale.setScalar(1.18); botR.root.scale.setScalar(1.18)
+    botL.root.scale.setScalar(isMobile ? 0.9 : 1.18); botR.root.scale.setScalar(isMobile ? 0.9 : 1.18)
 
     const restPose = (bot) => {
       bot.rArm.uP.rotation.set(0.06, 0, 0.18); bot.rArm.fP.rotation.set(0.12, 0, 0)
@@ -419,10 +433,10 @@ export default function RobotSection() {
     tl.to(botR.root.position, { y: 0.37, duration: 1.6, ease: 'power2.in' }, 0.18)
     tl.to(botL.root.position, { y: 0.33, duration: 0.35, ease: 'back.out(2.2)' }, 1.60)
     tl.to(botR.root.position, { y: 0.33, duration: 0.35, ease: 'back.out(2.2)' }, 1.78)
-    tl.to(botL.root.scale, { x: 1.22, y: 1.14, z: 1.22, duration: 0.14, ease: 'power2.out' }, 1.60)
-    tl.to(botL.root.scale, { x: 1.18, y: 1.18, z: 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.74)
-    tl.to(botR.root.scale, { x: 1.22, y: 1.14, z: 1.22, duration: 0.14, ease: 'power2.out' }, 1.78)
-    tl.to(botR.root.scale, { x: 1.18, y: 1.18, z: 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.92)
+    tl.to(botL.root.scale, { x: 1.0, y: 0.95, z: 1.0, duration: 0.14, ease: 'power2.out' }, 1.60)
+    tl.to(botL.root.scale, { x: isMobile ? 0.9 : 1.18, y: isMobile ? 0.9 : 1.18, z: isMobile ? 0.9 : 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.74)
+    tl.to(botR.root.scale, { x: 1.0, y: 0.95, z: 1.0, duration: 0.14, ease: 'power2.out' }, 1.78)
+    tl.to(botR.root.scale, { x: isMobile ? 0.9 : 1.18, y: isMobile ? 0.9 : 1.18, z: isMobile ? 0.9 : 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.92)
 
     tl.to(ss, {
       i: 5.5, b: 0.078, eI: 1.3, duration: 0.5, ease: 'power2.out',
@@ -539,7 +553,12 @@ export default function RobotSection() {
 
       if (prog > 0.3) {
         panFrame++
-        if (panFrame % 4 === 0) { drawPanel(panL); drawPanel(panR) }
+        // Update panels less frequently on mobile
+        const panFreq = isMobile ? 6 : 4;
+        if (panFrame % panFreq === 0) { 
+            drawPanel(panL)
+            drawPanel(panR)
+        }
         updateRain()
       }
       renderer.render(scene, camera)

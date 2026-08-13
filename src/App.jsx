@@ -156,16 +156,16 @@ export default function App() {
       <main>
         <Hero />
         <Marquee />
+        {/* <VideoTestimonials /> */}
+        <Partners />
         <Suspense fallback={<div className="robot-section" />}>
           <RobotSection />
         </Suspense>
-        <Services />
         <Work />
-        <Partners />
         <About />
+        <Services />
         <TechStack />
         <Testimonials />
-        <VideoTestimonials />
         <Contact />
       </main>
       <Footer />

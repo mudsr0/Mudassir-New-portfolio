@@ -240,32 +240,32 @@
         "direction": "left",
         "testimonials": [
           {
-            "initials": "JA",
-            "name": "Justin Ash",
-            "role": "Robbins Pest Control, USA",
-            "quote": "Mudassir delivered our entire email automation and domain setup in days. Professional, fast, and the system works flawlessly. Will definitely work with him again.",
+            "initials": "DM",
+            "name": "David Morgan",
+            "role": "Startup Owner",
+            "quote": "Most teams overpromise. Mudassir and the team simply delivered. Clear updates, fast problem solving, and a level of ownership that’s hard to find.",
             "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
           },
           {
-            "initials": "MP",
-            "name": "Michael Pritsky",
-            "role": "Vocalis / MYNTZ INC",
-            "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically — it saved us countless hours every week.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
+            "initials": "RP",
+            "name": "Rachit Patel",
+            "role": "CEO, GBNODES",
+            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
           },
           {
-            "initials": "BT",
-            "name": "Brad Tucker",
-            "role": "Senior Pros Home Care, USA",
-            "quote": "Mudassir migrated our entire phone system to OpenPhone smoothly. Zero downtime, zero complications. The whole setup was handled with great attention to detail.",
+            "initials": "MM",
+            "name": "Mr. Marco",
+            "role": "Entrepreneur & CEO, RubberDuck",
+            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
             "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
           },
           {
-            "initials": "MG",
-            "name": "Mike Godleski",
-            "role": "Prepare2Swim",
-            "quote": "Working with Mudassir and the DevRolin team has been excellent. They understand what we need quickly and execute without back-and-forth. Genuinely impressive work.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
+            "initials": "RE",
+            "name": "Rami El-Khateib",
+            "role": "Founder, OMNIYA",
+            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
           }
         ]
       },
@@ -275,32 +275,32 @@
         "direction": "right",
         "testimonials": [
           {
-            "initials": "BT",
-            "name": "Brad Tucker",
-            "role": "Senior Pros Home Care, USA",
-            "quote": "Mudassir migrated our entire phone system to OpenPhone smoothly. Zero downtime, zero complications. The whole setup was handled with great attention to detail.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
-          },
-          {
-            "initials": "MG",
-            "name": "Mike Godleski",
-            "role": "Prepare2Swim",
-            "quote": "Working with Mudassir and the DevRolin team has been excellent. They understand what we need quickly and execute without back-and-forth. Genuinely impressive work.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
-          },
-          {
-            "initials": "JA",
-            "name": "Justin Ash",
-            "role": "Robbins Pest Control, USA",
-            "quote": "Mudassir delivered our entire email automation and domain setup in days. Professional, fast, and the system works flawlessly. Will definitely work with him again.",
+            "initials": "NS",
+            "name": "Noble Schools",
+            "role": "Chicago",
+            "quote": "They were awesome and flexible, and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
             "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
           },
           {
-            "initials": "MP",
-            "name": "Michael Pritsky",
-            "role": "Vocalis / MYNTZ INC",
-            "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically — it saved us countless hours every week.",
+            "initials": "RE",
+            "name": "Rami El-Khateib",
+            "role": "Founder, OMNIYA",
+            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
             "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
+          },
+          {
+            "initials": "MM",
+            "name": "Mr. Marco",
+            "role": "Entrepreneur & CEO, RubberDuck",
+            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
+          },
+          {
+            "initials": "RP",
+            "name": "Rachit Patel",
+            "role": "CEO, GBNODES",
+            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
           }
         ]
       }
