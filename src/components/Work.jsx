@@ -1,17 +1,9 @@
-import { useRef, useLayoutEffect, useEffect } from 'react'
+import { useRef, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
 
 gsap.registerPlugin(ScrollTrigger)
-
-// const DUMMY_VIDEOS = [
-//   'https://static.videezy.com/system/resources/previews/000/019/011/original/ICON-VERSION5.mp4',
-//   'https://static.videezy.com/system/resources/previews/000/036/766/original/earth_stock2.mp4',
-//   'https://static.videezy.com/system/resources/previews/000/044/890/original/Comp-1_4_1.mp4',
-//   'https://static.videezy.com/system/resources/previews/000/019/000/original/ICON-VERSION1.mp4',
-//   'https://static.videezy.com/system/resources/previews/000/039/602/original/4K.mp4',
-// ]
 
 function splitStack(stack) {
   if (Array.isArray(stack)) return stack
@@ -21,7 +13,6 @@ function splitStack(stack) {
 
 function WorkCard({ p, index, cardRef }) {
   const boundsRef = useRef(null)
-  // const videoSrc = p.video || DUMMY_VIDEOS[index % DUMMY_VIDEOS.length]
   const stackItems = splitStack(p.stack)
 
   const handleEnter = () => {
@@ -47,9 +38,6 @@ function WorkCard({ p, index, cardRef }) {
           {p.image && (
             <img className="wcard-image" src={p.image} alt={`${p.title} project preview`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
           )}
-          {/* 
-          <video className="wcard-video" src={videoSrc} muted playsInline preload="metadata" aria-hidden="true" />
-          */}
         </div>
 
         <div className="wcard-text">
@@ -74,44 +62,22 @@ function WorkCard({ p, index, cardRef }) {
             </a>
           )}
         </div>
+        {/* Ensure this element has a background color in your CSS (e.g., background: rgba(0,0,0,0.5)) */}
         <div className="wcard-dim" aria-hidden="true" />
       </div>
     </div>
   )
 }
 
-// function useVideoVisibility(sectionRef) {
-//   useEffect(() => {
-//     const section = sectionRef.current
-//     if (!section) return
-//     const observer = new IntersectionObserver((entries) => {
-//       entries.forEach((entry) => {
-//         const video = entry.target
-//         if (entry.isIntersecting) {
-//           if (video.paused) {
-//             const promise = video.play()
-//             if (promise?.catch) promise.catch(() => {})
-//           }
-//         } else {
-//           if (!video.paused) video.pause()
-//         }
-//       })
-//     }, { root: null, rootMargin: '300px 0px', threshold: 0.01 })
-//     section.querySelectorAll('.wcard-video').forEach((video) => observer.observe(video))
-//     return () => observer.disconnect()
-//   }, [sectionRef])
-// }
-
 export default function Work() {
   const sectionRef = useRef(null), stackRef = useRef(null), cardRefs = useRef([])
   const projects = data.work || []
-  // useVideoVisibility(sectionRef)
 
   useLayoutEffect(() => {
     const section = sectionRef.current, stack = stackRef.current
     if (!section || !stack || projects.length === 0) return
 
-    let refreshTimer = null, visualViewportTimer = null
+    let refreshTimer = null
 
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray('.wcard')
@@ -130,12 +96,21 @@ export default function Work() {
 
         cards.forEach((card, index) => {
           gsap.set(card, {
-            xPercent: 0, yPercent: index === 0 ? 0 : 100, opacity: 1, scale: 1,
-            transformOrigin: 'center top', '--dim': 0, force3D: true,
+            xPercent: 0, 
+            yPercent: index === 0 ? 0 : 100, 
+            opacity: 1, 
+            scale: 1,
+            transformOrigin: 'center top', 
+            force3D: true,
           })
+          
+          // Set initial opacity of dim layer directly instead of CSS var
+          const dimLayer = card.querySelector('.wcard-dim')
+          if (dimLayer) gsap.set(dimLayer, { opacity: 0 })
         })
 
-        const getScrollDistance = () => isMobile ? stack.offsetHeight : window.innerHeight
+        // Use a consistent scroll distance based on viewport to prevent ResizeObserver loops
+        const getScrollDistance = () => window.innerHeight
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -143,11 +118,16 @@ export default function Work() {
             start: isMobile ? 'top top' : 'top top+=10%',
             end: () => '+=' + ((cards.length - 1) * getScrollDistance()),
             pin: isMobile ? section : true,
-            pinSpacing: true, pinType: 'transform', scrub: scrubValue,
-            invalidateOnRefresh: true, anticipatePin: 1,
+            pinSpacing: true, 
+            pinType: 'transform', 
+            scrub: scrubValue,
+            invalidateOnRefresh: true, 
+            anticipatePin: 1,
             onLeaveBack: () => {
               cards.forEach((card, index) => {
-                gsap.set(card, { xPercent: 0, yPercent: index === 0 ? 0 : 100, scale: 1, '--dim': 0 })
+                gsap.set(card, { xPercent: 0, yPercent: index === 0 ? 0 : 100, scale: 1 })
+                const dimLayer = card.querySelector('.wcard-dim')
+                if (dimLayer) gsap.set(dimLayer, { opacity: 0 })
               })
             },
           },
@@ -156,49 +136,55 @@ export default function Work() {
         cards.forEach((card, index) => {
           if (index === 0) return
           const previousCard = cards[index - 1]
+          const prevDimLayer = previousCard.querySelector('.wcard-dim')
           
-          timeline.to(card, { xPercent: 0, yPercent: 0, duration: 1, ease: 'power2.inOut', force3D: true })
+          timeline.to(card, { 
+            xPercent: 0, 
+            yPercent: 0, 
+            duration: 1, 
+            ease: 'power2.inOut', 
+            force3D: true 
+          })
+          
           timeline.to(previousCard, {
-            xPercent: 0, scale: scaleAmount, yPercent: yShift, '--dim': 0.55,
-            duration: 1, ease: 'power2.inOut', force3D: true, transformOrigin: 'center top',
+            xPercent: 0, 
+            scale: scaleAmount, 
+            yPercent: yShift, 
+            duration: 1, 
+            ease: 'power2.inOut', 
+            force3D: true, 
+            transformOrigin: 'center top',
           }, '<')
+
+          // Animate opacity directly on the dim layer (GPU accelerated)
+          if (prevDimLayer) {
+            timeline.to(prevDimLayer, {
+              opacity: 0.55, // Adjust this value to match your desired dim amount
+              duration: 1, 
+              ease: 'power2.inOut',
+            }, '<')
+          }
         })
       })
     }, section)
 
-    const scheduleRefresh = (delay = 150) => {
+    // Only refresh on orientation change, NOT on resize. 
+    // Mobile browsers fire resize constantly when the address bar hides/shows.
+    const handleOrientationChange = () => {
       clearTimeout(refreshTimer)
       refreshTimer = setTimeout(() => {
-        if (sectionRef.current && document.body.contains(sectionRef.current)) ScrollTrigger.refresh()
-      }, delay)
+        if (sectionRef.current && document.body.contains(sectionRef.current)) {
+          ScrollTrigger.refresh()
+        }
+      }, 250)
     }
-    scheduleRefresh(300)
-
-    const handleResize = () => scheduleRefresh(150)
-    const handleOrientationChange = () => scheduleRefresh(250)
-    window.addEventListener('resize', handleResize, { passive: true })
+    
     window.addEventListener('orientationchange', handleOrientationChange, { passive: true })
-
-    const handleVisualViewportResize = () => {
-      clearTimeout(visualViewportTimer)
-      visualViewportTimer = setTimeout(() => scheduleRefresh(100), 150)
-    }
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', handleVisualViewportResize, { passive: true })
-    }
-
-    const resizeObserver = new ResizeObserver(() => scheduleRefresh(150))
-    resizeObserver.observe(stack)
 
     return () => {
       ctx.revert()
-      clearTimeout(refreshTimer); clearTimeout(visualViewportTimer)
-      resizeObserver.disconnect()
-      window.removeEventListener('resize', handleResize)
+      clearTimeout(refreshTimer)
       window.removeEventListener('orientationchange', handleOrientationChange)
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', handleVisualViewportResize)
-      }
     }
   }, [projects.length])
 
