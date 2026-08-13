@@ -119,6 +119,10 @@ export default function Work() {
         // Touch devices (mobile/tablet): normalize native scrolling for the pin.
         if (isMobile || isTablet) enableNormalizedScroll()
 
+        // Declare that only vertical panning is allowed on the pinned element so the
+        // browser never hesitates between native scroll and GSAP's transform handling.
+        gsap.set(isMobile ? section : stack, { touchAction: 'pan-y' })
+
         cards.forEach((card, index) => {
           gsap.set(card, {
             xPercent: 0, 
@@ -127,8 +131,9 @@ export default function Work() {
             scale: 1,
             transformOrigin: 'center top', 
             force3D: true,
-            // Force GPU layer promotion so compositing never repaints on scroll.
-            willChange: 'transform',
+            // Force GPU layer promotion (transform + opacity) up front so the mobile
+            // compositor never paints mid-scroll when cards scale/fade.
+            willChange: 'transform, opacity',
           })
           
           // Set initial opacity of dim layer directly instead of CSS var
@@ -174,7 +179,8 @@ export default function Work() {
             yPercent: 0, 
             duration: 1, 
             ease: 'power2.inOut', 
-            force3D: true 
+            force3D: true,
+            transformOrigin: 'center top',
           })
           
           timeline.to(previousCard, {
@@ -193,6 +199,7 @@ export default function Work() {
               opacity: 0.55, // Adjust this value to match your desired dim amount
               duration: 1, 
               ease: 'power2.inOut',
+              force3D: true,
             }, '<')
           }
         })
