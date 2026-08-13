@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, memo } from 'react'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -228,6 +228,8 @@ function mkPanel(label) {
   const cv = document.createElement('canvas'); cv.width = 256; cv.height = 192
   const ctx = cv.getContext('2d')
   const tex = new THREE.CanvasTexture(cv)
+  tex.generateMipmaps = false
+  tex.minFilter = THREE.LinearFilter
   const mesh = new THREE.Mesh(
     new THREE.PlaneGeometry(0.88, 0.66),
     new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending })
@@ -292,8 +294,8 @@ function drawPanel(p) {
 
 /* ========================================================= MAIN COMPONENT ========================================================= */
 
-export default function RobotSection() {
-  const mountRef = useRef(null), overlayRef = useRef(null)
+function RobotSection() {
+  const mountRef = useRef(null), overlayRef = useRef(null), canvasRef = useRef(null)
   const mouse = useRef({ x: 0, y: 0, tx: 0, ty: 0 })
 
   useEffect(() => {
@@ -308,7 +310,7 @@ export default function RobotSection() {
     const camZ = isMobile ? 6.5 : 5.9
 
     /* ===================== RENDERER ===================== */
-    const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true, powerPreference: 'high-performance' })
+    const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: !isMobile, alpha: true, powerPreference: 'high-performance' })
     renderer.setSize(mount.clientWidth, mount.clientHeight, false)
     const pixelRatio = isMobile ? Math.min(window.devicePixelRatio, 1) : Math.min(window.devicePixelRatio, 1.5)
     renderer.setPixelRatio(pixelRatio)
@@ -320,7 +322,6 @@ export default function RobotSection() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.3
     renderer.setClearColor(0x000000, 0)
-    mount.appendChild(renderer.domElement)
 
     /* ===================== SCENE & CAMERA ===================== */
     const scene = new THREE.Scene()
@@ -379,6 +380,8 @@ export default function RobotSection() {
     /* ===================== MATRIX / RAIN BACKGROUND ===================== */
     const rainCv = document.createElement('canvas'); rainCv.width = 256; rainCv.height = 256
     const rCtx = rainCv.getContext('2d'), rTex = new THREE.CanvasTexture(rainCv)
+    rTex.generateMipmaps = false
+    rTex.minFilter = THREE.LinearFilter
     const bgPl = new THREE.Mesh(
       new THREE.PlaneGeometry(24, 14),
       new THREE.MeshBasicMaterial({ map: rTex, transparent: true, opacity: 0.14, depthWrite: false, blending: THREE.AdditiveBlending })
@@ -426,44 +429,47 @@ export default function RobotSection() {
     scene.add(botL.root, botR.root)
 
     /* ===================== ENTRANCE TIMELINE ===================== */
-    const tl = gsap.timeline({ paused: true })
-    const ss = { i: 0, b: 0, eI: 0 }
+    let tl
+    const ctx = gsap.context(() => {
+      tl = gsap.timeline({ paused: true })
+      const ss = { i: 0, b: 0, eI: 0 }
 
-    tl.to(botL.root.position, { y: 0.37, duration: 1.6, ease: 'power2.in' }, 0)
-    tl.to(botR.root.position, { y: 0.37, duration: 1.6, ease: 'power2.in' }, 0.18)
-    tl.to(botL.root.position, { y: 0.33, duration: 0.35, ease: 'back.out(2.2)' }, 1.60)
-    tl.to(botR.root.position, { y: 0.33, duration: 0.35, ease: 'back.out(2.2)' }, 1.78)
-    tl.to(botL.root.scale, { x: 1.0, y: 0.95, z: 1.0, duration: 0.14, ease: 'power2.out' }, 1.60)
-    tl.to(botL.root.scale, { x: isMobile ? 0.9 : 1.18, y: isMobile ? 0.9 : 1.18, z: isMobile ? 0.9 : 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.74)
-    tl.to(botR.root.scale, { x: 1.0, y: 0.95, z: 1.0, duration: 0.14, ease: 'power2.out' }, 1.78)
-    tl.to(botR.root.scale, { x: isMobile ? 0.9 : 1.18, y: isMobile ? 0.9 : 1.18, z: isMobile ? 0.9 : 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.92)
+      tl.to(botL.root.position, { y: 0.37, duration: 1.6, ease: 'power2.in' }, 0)
+      tl.to(botR.root.position, { y: 0.37, duration: 1.6, ease: 'power2.in' }, 0.18)
+      tl.to(botL.root.position, { y: 0.33, duration: 0.35, ease: 'back.out(2.2)' }, 1.60)
+      tl.to(botR.root.position, { y: 0.33, duration: 0.35, ease: 'back.out(2.2)' }, 1.78)
+      tl.to(botL.root.scale, { x: 1.0, y: 0.95, z: 1.0, duration: 0.14, ease: 'power2.out' }, 1.60)
+      tl.to(botL.root.scale, { x: isMobile ? 0.9 : 1.18, y: isMobile ? 0.9 : 1.18, z: isMobile ? 0.9 : 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.74)
+      tl.to(botR.root.scale, { x: 1.0, y: 0.95, z: 1.0, duration: 0.14, ease: 'power2.out' }, 1.78)
+      tl.to(botR.root.scale, { x: isMobile ? 0.9 : 1.18, y: isMobile ? 0.9 : 1.18, z: isMobile ? 0.9 : 1.18, duration: 0.30, ease: 'elastic.out(1,0.5)' }, 1.92)
 
-    tl.to(ss, {
-      i: 5.5, b: 0.078, eI: 1.3, duration: 0.5, ease: 'power2.out',
-      onUpdate: () => {
-        spotL.intensity = ss.i; spotR.intensity = ss.i
-        beamL.material.opacity = ss.b; beamR.material.opacity = ss.b
-        eyePtL.intensity = ss.eI; eyePtR.intensity = ss.eI
-      }
-    }, 1.50)
+      tl.to(ss, {
+        i: 5.5, b: 0.078, eI: 1.3, duration: 0.5, ease: 'power2.out',
+        onUpdate: () => {
+          spotL.intensity = ss.i; spotR.intensity = ss.i
+          beamL.material.opacity = ss.b; beamR.material.opacity = ss.b
+          eyePtL.intensity = ss.eI; eyePtR.intensity = ss.eI
+        }
+      }, 1.50)
 
-    tl.to(botL.torso.rotation, { x: 0.12, y: 0.28, duration: 1.0, ease: 'power3.out' }, 2.4)
-    tl.to(botL.head.rotation, { x: -0.04, y: -0.25, duration: 1.0, ease: 'power3.out' }, 2.4)
-    tl.to(botL.rArm.uP.rotation, { x: -0.45, y: 0.35, z: 0.25, duration: 0.9, ease: 'power3.out' }, 2.5)
-    tl.to(botL.rArm.fP.rotation, { x: -0.85, y: -0.20, z: 0.10, duration: 0.85, ease: 'power3.out' }, 2.6)
-    tl.to(botL.lArm.uP.rotation, { x: -0.10, y: 0.05, z: -0.15, duration: 0.9, ease: 'power3.out' }, 2.5)
-    tl.to(botL.lArm.fP.rotation, { x: -0.25, y: 0.0, z: -0.05, duration: 0.85, ease: 'power3.out' }, 2.6)
-    tl.to(botR.torso.rotation, { x: 0.10, y: -0.26, duration: 1.0, ease: 'power3.out' }, 2.4)
-    tl.to(botR.head.rotation, { x: -0.04, y: 0.25, duration: 1.0, ease: 'power3.out' }, 2.4)
-    tl.to(botR.lArm.uP.rotation, { x: -0.42, y: -0.32, z: -0.22, duration: 0.9, ease: 'power3.out' }, 2.5)
-    tl.to(botR.lArm.fP.rotation, { x: -0.82, y: 0.18, z: -0.08, duration: 0.85, ease: 'power3.out' }, 2.6)
-    tl.to(botR.rArm.uP.rotation, { x: -0.08, y: -0.05, z: 0.15, duration: 0.9, ease: 'power3.out' }, 2.5)
-    tl.to(botR.rArm.fP.rotation, { x: -0.22, y: 0.0, z: 0.05, duration: 0.85, ease: 'power3.out' }, 2.6)
-    tl.to(panL.mesh.material, { opacity: 0.90, duration: 1.0, ease: 'power2.out' }, 3.2)
-    tl.to(panR.mesh.material, { opacity: 0.90, duration: 1.0, ease: 'power2.out' }, 3.4)
+      tl.to(botL.torso.rotation, { x: 0.12, y: 0.28, duration: 1.0, ease: 'power3.out' }, 2.4)
+      tl.to(botL.head.rotation, { x: -0.04, y: -0.25, duration: 1.0, ease: 'power3.out' }, 2.4)
+      tl.to(botL.rArm.uP.rotation, { x: -0.45, y: 0.35, z: 0.25, duration: 0.9, ease: 'power3.out' }, 2.5)
+      tl.to(botL.rArm.fP.rotation, { x: -0.85, y: -0.20, z: 0.10, duration: 0.85, ease: 'power3.out' }, 2.6)
+      tl.to(botL.lArm.uP.rotation, { x: -0.10, y: 0.05, z: -0.15, duration: 0.9, ease: 'power3.out' }, 2.5)
+      tl.to(botL.lArm.fP.rotation, { x: -0.25, y: 0.0, z: -0.05, duration: 0.85, ease: 'power3.out' }, 2.6)
+      tl.to(botR.torso.rotation, { x: 0.10, y: -0.26, duration: 1.0, ease: 'power3.out' }, 2.4)
+      tl.to(botR.head.rotation, { x: -0.04, y: 0.25, duration: 1.0, ease: 'power3.out' }, 2.4)
+      tl.to(botR.lArm.uP.rotation, { x: -0.42, y: -0.32, z: -0.22, duration: 0.9, ease: 'power3.out' }, 2.5)
+      tl.to(botR.lArm.fP.rotation, { x: -0.82, y: 0.18, z: -0.08, duration: 0.85, ease: 'power3.out' }, 2.6)
+      tl.to(botR.rArm.uP.rotation, { x: -0.08, y: -0.05, z: 0.15, duration: 0.9, ease: 'power3.out' }, 2.5)
+      tl.to(botR.rArm.fP.rotation, { x: -0.22, y: 0.0, z: 0.05, duration: 0.85, ease: 'power3.out' }, 2.6)
+      tl.to(panL.mesh.material, { opacity: 0.90, duration: 1.0, ease: 'power2.out' }, 3.2)
+      tl.to(panR.mesh.material, { opacity: 0.90, duration: 1.0, ease: 'power2.out' }, 3.4)
 
-    /* ===================== SCROLL TRIGGER ===================== */
-    const entranceTrigger = ScrollTrigger.create({ trigger: mount, start: 'top 80%', once: true, onEnter: () => tl.play() })
+      /* ===================== SCROLL TRIGGER ===================== */
+      ScrollTrigger.create({ trigger: mount, start: 'top 80%', once: true, onEnter: () => tl.play() })
+    })
 
     /* ===================== MOUSE / RAYCASTING ===================== */
     const raycaster = new THREE.Raycaster()
@@ -479,13 +485,15 @@ export default function RobotSection() {
 
     /* ===================== CLICK WAVE ===================== */
     const triggerWave = (bot, isLeft) => {
-      const arm = isLeft ? bot.rArm : bot.lArm
-      const s = isLeft ? 1 : -1
-      gsap.to(arm.uP.rotation, { x: -1.2, y: s * 0.2, z: s * 0.4, duration: 0.35, ease: 'back.out(1.7)' })
-      gsap.to(arm.fP.rotation, { x: -0.6, y: s * 0.5, z: s * 0.2, duration: 0.35, ease: 'back.out(1.7)' })
-      gsap.to(bot.pGlw.scale, { x: 1.4, y: 1.4, duration: 0.2, yoyo: true, repeat: 1 })
-      gsap.to(arm.uP.rotation, { x: -0.45, y: s * 0.35, z: s * 0.25, duration: 0.6, delay: 0.6, ease: 'power2.out' })
-      gsap.to(arm.fP.rotation, { x: -0.85, y: -s * 0.20, z: s * 0.10, duration: 0.6, delay: 0.6, ease: 'power2.out' })
+      ctx.add(() => {
+        const arm = isLeft ? bot.rArm : bot.lArm
+        const s = isLeft ? 1 : -1
+        gsap.to(arm.uP.rotation, { x: -1.2, y: s * 0.2, z: s * 0.4, duration: 0.35, ease: 'back.out(1.7)' })
+        gsap.to(arm.fP.rotation, { x: -0.6, y: s * 0.5, z: s * 0.2, duration: 0.35, ease: 'back.out(1.7)' })
+        gsap.to(bot.pGlw.scale, { x: 1.4, y: 1.4, duration: 0.2, yoyo: true, repeat: 1 })
+        gsap.to(arm.uP.rotation, { x: -0.45, y: s * 0.35, z: s * 0.25, duration: 0.6, delay: 0.6, ease: 'power2.out' })
+        gsap.to(arm.fP.rotation, { x: -0.85, y: -s * 0.20, z: s * 0.10, duration: 0.6, delay: 0.6, ease: 'power2.out' })
+      })
     }
 
     const onClick = () => {
@@ -582,8 +590,7 @@ export default function RobotSection() {
       window.removeEventListener('mousemove', onMouse)
       renderer.domElement.removeEventListener('click', onClick)
       window.removeEventListener('resize', onResize)
-      entranceTrigger.kill()
-      tl.kill()
+      ctx.revert()
 
       scene.traverse((object) => {
         if (object.geometry) object.geometry.dispose()
@@ -596,9 +603,6 @@ export default function RobotSection() {
         }
       })
       rTex.dispose()
-      if (mount.contains(renderer.domElement)) {
-        mount.removeChild(renderer.domElement)
-      }
       renderer.dispose()
     }
   }, [])
@@ -611,7 +615,9 @@ export default function RobotSection() {
   return (
     <>
       <section className="robot-section" id="robots">
-        <div ref={mountRef} className="robot-canvas" role="img" aria-label="Two AI robots welcoming visitors with animated holographic displays" />
+        <div ref={mountRef} className="robot-canvas" role="img" aria-label="Two AI robots welcoming visitors with animated holographic displays">
+          <canvas ref={canvasRef} />
+        </div>
 
         <div className="robot-overlay" ref={overlayRef}>
           <p className="robot-eyebrow" data-fade>built different</p>
@@ -627,3 +633,5 @@ export default function RobotSection() {
     </>
   )
 }
+
+export default memo(RobotSection)
