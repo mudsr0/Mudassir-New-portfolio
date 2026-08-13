@@ -5,6 +5,14 @@ export default function Footer() {
   const links = data.footer.links
   const year = new Date().getFullYear()
 
+  const toHref = (l) => {
+    if (l.href.startsWith('mailto:')) {
+      const email = l.href.slice('mailto:'.length)
+      return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`
+    }
+    return l.href
+  }
+
   return (
     <footer className="footer">
       <div className="footer-glow" aria-hidden="true"></div>
@@ -41,7 +49,7 @@ export default function Footer() {
             {links.map((l) => (
               <a
                 key={l.label}
-                href={l.href}
+                href={toHref(l)}
                 className="footer-link"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -183,16 +183,22 @@ export default function Hero() {
       window.addEventListener('mousemove', onMove, { passive: true })
       window.addEventListener('touchmove', onTouch, { passive: true })
 
+      let resizeRaf = null
       const onResize = () => {
-        const w = window.innerWidth
-        const h = window.innerHeight
-        camera.aspect = w / h
-        camera.updateProjectionMatrix()
-        renderer.setSize(w, h)
-        renderer.setPixelRatio(w < 768 ? 1 : Math.min(window.devicePixelRatio, 1.5))
+        // rAF-throttle: mobile address-bar resizes fire in bursts; coalesce to one pass/frame.
+        if (resizeRaf) return
+        resizeRaf = requestAnimationFrame(() => {
+          resizeRaf = null
+          const w = window.innerWidth
+          const h = window.innerHeight
+          camera.aspect = w / h
+          camera.updateProjectionMatrix()
+          renderer.setSize(w, h)
+          renderer.setPixelRatio(w < 768 ? 1 : Math.min(window.devicePixelRatio, 1.5))
+        })
       }
 
-      window.addEventListener('resize', onResize)
+      window.addEventListener('resize', onResize, { passive: true })
 
       let t = 0
 
@@ -258,6 +264,7 @@ export default function Hero() {
 
       const cleanup = () => {
         cancelAnimationFrame(rafRef.current)
+        if (resizeRaf) cancelAnimationFrame(resizeRaf)
         window.removeEventListener('mousemove', onMove)
         window.removeEventListener('touchmove', onTouch)
         window.removeEventListener('resize', onResize)
