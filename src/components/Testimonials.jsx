@@ -1,5 +1,6 @@
-import { memo } from 'react'
+import { memo, useRef } from 'react'
 import data from '../data.json'
+import usePauseOnHidden from '../hooks/usePauseOnHidden'
 
 const STARS = ['★', '★', '★', '★', '★']
 
@@ -27,9 +28,13 @@ const TestimonialCard = memo(function TestimonialCard({ t }) {
 
 function TestimonialRow({ row }) {
   const cards = row.testimonials
+  const scrollerRef = useRef(null)
+
+  usePauseOnHidden(scrollerRef)
 
   return (
-    <div 
+    <div
+      ref={scrollerRef}
       className={`testi-scroller ${row.direction === 'right' ? 'scroll-right' : 'scroll-left'}`}
       style={{ '--scroll-duration': row.speed }}
     >

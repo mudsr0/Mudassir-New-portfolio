@@ -13,9 +13,20 @@ export default function Navbar() {
   const navLinksRef = useRef(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    let rafId = null
+    const onScroll = () => {
+      // rAF-throttle so a scroll stick per frame only causes one cheap read + setState.
+      if (rafId != null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        setScrolled(window.scrollY > 50)
+      })
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (rafId != null) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   useEffect(() => {
@@ -85,9 +96,19 @@ export default function Navbar() {
   }, [hoveredLink, activeLink, menuOpen])
 
   useEffect(() => {
-    const onResize = () => movePillTo(hoveredLink ?? activeLink)
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+    let rafId = null
+    const onResize = () => {
+      if (rafId != null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        movePillTo(hoveredLink ?? activeLink)
+      })
+    }
+    window.addEventListener('resize', onResize, { passive: true })
+    return () => {
+      window.removeEventListener('resize', onResize)
+      if (rafId != null) cancelAnimationFrame(rafId)
+    }
   }, [hoveredLink, activeLink, menuOpen])
 
   const scrollTo = (id) => {

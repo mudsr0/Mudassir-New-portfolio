@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import WaveBackground from './common/WaveBackground'
+import usePauseOnHidden from '../hooks/usePauseOnHidden'
 import data from '../data.json'
 
 function useInView(ref) {
@@ -30,8 +31,10 @@ function useInView(ref) {
    Service Card
    ───────────────────────────────────────────────────────────── */
 function ServiceCard({ s }) {
-  const cellRef = useRef(null), numRef = useRef(null)
+  const cellRef = useRef(null), numRef = useRef(null), waveRef = useRef(null)
   const inView = useInView(cellRef)
+
+  usePauseOnHidden(waveRef)
 
   useEffect(() => {
     if (!inView || !numRef.current) return
@@ -95,7 +98,7 @@ function ServiceCard({ s }) {
       <div className="svc-spotlight" aria-hidden="true" />
 
       {/* Existing animated SVG waves */}
-      <svg className="svc-wave" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
+      <svg ref={waveRef} className="svc-wave" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
         <path fill="var(--accent)" opacity="0.08">
           <animate
             attributeName="d"

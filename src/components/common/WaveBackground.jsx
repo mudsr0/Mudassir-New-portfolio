@@ -90,17 +90,23 @@ export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true })
 
+    let resizeRaf = null
     const handleResize = () => {
-      if (destroyed) return
-      const size = getSize()
-      if (!size.width || !size.height) return
+      // rAF-throttle: mobile address-bar resizes fire in bursts; coalesce to one pass/frame.
+      if (resizeRaf) return
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = null
+        if (destroyed) return
+        const size = getSize()
+        if (!size.width || !size.height) return
 
-      width = size.width
-      height = size.height
-      mountRect = mount.getBoundingClientRect()
-      camera.aspect = width / height
-      camera.updateProjectionMatrix()
-      renderer.setSize(width, height, false)
+        width = size.width
+        height = size.height
+        mountRect = mount.getBoundingClientRect()
+        camera.aspect = width / height
+        camera.updateProjectionMatrix()
+        renderer.setSize(width, height, false)
+      })
     }
 
     window.addEventListener('resize', handleResize, { passive: true })
@@ -185,6 +191,7 @@ export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
 
     return () => {
       destroyed = true
+      if (resizeRaf) cancelAnimationFrame(resizeRaf)
       if (frameId) { cancelAnimationFrame(frameId); frameId = null }
       visibilityObserver.disconnect()
       window.removeEventListener('resize', handleResize)

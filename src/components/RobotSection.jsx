@@ -574,18 +574,25 @@ function RobotSection() {
     animate()
 
     /* ===================== RESIZE ===================== */
+    let resizeRaf = null
     const onResize = () => {
-      if (!mount) return
-      const w = mount.clientWidth, h = mount.clientHeight
-      camera.aspect = w / h
-      camera.updateProjectionMatrix()
-      renderer.setSize(w, h, false)
+      // rAF-throttle: mobile address-bar resizes fire in bursts; coalesce to one pass/frame.
+      if (resizeRaf) return
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = null
+        if (!mount) return
+        const w = mount.clientWidth, h = mount.clientHeight
+        camera.aspect = w / h
+        camera.updateProjectionMatrix()
+        renderer.setSize(w, h, false)
+      })
     }
-    window.addEventListener('resize', onResize)
+    window.addEventListener('resize', onResize, { passive: true })
 
     /* ===================== CLEANUP ===================== */
     return () => {
       cancelAnimationFrame(rafId)
+      if (resizeRaf) cancelAnimationFrame(resizeRaf)
       visibilityObserver.disconnect()
       window.removeEventListener('mousemove', onMouse)
       renderer.domElement.removeEventListener('click', onClick)

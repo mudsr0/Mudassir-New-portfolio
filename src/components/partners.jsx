@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Zap } from "lucide-react";
 import data from "../data.json";
+import usePauseOnHidden from "../hooks/usePauseOnHidden";
 
 const PARTNERS_ROW_1 = data.partners;
 const PARTNERS_ROW_2 = [...data.partners].reverse();
@@ -9,6 +10,10 @@ const repeatPartners = (partners, repeat = 4) =>
     Array.from({ length: repeat }).flatMap(() => partners);
 
 export default function Partners() {
+    const marqueeRef = useRef(null);
+
+    usePauseOnHidden(marqueeRef);
+
     return (
         <section className="partners-section" id="partners">
             <div className="partners-bg-glow" />
@@ -54,7 +59,7 @@ export default function Partners() {
                 </div>
 
                 {/* Companies marquee */}
-                <div className="partners-marquee">
+                <div className="partners-marquee" ref={marqueeRef}>
                     {/* Row 1 */}
                     <div className="partners-track partners-track-left">
                         {repeatPartners(PARTNERS_ROW_1).map((partner, index) => (
@@ -68,6 +73,7 @@ export default function Partners() {
                                         alt={partner.name}
                                         className="partner-logo"
                                         loading="lazy"
+                                        decoding="async"
                                         draggable="false"
                                     />
                                 </div>
@@ -90,6 +96,7 @@ export default function Partners() {
                                         alt={partner.name}
                                         className="partner-logo"
                                         loading="lazy"
+                                        decoding="async"
                                         draggable="false"
                                     />
                                 </div>

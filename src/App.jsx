@@ -20,6 +20,12 @@ import Partners from './components/partners'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Global config: the mobile browser address-bar/show resize storms must NOT
+// trigger ScrollTrigger refreshes/recalculations anywhere in the app (Work pin,
+// Hero parallax, About/App reveals). This makes the setting app-wide, not just
+// in the Work section.
+ScrollTrigger.config({ ignoreMobileResize: true })
+
 // Stable references (module scope) so the fallback & error boundary nodes are
 // never recreated across re-renders, which can fight Three.js over the canvas.
 const robotFallback = <div className="robot-section" />
