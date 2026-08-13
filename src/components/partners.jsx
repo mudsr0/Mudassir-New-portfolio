@@ -2,7 +2,6 @@ import React from "react";
 import { Zap } from "lucide-react";
 import data from "../data.json";
 
-
 const PARTNERS_ROW_1 = data.partners;
 const PARTNERS_ROW_2 = [...data.partners].reverse();
 
@@ -15,28 +14,42 @@ export default function Partners() {
             <div className="partners-bg-glow" />
 
             <div className="partners-inner">
-                {/* Section heading */}
-                <div className="partners-header">
-                    <div className="sec-eyebrow partners-eyebrow">
-                        <span className="eyebrow-line" />
-                        <span className="partners-eyebrow-icon">
-                            <Zap size={11} strokeWidth={2.5} />
-                        </span>
-                        <span>Partners & Clients</span>
-                        <span className="eyebrow-line" />
+                {/* Top Layout: Text + Video */}
+                <div className="partners-top-layout">
+                    {/* Left: Header & Description */}
+                    <div className="partners-header">
+                        <div className="sec-eyebrow partners-eyebrow">
+                            <span className="eyebrow-line" />
+                            <span className="partners-eyebrow-icon">
+                                <Zap size={11} strokeWidth={2.5} />
+                            </span>
+                            <span>Partners & Clients</span>
+                            <span className="eyebrow-line" />
+                        </div>
+
+                        <h2 className="sec-h partners-heading">
+                            Trusted by teams
+                            <br />
+                            <span>building what&apos;s next.</span>
+                        </h2>
+
+                        <p className="sec-p partners-description">
+                            I work with ambitious companies, startups, and teams to build
+                            digital products, intelligent systems, and experiences that
+                            create real impact.
+                        </p>
                     </div>
 
-                    <h2 className="sec-h partners-heading">
-                        Trusted by teams
-                        <br />
-                        <span>building what&apos;s next.</span>
-                    </h2>
-
-                    <p className="sec-p partners-description">
-                        I work with ambitious companies, startups, and teams to build
-                        digital products, intelligent systems, and experiences that
-                        create real impact.
-                    </p>
+                    {/* Right: YouTube Testimonial Video */}
+                    <div className="partners-video">
+                        <iframe
+                            src="https://www.youtube.com/embed/8KGhyl4qld0?si=vxnTBjI8AeCjR2EJ"
+                            title="YouTube testimonial video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
                 </div>
 
                 {/* Companies marquee */}
