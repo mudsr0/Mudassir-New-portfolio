@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 
 export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
-  const mountRef = useRef(null)
+  const mountRef = useRef(null), canvasRef = useRef(null)
 
   useEffect(() => {
     const mount = mountRef.current
@@ -19,11 +19,10 @@ export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
     camera.position.set(0, 18, 32)
     camera.lookAt(0, 0, 0)
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+    const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true, alpha: true, powerPreference: 'high-performance' })
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
     renderer.setClearColor(0x000000, 0)
-    mount.appendChild(renderer.domElement)
 
     Object.assign(renderer.domElement.style, {
       position: 'absolute', inset: '0', width: '100%', height: '100%', pointerEvents: 'none',
@@ -194,10 +193,12 @@ export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
       geometry.dispose(); material.dispose()
       planeGeo.dispose(); planeMat.dispose()
       renderer.dispose()
-
-      if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
     }
   }, [color, dotCount])
 
-  return <div ref={mountRef} className="wave-bg" />
+  return (
+    <div ref={mountRef} className="wave-bg">
+      <canvas ref={canvasRef} />
+    </div>
+  )
 }

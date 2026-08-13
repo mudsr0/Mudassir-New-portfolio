@@ -18,7 +18,7 @@ const cancelIdle = (id) => {
 }
 
 export default function Hero() {
-  const mountRef = useRef(null)
+  const mountRef = useRef(null), canvasRef = useRef(null)
   const heroContentRef = useRef(null)
   const mouse = useRef({ x: 0, y: 0, tx: 0, ty: 0 })
   const rafRef = useRef(null)
@@ -40,11 +40,10 @@ export default function Hero() {
       W = window.innerWidth
       H = window.innerHeight
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+      const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true, alpha: true, powerPreference: 'high-performance' })
       renderer.setSize(W, H)
       renderer.setPixelRatio(window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 1.5))
       renderer.setClearColor(0x000000, 0)
-      mount.appendChild(renderer.domElement)
 
       Object.assign(renderer.domElement.style, {
         position: 'absolute', inset: '0', width: '100%', height: '100%', pointerEvents: 'none',
@@ -265,7 +264,6 @@ export default function Hero() {
         window.removeEventListener('app-loaded', startHeroIntro)
 
         if (introTimer) clearTimeout(introTimer)
-        if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
 
         cGeo.dispose(); cMat.dispose()
         lGeo.dispose(); lMat.dispose()
@@ -309,7 +307,9 @@ export default function Hero() {
 
   return (
     <section className="hero-section">
-      <div ref={mountRef} className="hero-canvas-wrap" aria-hidden="true" />
+      <div ref={mountRef} className="hero-canvas-wrap" aria-hidden="true">
+        <canvas ref={canvasRef} />
+      </div>
       <div className="hero-vignette" aria-hidden="true" />
       
       <div ref={heroContentRef} className="hero-content">
