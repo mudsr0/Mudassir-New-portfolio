@@ -5,6 +5,22 @@ import data from '../data.json'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Prevent the mobile browser address bar hide/show (visualViewport resize events)
+// from constantly triggering ScrollTrigger.refresh() + recalculations, a primary
+// cause of janky/jumping pinned sections on real phones.
+ScrollTrigger.config({ ignoreMobileResize: true })
+
+// normalizeScroll() must run BEFORE the ScrollTriggers it governs are created.
+// It rewires native touch scrolling into JS-driven scrolling (with proper
+// touch-action/overscroll handling), which stabilizes pinned sections on mobile.
+// Module-level guard keeps it single-invocation (it's a global, not per-mount, setting).
+let normalizedScrollEnabled = false
+const enableNormalizedScroll = () => {
+  if (normalizedScrollEnabled) return
+  normalizedScrollEnabled = true
+  ScrollTrigger.normalizeScroll(true)
+}
+
 function splitStack(stack) {
   if (Array.isArray(stack)) return stack
   if (!stack) return []
@@ -78,6 +94,7 @@ export default function Work() {
     if (!section || !stack || projects.length === 0) return
 
     let refreshTimer = null
+    let leaveBackTimer = null
 
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray('.wcard')
@@ -92,7 +109,15 @@ export default function Work() {
         const { isTablet, isMobile } = context.conditions
         const scaleAmount = isMobile ? 0.96 : isTablet ? 0.94 : 0.92
         const yShift = isMobile ? 0 : -4
-        const scrubValue = 1
+        // scrub: 1 (smoothed) causes a "rubber-banding" lag on touch scrolling;
+        // drop the smoothing on mobile so the pin tracks the finger 1:1-ish.
+        const scrubValue = isMobile ? 0.5 : 1
+        // On mobile, pin via 'fixed' instead of 'transform': transform-pinning fights
+        // normalizeScroll + address-bar resize and is what causes cards to jump.
+        const pinTypeValue = isMobile ? 'fixed' : 'transform'
+
+        // Touch devices (mobile/tablet): normalize native scrolling for the pin.
+        if (isMobile || isTablet) enableNormalizedScroll()
 
         cards.forEach((card, index) => {
           gsap.set(card, {
@@ -102,6 +127,8 @@ export default function Work() {
             scale: 1,
             transformOrigin: 'center top', 
             force3D: true,
+            // Force GPU layer promotion so compositing never repaints on scroll.
+            willChange: 'transform',
           })
           
           // Set initial opacity of dim layer directly instead of CSS var
@@ -119,16 +146,20 @@ export default function Work() {
             end: () => '+=' + ((cards.length - 1) * getScrollDistance()),
             pin: isMobile ? section : true,
             pinSpacing: true, 
-            pinType: 'transform', 
+            pinType: pinTypeValue, 
             scrub: scrubValue,
             invalidateOnRefresh: true, 
             anticipatePin: 1,
             onLeaveBack: () => {
-              cards.forEach((card, index) => {
-                gsap.set(card, { xPercent: 0, yPercent: index === 0 ? 0 : 100, scale: 1 })
-                const dimLayer = card.querySelector('.wcard-dim')
-                if (dimLayer) gsap.set(dimLayer, { opacity: 0 })
-              })
+              // Debounce so rapid scroll-back can't fire a fresh gsap.set batch every frame.
+              clearTimeout(leaveBackTimer)
+              leaveBackTimer = setTimeout(() => {
+                cards.forEach((card, index) => {
+                  gsap.set(card, { xPercent: 0, yPercent: index === 0 ? 0 : 100, scale: 1 })
+                  const dimLayer = card.querySelector('.wcard-dim')
+                  if (dimLayer) gsap.set(dimLayer, { opacity: 0 })
+                })
+              }, 150)
             },
           },
         })
@@ -184,6 +215,7 @@ export default function Work() {
     return () => {
       ctx.revert()
       clearTimeout(refreshTimer)
+      clearTimeout(leaveBackTimer)
       window.removeEventListener('orientationchange', handleOrientationChange)
     }
   }, [projects.length])
