@@ -138,7 +138,7 @@ export default function Services() {
 
         <div className="sec-header" data-fade>
           <div className="sec-eyebrow">
-            <span className="eyebrow-num">01</span>
+            <span className="eyebrow-num">03</span>
             services
           </div>
           <h2 className="sec-h">What I build.</h2>
