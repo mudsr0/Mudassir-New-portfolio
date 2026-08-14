@@ -378,33 +378,37 @@ function RobotSection() {
     const beamL = mkBeam(-botX), beamR = mkBeam(botX)
 
     /* ===================== MATRIX / RAIN BACKGROUND ===================== */
-    const rainCv = document.createElement('canvas'); rainCv.width = 256; rainCv.height = 256
-    const rCtx = rainCv.getContext('2d'), rTex = new THREE.CanvasTexture(rainCv)
-    rTex.generateMipmaps = false
-    rTex.minFilter = THREE.LinearFilter
-    const bgPl = new THREE.Mesh(
-      new THREE.PlaneGeometry(24, 14),
-      new THREE.MeshBasicMaterial({ map: rTex, transparent: true, opacity: 0.14, depthWrite: false, blending: THREE.AdditiveBlending })
-    )
-    bgPl.position.set(0, 4.8, -7); scene.add(bgPl)
+    let rTex
+    let updateRain = () => {} // Defined as no-op by default to prevent scoping issues
 
-    const drops = Array.from({ length: 24 }, () => Math.random() * 30)
-    const rChars = '01ABCDEF!@#%^01101'.split('')
-    let rFrame = 0
+    if (!isMobile) {
+      const rainCv = document.createElement('canvas'); rainCv.width = 256; rainCv.height = 256
+      const rCtx = rainCv.getContext('2d')
+      rTex = new THREE.CanvasTexture(rainCv)
+      rTex.generateMipmaps = false
+      rTex.minFilter = THREE.LinearFilter
+      const bgPl = new THREE.Mesh(
+        new THREE.PlaneGeometry(24, 14),
+        new THREE.MeshBasicMaterial({ map: rTex, transparent: true, opacity: 0.14, depthWrite: false, blending: THREE.AdditiveBlending })
+      )
+      bgPl.position.set(0, 4.8, -7); scene.add(bgPl)
 
-    const updateRain = () => {
-      rFrame++
-      // Update rain less frequently on mobile
-      const rainFreq = isMobile ? 8 : 5;
-      if (rFrame % rainFreq !== 0) return
-      rCtx.fillStyle = 'rgba(0,0,6,0.08)'; rCtx.fillRect(0, 0, 256, 256)
-      drops.forEach((y, i) => {
-        rCtx.font = '10px monospace'
-        rCtx.fillStyle = `rgba(38,78,255,${0.3 + Math.random() * 0.4})`
-        rCtx.fillText(rChars[Math.floor(Math.random() * rChars.length)], i * 11 + 1, y * 11)
-        if (y * 11 > 256 && Math.random() > 0.96) { drops[i] = 0 } else { drops[i] += 0.55 }
-      })
-      rTex.needsUpdate = true
+      const drops = Array.from({ length: 24 }, () => Math.random() * 30)
+      const rChars = '01ABCDEF!@#%^01101'.split('')
+      let rFrame = 0
+
+      updateRain = () => {
+        rFrame++
+        if (rFrame % 5 !== 0) return
+        rCtx.fillStyle = 'rgba(0,0,6,0.08)'; rCtx.fillRect(0, 0, 256, 256)
+        drops.forEach((y, i) => {
+          rCtx.font = '10px monospace'
+          rCtx.fillStyle = `rgba(38,78,255,${0.3 + Math.random() * 0.4})`
+          rCtx.fillText(rChars[Math.floor(Math.random() * rChars.length)], i * 11 + 1, y * 11)
+          if (y * 11 > 256 && Math.random() > 0.96) { drops[i] = 0 } else { drops[i] += 0.55 }
+        })
+        rTex.needsUpdate = true
+      }
     }
 
     /* ===================== HOLOGRAPHIC PANELS ===================== */
@@ -561,13 +565,12 @@ function RobotSection() {
 
       if (prog > 0.3) {
         panFrame++
-        // Update panels less frequently on mobile
         const panFreq = isMobile ? 6 : 4;
         if (panFrame % panFreq === 0) { 
             drawPanel(panL)
             drawPanel(panR)
         }
-        updateRain()
+        if (!isMobile) updateRain()
       }
       renderer.render(scene, camera)
     }
@@ -576,7 +579,6 @@ function RobotSection() {
     /* ===================== RESIZE ===================== */
     let resizeRaf = null
     const onResize = () => {
-      // rAF-throttle: mobile address-bar resizes fire in bursts; coalesce to one pass/frame.
       if (resizeRaf) return
       resizeRaf = requestAnimationFrame(() => {
         resizeRaf = null
@@ -609,7 +611,7 @@ function RobotSection() {
           })
         }
       })
-      rTex.dispose()
+      if (rTex) rTex.dispose()
       renderer.dispose()
     }
   }, [])
