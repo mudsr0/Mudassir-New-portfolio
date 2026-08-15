@@ -1,4 +1,5 @@
 import { useRef, useLayoutEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
@@ -29,6 +30,7 @@ function splitStack(stack) {
 
 function WorkCard({ p, index, cardRef }) {
   const boundsRef = useRef(null)
+  const navigate = useNavigate()
   const stackItems = splitStack(p.stack)
 
   const handleEnter = () => {
@@ -47,8 +49,12 @@ function WorkCard({ p, index, cardRef }) {
 
   const handleLeave = () => { boundsRef.current = null }
 
+  const handleClick = () => {
+    navigate('/case-study/zerodown')
+  }
+
   return (
-    <div ref={cardRef} className="wcard" style={{ zIndex: index + 1 }} onMouseEnter={handleEnter} onMouseMove={handleMove} onMouseLeave={handleLeave}>
+    <div ref={cardRef} className="wcard" style={{ zIndex: index + 1 }} onMouseEnter={handleEnter} onMouseMove={handleMove} onMouseLeave={handleLeave} onClick={handleClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }}>
       <div className="wcard-inner">
         <div className="wcard-media">
           {p.image && (
@@ -69,13 +75,6 @@ function WorkCard({ p, index, cardRef }) {
             <div className="wcard-stack">
               {stackItems.map((item) => <span key={item} className="wcard-stack-item">{item}</span>)}
             </div>
-          )}
-
-          {p.link && (
-            <a href={p.link} target="_blank" rel="noopener noreferrer" className="wcard-cta">
-              View project
-              <span aria-hidden="true">↗</span>
-            </a>
           )}
         </div>
         {/* Ensure this element has a background color in your CSS (e.g., background: rgba(0,0,0,0.5)) */}
