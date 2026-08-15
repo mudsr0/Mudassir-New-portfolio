@@ -152,7 +152,7 @@
       "desc": "AI-powered CV generation platform producing ATS-optimized resumes instantly.",
       "stack": "React · OpenAI · Node.js",
       "link": "/case-study/cvlabz",
-      "image": "/images/work/cvlabz.jpg"
+      "image": "/images/work/cvlabz.webp"
     },
     {
       "tag": "SaaS Platform",
@@ -162,7 +162,7 @@
       "desc": "AI upscaling SaaS that automatically enhances low-quality product images.",
       "stack": "Next.js · DALL-E · AWS",
       "link": "/case-study/pixellift",
-      "image": "/images/work/pixellift.jpg"
+      "image": "/images/work/pixellift.webp"
     },
     {
       "tag": "Full-Stack App",
@@ -172,7 +172,7 @@
       "desc": "Full ride-booking platform with user app, driver app, and live tracking.",
       "stack": "React Native · Node.js · Stripe",
       "link": "/case-study/loomo",
-      "image": "/images/work/loomo.jpg"
+      "image": "/images/work/loomo.webp"
     },
     {
       "tag": "CRM Automation",
@@ -182,7 +182,7 @@
       "desc": "Automated 14-day SMS and email review sequence for law firms.",
       "stack": "GoHighLevel · Make.com · Twilio",
       "link": "/case-study/digitalcounsel",
-      "image": "/images/work/TGC.jpg"
+      "image": "/images/work/TGC.webp"
     },
     {
       "tag": "Healthcare AI",
@@ -192,7 +192,7 @@
       "desc": "Automated patient reactivation pipeline with AI SMS booking bot.",
       "stack": "GoHighLevel · Cliniko · OpenAI",
       "link": "/case-study/cherrett",
-      "image": "/images/work/cherrett.jpg"
+      "image": "/images/work/cherrett.webp"
     },
     {
       "tag": "Email Marketing",
@@ -202,7 +202,7 @@
       "desc": "Fixed broken email deliverability and automated ManyChat lead handoff.",
       "stack": "ConvertKit · ManyChat · DNS",
       "link": "/case-study/prepare2swim",
-      "image": "/images/work/p2s.jpg"
+      "image": "/images/work/p2s.webp"
     }
   ],
   "techStack": {
