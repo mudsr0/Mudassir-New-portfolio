@@ -632,11 +632,11 @@ function RobotSection() {
           <p className="robot-eyebrow" data-fade>built different</p>
           <h2 className="robot-h" data-fade data-delay="0.1">Welcome to the future<br />of development.</h2>
           <p className="robot-sub" data-fade data-delay="0.2">Agentic systems that think. Automations that run themselves.<br />Code that doesn't need babysitting.</p>
-        </div>
 
-        <div className="robot-scroll-hint" onClick={handleScrollDown} role="button" tabIndex={0} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
-          <span>scroll</span>
-          <div className="robot-scroll-line" />
+          <button className="robot-view-btn" onClick={handleScrollDown} type="button">
+            View Case Studies
+            <span aria-hidden="true">↓</span>
+          </button>
         </div>
       </section>
     </>
