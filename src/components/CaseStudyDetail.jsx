@@ -40,12 +40,49 @@ export default function CaseStudyDetail() {
       fadeEls.forEach((el) => {
         gsap.to(el, {
           opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+            once: true,
+          },
         })
       })
 
-      // Force triggers to calculate their positions instantly on mount.
+      // Recalculate trigger positions once the layout is settled. The first
+      // refresh runs while the preloader still locks body overflow, so also
+      // refresh after the next paint and once web fonts (which shift layout)
+      // are ready.
       ScrollTrigger.refresh()
+      const rafId = requestAnimationFrame(() => ScrollTrigger.refresh())
+      let fontsReady = null
+      if (document.fonts && document.fonts.ready) {
+        fontsReady = document.fonts.ready.then(() => ScrollTrigger.refresh())
+      }
+
+      // Safety net: if a trigger was miscalculated (stale positions), force-
+      // reveal any element that is actually in the viewport but still hidden.
+      const revealVisible = () => {
+        fadeEls.forEach((el) => {
+          const rect = el.getBoundingClientRect()
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            if (Number(gsap.getProperty(el, 'opacity')) < 1) {
+              gsap.to(el, {
+                opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+                overwrite: true,
+              })
+            }
+          }
+        })
+      }
+      window.addEventListener('scroll', revealVisible, { passive: true })
+      revealVisible()
+
+      return () => {
+        cancelAnimationFrame(rafId)
+        if (fontsReady && typeof fontsReady.cancel === 'function') fontsReady.cancel()
+        window.removeEventListener('scroll', revealVisible)
+      }
     }, root)
 
     return () => {
