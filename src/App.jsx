@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, Component } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useEffect, useRef, useState, useLayoutEffect, Component } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -52,7 +52,42 @@ class RobotErrorBoundary extends Component {
 
 export default function App() {
   const cursorRef = useRef(null)
+  const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
+
+  // Handle incoming navigation state from the Navbar: after landing on the home
+  // page, smooth-scroll to the requested section (e.g. `#work`, `#about`).
+  useLayoutEffect(() => {
+    const scrollToId = location.state && location.state.scrollTo
+    if (!scrollToId) return
+
+    // Wait for the DOM (home sections + their GSAP setup) to be ready before scrolling.
+    const timer = setTimeout(() => {
+      const el = document.getElementById(scrollToId)
+      if (el) {
+        const startPosition = window.pageYOffset
+        const targetPosition = el.getBoundingClientRect().top + startPosition
+        const distance = targetPosition - startPosition
+        const duration = 1500
+        let startTimestamp = null
+        const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp
+          const elapsed = timestamp - startTimestamp
+          const progress = Math.min(elapsed / duration, 1)
+          window.scrollTo(0, startPosition + distance * easeInOutCubic(progress))
+          if (elapsed < duration) requestAnimationFrame(step)
+        }
+        requestAnimationFrame(step)
+      }
+
+      // Clear the state so a manual refresh / revisit doesn't re-scroll.
+      window.history.replaceState({}, '')
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [location.state])
 
   // Lock body scroll and manage initial load styles
   useEffect(() => {
@@ -170,6 +205,41 @@ export default function App() {
       idleId = idleCallback(async () => {
         await wait(200) // let DOM settle
         ctx.add(init)
+
+        // The initial refresh runs while the preloader locks body overflow and
+        // before web fonts / the footer 3D canvas shift the layout. Recalculate
+        // once fonts are ready so reveal triggers (footer included) fire correctly.
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => ScrollTrigger.refresh())
+        }
+        setTimeout(() => ScrollTrigger.refresh(), 600)
+
+        // Safety net: never let a reveal-triggered element (e.g. the footer's
+        // data-fade wrapper) stay stuck at opacity 0 if its trigger miscalculated.
+        const revealStuck = () => {
+          document.querySelectorAll('[data-fade]').forEach((el) => {
+            if (el.closest('.case-study')) return
+            const rect = el.getBoundingClientRect()
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              if (Number(gsap.getProperty(el, 'opacity')) < 1) {
+                gsap.to(el, {
+                  opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+                  overwrite: true,
+                })
+              }
+            }
+          })
+        }
+        window.addEventListener('scroll', revealStuck, { passive: true })
+        revealStuck()
+
+        disposeCursor = (() => {
+          const original = disposeCursor
+          return () => {
+            original()
+            window.removeEventListener('scroll', revealStuck)
+          }
+        })()
       });
     })
 

@@ -1,8 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import data from '../data.json'
 
 export default function Navbar() {
   const links = data.nav.links
+  const location = useLocation()
+  const navigate = useNavigate()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState(null)
@@ -11,6 +14,8 @@ export default function Navbar() {
 
   const linkRefs = useRef({})
   const navLinksRef = useRef(null)
+
+  const isCaseStudyPage = location.pathname.startsWith('/case-study/')
 
   useEffect(() => {
     let rafId = null
@@ -111,10 +116,8 @@ export default function Navbar() {
     }
   }, [hoveredLink, activeLink, menuOpen])
 
-  const scrollTo = (id) => {
-    const el = document.getElementById(id)
+  const scrollToEl = (el) => {
     if (!el) return
-    
     setMenuOpen(false)
 
     const startPosition = window.pageYOffset
@@ -142,6 +145,36 @@ export default function Navbar() {
     }
 
     requestAnimationFrame(step)
+  }
+
+  const scrollToId = (id) => {
+    const el = document.getElementById(id)
+    if (!el) return
+    scrollToEl(el)
+  }
+
+  const handleNavClick = (link) => {
+    // Contact: scroll to the home contact section on the home page, or to the
+    // case study CTA section when viewing a case study.
+    if (link === 'contact') {
+      if (isCaseStudyPage) {
+        const el = document.querySelector('.case-study .cta-section')
+        if (el) scrollToEl(el)
+      } else {
+        scrollToId('contact')
+      }
+      return
+    }
+
+    // Other sections (About, Work, Services):
+    //   Home page  -> smooth-scroll to the matching section.
+    //   Case study -> go home, then scroll to the section once rendered.
+    if (isCaseStudyPage) {
+      setMenuOpen(false)
+      navigate('/', { state: { scrollTo: link } })
+    } else {
+      scrollToId(link)
+    }
   }
 
   return (
@@ -198,7 +231,7 @@ export default function Navbar() {
                 onMouseEnter={() => setHoveredLink(l)}
                 onFocus={() => setHoveredLink(l)}
                 onBlur={() => setHoveredLink(null)}
-                onClick={() => scrollTo(l)}
+                onClick={() => handleNavClick(l)}
                 tabIndex={menuOpen ? 0 : -1}
               >
                 {l}
@@ -225,7 +258,7 @@ export default function Navbar() {
                 <button
                   key={l}
                   className={`mobile-nav-link${activeLink === l ? ' active' : ''}`}
-                  onClick={() => scrollTo(l)}
+                  onClick={() => handleNavClick(l)}
                 >
                   {l}
                 </button>
@@ -240,7 +273,7 @@ export default function Navbar() {
           <span className="avail-dot" />
           available
         </div>
-        <button className="nav-cta" onClick={() => scrollTo('contact')}>
+        <button className="nav-cta" onClick={() => handleNavClick('contact')}>
           hire me ↗
         </button>
       </div>

@@ -57,7 +57,7 @@
         "label": "Experience"
       }
     ],
-    "descriptionHtml": "COO and co-founder of <strong>DevRolin</strong>. I architect agentic AI systems, automate complex workflows, and build premium digital products for clients across the US, UK, UAE, and beyond.<br /><br />Everything I ship is <strong>custom-built</strong> — no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers."
+    "descriptionHtml": "COO and co-founder of <strong>DevRolin</strong>. I architect agentic AI systems, automate complex workflows, and build premium digital products for clients across the US, UK, UAE, and beyond.<br /><br />Everything I ship is <strong>custom-built</strong> no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers."
   },
   "services": [
     {
@@ -82,7 +82,7 @@
       "num": "04",
       "icon": "◉",
       "title": "3D Web",
-      "desc": "Three.js and React Three Fiber experiences — portfolios, product showcases, interactive installations."
+      "desc": "Three.js and React Three Fiber experiences portfolios, product showcases, interactive installations."
     },
     {
       "num": "05",

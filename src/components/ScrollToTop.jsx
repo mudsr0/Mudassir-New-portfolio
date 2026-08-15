@@ -2,7 +2,7 @@ import { useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 // Disable the browser's native scroll restoration (it jumps to the previous
-// scroll position — e.g. the Work section — before React Router can reset it).
+// scroll position e.g. the Work section before React Router can reset it).
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual'
 }
