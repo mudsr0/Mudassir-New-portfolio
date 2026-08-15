@@ -964,7 +964,7 @@ button {
     display: flex;
     align-items: center;
     gap: 14px;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: .25em;
     color: var(--accent);
@@ -1884,7 +1884,7 @@ button {
 }
 
 .contact-eyebrow {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: .25em;
     color: var(--accent);
