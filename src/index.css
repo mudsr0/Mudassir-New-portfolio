@@ -1513,6 +1513,33 @@ button {
     border-color: var(--white)
 }
 
+.wcard-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--g1);
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid var(--border-2);
+    border-radius: 99px;
+    padding: 10px 20px;
+    margin-top: auto;
+    width: fit-content;
+    transition: all .3s var(--ease);
+    cursor: pointer
+}
+
+.wcard:hover .wcard-view-btn {
+    gap: 12px;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0, 160, 0, .08);
+    box-shadow: 0 0 15px rgba(0, 160, 0, .15)
+}
+
 @media (max-width:1024px) {
     .svc-grid {
         grid-template-columns: repeat(2, 1fr)
@@ -2368,7 +2395,10 @@ button {
     transform: translate(-50%, -50%);
     text-align: center;
     width: 500px;
-    max-width: 90vw
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center
 }
 
 .robot-eyebrow {
@@ -2397,6 +2427,36 @@ button {
     letter-spacing: .05em;
     font-weight: 400;
     text-shadow: 0 2px 10px #000
+}
+
+.robot-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--g1);
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid var(--border-2);
+    border-radius: 99px;
+    padding: 14px 28px;
+    margin-top: 32px;
+    width: fit-content;
+    transition: all .3s var(--ease);
+    cursor: pointer;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    pointer-events: auto
+}
+
+.robot-view-btn:hover {
+    gap: 12px;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0, 160, 0, .08);
+    box-shadow: 0 0 20px rgba(0, 160, 0, .2)
 }
 
 .robot-scroll-hint {
@@ -4105,6 +4165,7 @@ button {
     --green: #00A000;
     --green-dim: rgba(0, 160, 0, .14);
     --green-border: rgba(0, 160, 0, .3);
+    --green-glow: rgba(0, 160, 0, .45);
     --cyan: #00B7C9;
     --navy: #00183A;
     --text: #F5F5F5;
@@ -4114,13 +4175,17 @@ button {
     --tp: #00B67A;
     --radius: 10px;
     --radius-lg: 16px;
+    /* atmospheric "spotlights": cyan at the hero, green at the CTA */
+    background:
+        radial-gradient(600px circle at 50% 0%, rgba(0, 183, 201, .04), transparent 70%),
+        radial-gradient(600px circle at 50% 100%, rgba(0, 160, 0, .04), transparent 70%);
     /* offset the app's fixed navbar */
     padding-top: 110px;
     min-height: 100vh;
 }
 
 .case-study .wrap {
-    max-width: 780px;
+    max-width: 980px;
     margin: 0 auto;
     padding: 0 24px
 }
@@ -4264,7 +4329,7 @@ button {
     align-items: initial;
     justify-content: initial;
     text-align: left;
-    padding: 52px 0 0
+    padding: 80px 0 0
 }
 .case-study .project-tag {
     display: inline-flex;
@@ -4338,11 +4403,11 @@ button {
 
 /* ── problem ── */
 .case-study .problem-section {
-    padding: 52px 0 0
+    padding: 80px 0 0
 }
 .case-study .section-eyebrow {
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: bold;
     color: var(--text-3);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -4354,7 +4419,18 @@ button {
     font-weight: 700;
     color: var(--text);
     letter-spacing: -.4px;
-    margin-bottom: 6px
+    margin-bottom: 6px;
+    position: relative;
+    padding-bottom: 14px
+}
+.case-study .section-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent)
 }
 .case-study .section-sub {
     font-size: 15px;
@@ -4363,26 +4439,52 @@ button {
     line-height: 1.65
 }
 .case-study .pain-list {
-    display: flex;
-    flex-direction: column;
-    gap: 9px
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
 }
 .case-study .pain-item {
-    background: var(--surface);
+    background: rgba(229, 57, 42, .05);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--red);
+    border-left: 3px solid rgba(229, 57, 42, .45);
     border-radius: 0 var(--radius) var(--radius) 0;
     padding: 13px 18px;
     display: flex;
     align-items: flex-start;
-    gap: 12px
+    gap: 12px;
+    transition: transform .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease), box-shadow .3s var(--ease)
+}
+.case-study .pain-item:hover {
+    border-color: rgba(229, 57, 42, .35);
+    border-left-color: var(--red);
+    background: rgba(229, 57, 42, .09);
+    transform: translateX(4px);
+    box-shadow: -2px 0 14px rgba(229, 57, 42, .12)
 }
 .case-study .pain-x {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--red);
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
-    line-height: 1.6
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+    color: var(--red);
+    background: rgba(229, 57, 42, .08);
+    border: 1px solid rgba(229, 57, 42, .25);
+    border-radius: 50%;
+    transition: background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease)
+}
+.case-study .pain-x svg {
+    width: 10px;
+    height: 10px;
+    display: block
+}
+.case-study .pain-item:hover .pain-x {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+    transform: scale(1.05)
 }
 .case-study .pain-text {
     font-size: 14px;
@@ -4392,7 +4494,7 @@ button {
 
 /* ── video ── */
 .case-study .video-section {
-    padding: 52px 0 0;
+    padding: 80px 0 0;
     scroll-margin-top: 60px
 }
 .case-study .browser-frame {
@@ -4506,7 +4608,7 @@ button {
 
 /* ── what was built ── */
 .case-study .built-section {
-    padding: 52px 0 0
+    padding: 80px 0 0
 }
 .case-study .built-grid {
     display: grid;
@@ -4520,10 +4622,12 @@ button {
     padding: 22px;
     position: relative;
     overflow: hidden;
-    transition: border-color .15s
+    transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease)
 }
 .case-study .built-card:hover {
-    border-color: var(--border-strong)
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .2)
 }
 .case-study .built-card::before {
     content: '';
@@ -4558,7 +4662,7 @@ button {
 
 /* ── outcome ── */
 .case-study .outcome-section {
-    padding: 52px 0 0
+    padding: 80px 0 0
 }
 .case-study .outcome-grid {
     display: grid;
@@ -4570,7 +4674,13 @@ button {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 24px 16px;
-    text-align: center
+    text-align: center;
+    transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease)
+}
+.case-study .outcome-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .2)
 }
 .case-study .outcome-num {
     font-family: 'DM Sans', 'Inter', sans-serif;
@@ -4579,7 +4689,11 @@ button {
     color: var(--green);
     letter-spacing: -1.5px;
     line-height: 1;
-    margin-bottom: 8px
+    margin-bottom: 8px;
+    transition: text-shadow .3s var(--ease)
+}
+.case-study .outcome-card:hover .outcome-num {
+    text-shadow: 0 0 20px var(--green-glow)
 }
 .case-study .outcome-label {
     font-size: 12px;
@@ -4589,7 +4703,7 @@ button {
 
 /* ── testimonial ── */
 .case-study .testimonial-section {
-    padding: 52px 0 0
+    padding: 80px 0 0
 }
 .case-study .tcard {
     background: var(--surface);
@@ -4597,7 +4711,13 @@ button {
     border-radius: var(--radius-lg);
     padding: 36px;
     position: relative;
-    overflow: hidden
+    overflow: hidden;
+    transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease)
+}
+.case-study .tcard:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .2)
 }
 .case-study .tcard::before {
     content: '';
@@ -4707,7 +4827,7 @@ button {
 
 /* ── process ── */
 .case-study .process-section {
-    padding: 52px 0 0
+    padding: 80px 0 0
 }
 .case-study .process-steps {
     display: flex;
@@ -4765,7 +4885,7 @@ button {
 
 /* ── CTA ── */
 .case-study .cta-section {
-    padding: 52px 0 80px
+    padding: 80px 0 80px
 }
 .case-study .cta-card {
     background: var(--surface);
@@ -4937,6 +5057,9 @@ button {
     .case-study .outcome-grid {
         grid-template-columns: 1fr 1fr
     }
+    .case-study .pain-list {
+        grid-template-columns: 1fr
+    }
 }
 @media (max-width: 440px) {
     .case-study .built-grid {
@@ -4995,7 +5118,8 @@ button {
 .scroll-top-ring-progress {
     stroke: var(--accent);
     stroke-linecap: round;
-    transition: stroke-dashoffset .1s linear;
+    transform: rotate(-90deg);
+    transform-origin: center;
 }
 
 .scroll-top-arrow {

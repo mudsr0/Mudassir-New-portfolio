@@ -21,7 +21,7 @@ export default function TechStack() {
           <h2 className="sec-h">My arsenal.</h2>
 
           <p className="tech-desc">
-            Code-first always. I choose the right tool for each problem — from
+            Code-first always. I choose the right tool for each problem from
             Three.js for immersive 3D to n8n for automation pipelines. No
             shortcuts, no limitations from drag-and-drop platforms.
           </p>

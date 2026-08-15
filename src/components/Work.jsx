@@ -50,7 +50,7 @@ function WorkCard({ p, index, cardRef }) {
   const handleLeave = () => { boundsRef.current = null }
 
   const handleClick = () => {
-    navigate('/case-study/zerodown')
+    navigate(p.link)
   }
 
   return (
@@ -76,6 +76,8 @@ function WorkCard({ p, index, cardRef }) {
               {stackItems.map((item) => <span key={item} className="wcard-stack-item">{item}</span>)}
             </div>
           )}
+
+          <div className="wcard-view-btn">View Case Study <span>↗</span></div>
         </div>
         {/* Ensure this element has a background color in your CSS (e.g., background: rgba(0,0,0,0.5)) */}
         <div className="wcard-dim" aria-hidden="true" />
