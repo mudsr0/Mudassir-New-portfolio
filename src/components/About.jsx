@@ -57,8 +57,8 @@ export default function About() {
 
     const createBackgroundGradient = () => {
       backgroundGradient = context.createLinearGradient(0, 0, width, height)
-      backgroundGradient.addColorStop(0.00, '#14251be6')
-      backgroundGradient.addColorStop(0.20, '#1a271fe6')
+      backgroundGradient.addColorStop(0.00, '#101622e6')
+      backgroundGradient.addColorStop(0.20, '#111827e6')
       backgroundGradient.addColorStop(0.45, '#222222')
       backgroundGradient.addColorStop(0.70, '#272727')
       backgroundGradient.addColorStop(1.00, '#292929')
@@ -129,7 +129,7 @@ export default function About() {
           if (distSq < linkDistanceSq) {
             const dist = Math.sqrt(distSq), alpha = 0.22 * (1 - dist / linkDistance)
             context.beginPath()
-            context.strokeStyle = `rgba(150,255,190,${alpha})`
+            context.strokeStyle = `rgba(150,190,255,${alpha})`
             context.moveTo(p.x, p.y); context.lineTo(q.x, q.y); context.stroke()
           }
         }
@@ -143,9 +143,9 @@ export default function About() {
         context.fill()
         const glowRadius = p.r * 6
         const glow = context.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius)
-        glow.addColorStop(0, 'rgba(120,255,170,.28)')
-        glow.addColorStop(0.55, 'rgba(60,200,120,.10)')
-        glow.addColorStop(1, 'rgba(60,200,120,0)')
+        glow.addColorStop(0, 'rgba(120,170,255,.28)')
+        glow.addColorStop(0.55, 'rgba(60,120,200,.10)')
+        glow.addColorStop(1, 'rgba(60,120,200,0)')
         context.beginPath()
         context.arc(p.x, p.y, glowRadius, 0, Math.PI * 2)
         context.fillStyle = glow
