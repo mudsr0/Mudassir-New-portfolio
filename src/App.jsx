@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, Component } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -17,6 +18,8 @@ import VideoTestimonials from './components/VideoTestimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Partners from './components/partners'
+import CaseStudyDetail from './components/CaseStudyDetail'
+import ScrollToTopButton from './components/ScrollToTopButton'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -113,8 +116,12 @@ export default function App() {
 
       // ── Fade-up animations ─────────────────────────────────
       const wait = (ms) => new Promise(r => setTimeout(r, ms))
+      // Elements inside the case study page animate themselves (CaseStudyDetail),
+      // so exclude them here to avoid double-animating.
+      const isCaseStudy = (el) => !!el.closest('.case-study')
       const init = () => {
         document.querySelectorAll('[data-fade]').forEach((el) => {
+          if (isCaseStudy(el)) return
           gsap.fromTo(el,
             { opacity: 0, y: 55 },
             {
@@ -184,21 +191,29 @@ export default function App() {
       <div className="noise" aria-hidden="true" />
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
 
+      <ScrollToTopButton />
       <Navbar />
       <main>
-        <Hero />
-        <Marquee />
-        {/* <VideoTestimonials /> */}
-        <Partners />
-        <RobotErrorBoundary>
-          <RobotSection />
-        </RobotErrorBoundary>
-        <Work />
-        <About />
-        <Services />
-        <TechStack />
-        <Testimonials />
-        <Contact />
+        <Routes>
+          <Route path="/case-study/:id" element={<CaseStudyDetail />} />
+          <Route path="*" element={
+            <>
+              <Hero />
+              <Marquee />
+              {/* <VideoTestimonials /> */}
+              <Partners />
+              <RobotErrorBoundary>
+                <RobotSection />
+              </RobotErrorBoundary>
+              <Work />
+              <About />
+              <Services />
+              <TechStack />
+              <Testimonials />
+              <Contact />
+            </>
+          } />
+        </Routes>
       </main>
       <Footer />
     </>

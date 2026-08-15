@@ -65,9 +65,9 @@ export default function Footer() {
       <div className="footer-divider"></div>
 
       <div className="footer-bottom">
-        <span className="footer-copy">© {year} Mudassir · DevRolin</span>
+        <span className="footer-copy">© {year} Mudassir H. · DevRolin</span>
         <span className="footer-credits">
-          Designed & Built with precision
+          CRM Automation · Sales Systems · SaaS MVPs · Custom Platforms
         </span>
       </div>
     </footer>

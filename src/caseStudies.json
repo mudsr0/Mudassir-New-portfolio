@@ -1,0 +1,115 @@
+{
+  "zerodown": {
+    "id": "zerodown",
+    "builder": {
+      "name": "Mudassir Hussain",
+      "initials": "MH",
+      "expertise": "CRM Automation & Sales Systems Expert",
+      "note": "You're here because you have a <strong>sales or operations problem</strong> that's costing you real money — leads falling through, manual work that shouldn't exist, or a pipeline no one can actually see. This is a real project I built for a real client. Watch the demo below and see exactly what changes when the system is built right."
+    },
+    "hero": {
+      "tag": "Case Study · Zerodown",
+      "title": "They were running their<br>business on <br> <em>spreadsheets & guesswork.</em><br>We fixed that.",
+      "body": "Zerodown had a real pipeline — they just couldn't see it. Leads were slipping, follow-ups were manual, and the team had no single source of truth. We replaced all of it with one automated system. Built in 2 weeks. Here's how it runs.",
+      "pills": ["2-week build", "Zero manual follow-ups", "Full pipeline visibility", "100% client-owned"]
+    },
+    "problem": {
+      "eyebrow": "Before the build",
+      "heading": "What was breaking",
+      "sub": "If any of these look familiar, you're looking at your own situation.",
+      "pains": [
+        "Leads tracked in spreadsheets — no automation, no reminders, no shared history",
+        "Follow-ups depended entirely on someone remembering to do them",
+        "No visibility into where any deal stood without asking the team directly",
+        "Tools that didn't connect — data scattered across email, Sheets, and memory"
+      ]
+    },
+    "video": {
+      "eyebrow": "The build",
+      "heading": "Watch the system running",
+      "sub": "Not a mockup. Not a slide deck. The actual product, live.",
+      "embedUrl": "https://drive.google.com/file/d/14VxSaKuJkUKY-gpLbEKDr1ea016Qcj6E/preview",
+      "openUrl": "https://drive.google.com/file/d/14VxSaKuJkUKY-gpLbEKDr1ea016Qcj6E/view?usp=drive_link",
+      "label": "Zerodown · Full system walkthrough"
+    },
+    "built": {
+      "eyebrow": "What's inside",
+      "heading": "Four systems. One working product.",
+      "sub": "Each one eliminating a specific gap in how they operated.",
+      "items": [
+        {
+          "num": "01",
+          "title": "Automated CRM pipeline",
+          "desc": "Leads flow in, get categorised, and move through stages — without anyone touching a spreadsheet."
+        },
+        {
+          "num": "02",
+          "title": "Smart follow-up engine",
+          "desc": "Sequences triggered by deal stage. The right message goes out at the right time, automatically."
+        },
+        {
+          "num": "03",
+          "title": "Live ops dashboard",
+          "desc": "One screen. Every deal. Where it is, what's stalled, what needs action — no asking around."
+        },
+        {
+          "num": "04",
+          "title": "Fully connected stack",
+          "desc": "Email, calendar, comms — all integrated. Data lives in one place. Nothing falls through the cracks."
+        }
+      ]
+    },
+    "outcome": {
+      "eyebrow": "The result",
+      "heading": "What changed in month one",
+      "sub": "Measured after the system went live.",
+      "items": [
+        { "num": "0", "label": "Leads lost to no follow-up" },
+        { "num": "2 wks", "label": "Kickoff to fully live system" },
+        { "num": "100%", "label": "Pipeline visible in real time" }
+      ]
+    },
+    "testimonial": {
+      "eyebrow": "Client voice",
+      "heading": "What Zerodown said",
+      "sub": "After seeing the system live for the first time.",
+      "quote": "Before this, I had no idea where our leads actually stood unless I chased the team. Mudassir built something that <strong>runs exactly the way our business runs</strong> — not some generic tool we had to adapt ourselves. The first time I saw the dashboard, every deal was right there. That was the moment I knew we'd made the right call.",
+      "author": "Zerodown Founder",
+      "role": "CEO, Zerodown",
+      "initials": "ZD"
+    },
+    "process": {
+      "eyebrow": "How I work",
+      "heading": "What the process looks like",
+      "sub": "No retainers. No padded timelines. No surprises.",
+      "steps": [
+        {
+          "num": "1",
+          "title": "One call — I diagnose the real problem",
+          "desc": "Most clients say they need X. The actual fix is usually Y. I'll tell you which after one conversation."
+        },
+        {
+          "num": "2",
+          "title": "I scope it tight, build it fast",
+          "desc": "Clear spec. Milestone payments. Working system in weeks — not a 3-month project that keeps moving."
+        },
+        {
+          "num": "3",
+          "title": "You own everything from day one",
+          "desc": "Code, data, logins, integrations — all yours. No lock-in. No dependency on me to keep it running."
+        },
+        {
+          "num": "4",
+          "title": "You go live. I stay available for 30 days.",
+          "desc": "Launch is where most builds break. I stay on for a full month post-delivery — no extra charge."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "You were looking for someone who's done this before. You found them.",
+      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing with — I'll come back with a clear plan, a realistic timeline, and a number. <strong>No vague proposals.</strong>",
+      "upworkUrl": "https://www.upwork.com/freelancers/mudassir",
+      "email": "mudassir@devrolin.com"
+    }
+  }
+}
