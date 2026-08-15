@@ -78,8 +78,8 @@ export default function Footer3DText() {
       >
         <Suspense fallback={null}>
           <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#ffffff" />
-          <spotLight position={[-10, -5, 5]} angle={0.15} penumbra={1} intensity={1.5} color="#3b82f6" />
+          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#FFFFFF" />
+          <spotLight position={[-10, -5, 5]} angle={0.15} penumbra={1} intensity={1.5} color="#00A000" />
           <TextMesh isVisible={isVisible} />
           <Environment preset="city" />
         </Suspense>

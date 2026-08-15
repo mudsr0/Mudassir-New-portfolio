@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 
-export default function WaveBackground({ color = '#3b82f6', dotCount = 60 }) {
+export default function WaveBackground({ color = '#00A000', dotCount = 60 }) {
   const mountRef = useRef(null), canvasRef = useRef(null)
 
   useEffect(() => {
