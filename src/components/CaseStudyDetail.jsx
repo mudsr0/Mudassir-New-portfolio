@@ -148,22 +148,11 @@ export default function CaseStudyDetail() {
         <section className="problem-section" data-fade>
           <SectionHeading eyebrow={problem.eyebrow} heading={problem.heading} sub={problem.sub} />
           {Array.isArray(problem.pains) && problem.pains.length > 0 && (
-            <div className="pain-list">
-              <svg className="pain-connections" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                <line x1="20" y1="15" x2="75" y2="25" stroke="rgba(229, 57, 42, 0.4)" strokeWidth="0.2" strokeDasharray="1, 1" />
-                <line x1="80" y1="30" x2="25" y2="80" stroke="rgba(229, 57, 42, 0.4)" strokeWidth="0.2" strokeDasharray="1, 1" />
-                <line x1="15" y1="85" x2="70" y2="95" stroke="rgba(229, 57, 42, 0.4)" strokeWidth="0.2" strokeDasharray="1, 1" />
-              </svg>
+            <div className="pain-list-minimal">
               {problem.pains.map((pain, index) => (
-                <div key={pain} className="pain-item">
-                  <div className="pain-x" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 7h3a5 5 0 0 1 0 10h-3"></path>
-                      <path d="M9 17H6a5 5 0 0 1 0-10h3"></path>
-                    </svg>
-                  </div>
-                  <span className="pain-text">{pain}</span>
-                  <span className="pain-status">{index % 2 === 0 ? 'SYSTEM ISOLATED' : 'OFFLINE'}</span>
+                <div key={`pain-${index}`} className="pain-item-minimal">
+                  <span className="pain-dot"></span>
+                  <span className="pain-text-minimal">{pain}</span>
                 </div>
               ))}
             </div>

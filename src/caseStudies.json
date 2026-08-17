@@ -10,7 +10,7 @@
     "hero": {
       "tag": "Case Study · CV Labz",
       "title": "They were generating CVs manually.<br>We automated the <em>entire process.</em>",
-      "body": "CV Labz had no structured system — users submitted details and waited. We built an AI-powered CV generation platform that produces ATS-optimized resumes scoring up to 10/10, instantly. Built in 2 weeks. Zero manual effort after launch.",
+      "body": "CV Labz had no structured system  users submitted details and waited. We built an AI-powered CV generation platform that produces ATS-optimized resumes scoring up to 10/10, instantly. Built in 2 weeks. Zero manual effort after launch.",
       "pills": [
         "2-week build",
         "Zero manual effort",
@@ -23,10 +23,10 @@
       "heading": "What was breaking",
       "sub": "Manual processes that don't scale.",
       "pains": [
-        "CVs written manually — slow, inconsistent, no ATS optimization",
+        "CVs written manually  slow, inconsistent, no ATS optimization",
         "No scoring system to measure quality before submission",
         "Users had no guidance on what employers actually look for",
-        "Zero automation — every CV was a fresh manual task"
+        "Zero automation  every CV was a fresh manual task"
       ]
     },
     "video": {
@@ -129,7 +129,7 @@
     "hero": {
       "tag": "Case Study · PixelLift",
       "title": "Their product images were low quality.<br>We made them <em>store-ready automatically.</em>",
-      "body": "PixelLift was losing sales to blurry, low-resolution product images scraped from Amazon, Shopify, and eBay. We built an AI upscaling SaaS that automatically enhances every image — sharper, higher resolution, professional quality. No manual editing required.",
+      "body": "PixelLift was losing sales to blurry, low-resolution product images scraped from Amazon, Shopify, and eBay. We built an AI upscaling SaaS that automatically enhances every image  sharper, higher resolution, professional quality. No manual editing required.",
       "pills": [
         "AI Upscaling",
         "Multi-platform scraping",
@@ -142,8 +142,8 @@
       "heading": "What was breaking",
       "sub": "Manual processes that don't scale.",
       "pains": [
-        "Product images scraped at low resolution — unprofessional appearance",
-        "No automated enhancement — every image needed manual editing",
+        "Product images scraped at low resolution  unprofessional appearance",
+        "No automated enhancement  every image needed manual editing",
         "Inconsistent quality across Amazon, Shopify, and eBay stores",
         "Hours wasted on image processing that should have been instant"
       ]
@@ -248,7 +248,7 @@
     "hero": {
       "tag": "Case Study · Loomo",
       "title": "They were booking rides manually.<br>We built the <em>entire platform from scratch.</em>",
-      "body": "Loomo had a concept and no product. We built a full ride-booking platform — user app, driver app, admin panel, real-time tracking, and payment integration. From zero to live in 4 weeks. Every feature working on day one.",
+      "body": "Loomo had a concept and no product. We built a full ride-booking platform  user app, driver app, admin panel, real-time tracking, and payment integration. From zero to live in 4 weeks. Every feature working on day one.",
       "pills": [
         "4-week build",
         "Full-stack build",
@@ -261,10 +261,10 @@
       "heading": "What was breaking",
       "sub": "Manual processes that don't scale.",
       "pains": [
-        "No platform — bookings handled manually over phone and WhatsApp",
-        "No real-time tracking — customers had no visibility on driver location",
-        "No payment system — cash only, no records, no accountability",
-        "No admin control — zero visibility into rides, drivers, or revenue"
+        "No platform  bookings handled manually over phone and WhatsApp",
+        "No real-time tracking  customers had no visibility on driver location",
+        "No payment system  cash only, no records, no accountability",
+        "No admin control  zero visibility into rides, drivers, or revenue"
       ]
     },
     "video": {
@@ -367,7 +367,7 @@
     "hero": {
       "tag": "Case Study · The Digital Counsel",
       "title": "Their review outreach was completely manual.<br>We automated it <em>across every client.</em>",
-      "body": "Brett Ortiz was manually chasing Google reviews for 5–10 law firm clients. We built a 14-day SMS and email automation inside GoHighLevel — one master template, cloned across every client in minutes. Plus fixed his invoice deliverability. Built in under 2 weeks.",
+      "body": "Brett Ortiz was manually chasing Google reviews for 5–10 law firm clients. We built a 14-day SMS and email automation inside GoHighLevel  one master template, cloned across every client in minutes. Plus fixed his invoice deliverability. Built in under 2 weeks.",
       "pills": [
         "Under 2-week build",
         "GoHighLevel automation",
@@ -380,9 +380,9 @@
       "heading": "What was breaking",
       "sub": "Manual processes that don't scale.",
       "pains": [
-        "Review requests sent manually — inconsistent, time-consuming, easy to forget",
-        "Invoices landing in client spam — deliverability never configured",
-        "No reusable system — every new client required starting from scratch",
+        "Review requests sent manually  inconsistent, time-consuming, easy to forget",
+        "Invoices landing in client spam  deliverability never configured",
+        "No reusable system  every new client required starting from scratch",
         "Zero visibility into open rates, delivery, or review counts per client"
       ]
     },
@@ -486,7 +486,7 @@
     "hero": {
       "tag": "Case Study · Cherrett Chiropractic",
       "title": "They were manually chasing lapsed patients.<br>We made reactivation <em>run itself.</em>",
-      "body": "Cherrett Chiropractic had hundreds of inactive patients and no system to reach them. We built a fully automated monthly reactivation pipeline — Cliniko to GoHighLevel — with an AI SMS bot that books appointments and writes them back into the diary. Zero manual effort every month.",
+      "body": "Cherrett Chiropractic had hundreds of inactive patients and no system to reach them. We built a fully automated monthly reactivation pipeline  Cliniko to GoHighLevel  with an AI SMS bot that books appointments and writes them back into the diary. Zero manual effort every month.",
       "pills": [
         "Automated pipeline",
         "AI SMS bot",
@@ -499,10 +499,10 @@
       "heading": "What was breaking",
       "sub": "Manual processes that don't scale.",
       "pains": [
-        "Lapsed patients never followed up — revenue sitting untouched every month",
-        "Outreach done manually — inconsistent timing, low response rates",
-        "No AI conversation — every reply required a human to respond",
-        "Bookings entered manually — no automatic write-back to Cliniko diary"
+        "Lapsed patients never followed up  revenue sitting untouched every month",
+        "Outreach done manually  inconsistent timing, low response rates",
+        "No AI conversation  every reply required a human to respond",
+        "Bookings entered manually  no automatic write-back to Cliniko diary"
       ]
     },
     "video": {
@@ -618,10 +618,10 @@
       "heading": "What was breaking",
       "sub": "Manual processes that don't scale.",
       "pains": [
-        "Emails landing in spam — SPF, DKIM, and DMARC never configured",
-        "No welcome automation — new subscribers received nothing after signup",
+        "Emails landing in spam  SPF, DKIM, and DMARC never configured",
+        "No welcome automation  new subscribers received nothing after signup",
         "ManyChat leads entering wrong sequences or getting duplicated",
-        "Subscribers addressed as 'Hey there' — personalization completely broken"
+        "Subscribers addressed as 'Hey there'  personalization completely broken"
       ]
     },
     "video": {
