@@ -618,7 +618,7 @@ function RobotSection() {
 
   /* ===================== JSX ===================== */
   const handleScrollDown = () => {
-    window.scrollBy({ top: window.innerHeight * 0.65, behavior: 'smooth' })
+    window.scrollBy({ top: window.innerHeight * 0.90, behavior: 'smooth' })
   }
 
   return (
