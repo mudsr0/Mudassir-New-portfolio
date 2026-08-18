@@ -2,6 +2,7 @@ import { useEffect, useRef, memo } from 'react'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { isWebGLAvailable } from '../utils/webgl'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -302,6 +303,12 @@ function RobotSection() {
     const mount = mountRef.current
     if (!mount) return
 
+    if (!isWebGLAvailable()) {
+      mount.classList.add('webgl-fallback')
+      return
+    }
+
+    try {
     /* ===================== DEVICE SETTINGS ===================== */
     const isMobile = window.innerWidth < 768
     // Scaled down slightly on mobile to fit both comfortably
@@ -613,6 +620,10 @@ function RobotSection() {
       })
       if (rTex) rTex.dispose()
       renderer.dispose()
+    }
+    } catch (err) {
+      console.error('[RobotSection] WebGL init failed, using CSS gradient fallback', err)
+      mount.classList.add('webgl-fallback')
     }
   }, [])
 

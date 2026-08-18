@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
+import { isWebGLAvailable } from '../../utils/webgl'
 
 export default function WaveBackground({ color = '#00A000', dotCount = 60 }) {
   const mountRef = useRef(null), canvasRef = useRef(null)
@@ -8,8 +9,14 @@ export default function WaveBackground({ color = '#00A000', dotCount = 60 }) {
     const mount = mountRef.current
     if (!mount) return
 
+    if (!isWebGLAvailable()) {
+      mount.classList.add('webgl-fallback')
+      return
+    }
+
     let destroyed = false, frameId = null
 
+    try {
     const getSize = () => ({ width: mount.clientWidth, height: mount.clientHeight })
     let { width, height } = getSize()
     if (!width || !height) return
@@ -200,6 +207,10 @@ export default function WaveBackground({ color = '#00A000', dotCount = 60 }) {
       geometry.dispose(); material.dispose()
       planeGeo.dispose(); planeMat.dispose()
       renderer.dispose()
+    }
+    } catch (err) {
+      console.error('[WaveBackground] WebGL init failed, using CSS gradient fallback', err)
+      mount.classList.add('webgl-fallback')
     }
   }, [color, dotCount])
 
