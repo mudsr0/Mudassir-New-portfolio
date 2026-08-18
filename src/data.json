@@ -1,28 +1,63 @@
 {
   "nav": {
     "logoText": "MUDASSIR",
-    "links": ["work", "services", "about", "contact"]
+    "links": [
+      "work",
+      "services",
+      "about",
+      "contact"
+    ]
   },
   "hero": {
-    "eyebrowText": "agentic ai · automations · 3d web",
+    "eyebrowText": "ai automation · crm engineer · python",
     "headlineHtml": "I build what<br /><em>doesn't exist</em><br />yet.",
-    "caption": "AI Agents · Autonomous Systems · Full-stack SaaS · 3D Experiences<br />DevRolin · Eylina · Based in Pakistan · Serving globally"
+    "caption": "AI Agents · Zoho CRM · GHL · Automations<br />DevRolin · Based in Pakistan · Serving globally"
   },
   "marquee": {
     "items": [
-      "Agentic AI", "Automations", "Full-stack SaaS", "3D Web",
-      "Mobile Apps", "AI Systems", "Voice AI", "Next.js",
-      "Three.js", "GSAP", "Flutter", "DevRolin", "Eylina"
+      "Agentic AI",
+      "Automations",
+      "Full-stack SaaS",
+      "3D Web",
+      "Mobile Apps",
+      "AI Systems",
+      "Voice AI",
+      "Next.js",
+      "Three.js",
+      "GSAP",
+      "Flutter",
+      "DevRolin"
     ]
   },
   "about": {
-    "stats": [
-      { "num": "30+", "label": "Projects shipped" },
-      { "num": "12+", "label": "Countries served" },
-      { "num": "3",   "label": "Companies built" },
-      { "num": "5yr", "label": "Experience" }
+    "headingLines": [
+      "Building the future,",
+      "one system at a time."
     ],
-    "descriptionHtml": "Everything I ship is <strong>custom-built</strong> \u2014 no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers. Eylina is our AI-native product \u2014 redefining how law firms handle client intake."
+    "brand": "DEVROLIN",
+    "role": "COO & Co-founder, Devrolin",
+    "ctaLine": "Ready to automate your next system?",
+    "ctaLabel": "LET'S TALK",
+    "ctaHref": "#contact",
+    "stats": [
+      {
+        "num": "30+",
+        "label": "Projects shipped"
+      },
+      {
+        "num": "12+",
+        "label": "Countries served"
+      },
+      {
+        "num": "3",
+        "label": "Companies built"
+      },
+      {
+        "num": "5yr",
+        "label": "Experience"
+      }
+    ],
+    "descriptionHtml": "COO and co-founder of <strong>DevRolin</strong>. I architect agentic AI systems, automate complex workflows, and build premium digital products for clients across the US, UK, UAE, and beyond.<br /><br />Everything I ship is <strong>custom-built</strong> no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers."
   },
   "services": [
     {
@@ -47,7 +82,7 @@
       "num": "04",
       "icon": "◉",
       "title": "3D Web",
-      "desc": "Three.js and React Three Fiber experiences \u2014 portfolios, product showcases, interactive installations."
+      "desc": "Three.js and React Three Fiber experiences portfolios, product showcases, interactive installations."
     },
     {
       "num": "05",
@@ -62,84 +97,223 @@
       "desc": "TTS model training, EEG signal classification, BCI pipelines, voice synthesis, Groq & OpenAI integration."
     }
   ],
+  "partners": [
+    {
+      "name": "Prepare2Swim",
+      "logo": "/images/partners/p2s.png"
+    },
+    {
+      "name": "A&A Plastering",
+      "logo": "/images/partners/AandA Plastering.png"
+    },
+    {
+      "name": "Bright",
+      "logo": "/images/partners/Bright.png"
+    },
+    {
+      "name": "CV Labz",
+      "logo": "/images/partners/CV Labz.png"
+    },
+    {
+      "name": "Keys & Confidence Driving School",
+      "logo": "/images/partners/Keys & Confidence Driving School.png"
+    },
+    {
+      "name": "NC Dental U",
+      "logo": "/images/partners/NC Dental U.png"
+    },
+    {
+      "name": "Pixellift",
+      "logo": "/images/partners/Pixellift.png"
+    },
+    {
+      "name": "PMF Creative",
+      "logo": "/images/partners/PMF Creative.png"
+    },
+    {
+      "name": "Zerodown Smart Start",
+      "logo": "/images/partners/Zerodown Smart Start.png"
+    },
+    {
+      "name": "Qbo",
+      "logo": "/images/partners/Qbo.png"
+    },
+    {
+      "name": "Anatome",
+      "logo": "/images/partners/Anatome.png"
+    }
+  ],
   "work": [
-    {
-      "tag": "AI Platform",
-      "year": "2024",
-      "icon": "⚖",
-      "title": "Eylina \u2014 Legal Intake AI",
-      "desc": "AI-powered legal intake platform. Automates client onboarding, case triage, and document collection for law firms.",
-      "stack": "Next.js · OpenAI · MongoDB"
-    },
-    {
-      "tag": "Voice AI",
-      "year": "2024",
-      "icon": "◎",
-      "title": "CallRolin \u2014 TTS System",
-      "desc": "Multilingual voice AI platform on GCP. Custom VITS model training for Urdu, English, and Arabic TTS synthesis.",
-      "stack": "Python · GCP · VITS · React"
-    },
-    {
-      "tag": "CRM Automation",
-      "year": "2024",
-      "icon": "⬡",
-      "title": "BuyerSide Spain CRM",
-      "desc": "Full real-estate CRM with GHL automation, property pipeline management, and client reactivation workflows.",
-      "stack": "GoHighLevel · Node.js · Zapier"
-    },
-    {
-      "tag": "EdTech Platform",
-      "year": "2023",
-      "icon": "▶",
-      "title": "ZEERO \u2014 AI Lecture Platform",
-      "desc": "AI-powered multilingual video lecture platform with real-time translation, quiz generation, and progress tracking.",
-      "stack": "React · OpenAI · Firebase"
-    },
     {
       "tag": "AI Automation",
       "year": "2024",
-      "icon": "♦",
-      "title": "Cherrett Chiropractic AI",
-      "desc": "AI patient reactivation system that autonomously contacts lapsed patients and books appointments through SMS.",
-      "stack": "GHL · AI · Twilio"
+      "icon": "✦",
+      "title": "CV Labz",
+      "desc": "AI-powered CV generation platform producing ATS-optimized resumes instantly.",
+      "stack": "React · OpenAI · Node.js",
+      "link": "/case-study/cvlabz",
+      "image": "/images/work/cvlabz.webp"
     },
     {
-      "tag": "Web Platform",
+      "tag": "SaaS Platform",
+      "year": "2025",
+      "icon": "▲",
+      "title": "PixelLift",
+      "desc": "AI upscaling SaaS that automatically enhances low-quality product images.",
+      "stack": "Next.js · DALL-E · AWS",
+      "link": "/case-study/pixellift",
+      "image": "/images/work/pixellift.webp"
+    },
+    {
+      "tag": "Full-Stack App",
       "year": "2024",
-      "icon": "◐",
-      "title": "AtmoStreams \u2014 3D Framer Site",
-      "desc": "Premium Framer website with custom 3D animations, particle effects, and scroll-linked visual storytelling.",
-      "stack": "Framer · Three.js · GSAP"
+      "icon": "◉",
+      "title": "Loomo",
+      "desc": "Full ride-booking platform with user app, driver app, and live tracking.",
+      "stack": "React Native · Node.js · Stripe",
+      "link": "/case-study/loomo",
+      "image": "/images/work/loomo.webp"
+    },
+    {
+      "tag": "CRM Automation",
+      "year": "2026",
+      "icon": "⚖",
+      "title": "The Digital Counsel",
+      "desc": "Automated 14-day SMS and email review sequence for law firms.",
+      "stack": "GoHighLevel · Make.com · Twilio",
+      "link": "/case-study/digitalcounsel",
+      "image": "/images/work/TGC.webp"
+    },
+    {
+      "tag": "Healthcare AI",
+      "year": "2026",
+      "icon": "✚",
+      "title": "Cherrett Chiropractic",
+      "desc": "Automated patient reactivation pipeline with AI SMS booking bot.",
+      "stack": "GoHighLevel · Cliniko · OpenAI",
+      "link": "/case-study/cherrett",
+      "image": "/images/work/cherrett.webp"
+    },
+    {
+      "tag": "Email Marketing",
+      "year": "2025",
+      "icon": "✉",
+      "title": "Prepare2Swim",
+      "desc": "Fixed broken email deliverability and automated ManyChat lead handoff.",
+      "stack": "ConvertKit · ManyChat · DNS",
+      "link": "/case-study/prepare2swim",
+      "image": "/images/work/p2s.webp"
     }
   ],
   "techStack": {
-    "featured": ["React / Next.js", "Three.js", "Node.js", "Flutter", "OpenAI API", "Python", "MongoDB"],
-    "rest": ["GSAP", "Framer Motion", "Neon DB", "GCP", "n8n", "GoHighLevel", "Groq", "Vercel", "Tailwind CSS", "TypeScript", "FastAPI", "Twilio", "Zapier", "Airtable (API)", "Shopify"]
+    "featured": [
+      "React / Next.js",
+      "Three.js",
+      "Node.js",
+      "Flutter",
+      "OpenAI API",
+      "Python",
+      "MongoDB"
+    ],
+    "rest": [
+      "GSAP",
+      "Framer Motion",
+      "Neon DB",
+      "GCP",
+      "n8n",
+      "GoHighLevel",
+      "Groq",
+      "Vercel",
+      "Tailwind CSS",
+      "TypeScript",
+      "FastAPI",
+      "Twilio",
+      "Zapier",
+      "Airtable (API)",
+      "Shopify"
+    ]
   },
-  "testimonials": [
+  "testimonials": {
+    "rows": [
+      {
+        "id": "row-1",
+        "speed": "45s",
+        "direction": "left",
+        "testimonials": [
+          {
+            "initials": "DM",
+            "name": "David Morgan",
+            "role": "Startup Owner",
+            "quote": "Most teams overpromise. Mudassir and the team simply delivered. Clear updates, fast problem solving, and a level of ownership that’s hard to find.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
+          },
+          {
+            "initials": "RP",
+            "name": "Rachit Patel",
+            "role": "CEO, GBNODES",
+            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
+          },
+          {
+            "initials": "MM",
+            "name": "Mr. Marco",
+            "role": "Entrepreneur & CEO, RubberDuck",
+            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
+          },
+          {
+            "initials": "RE",
+            "name": "Rami El-Khateib",
+            "role": "Founder, OMNIYA",
+            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
+          }
+        ]
+      },
+      {
+        "id": "row-2",
+        "speed": "60s",
+        "direction": "right",
+        "testimonials": [
+          {
+            "initials": "NS",
+            "name": "Noble Schools",
+            "role": "Chicago",
+            "quote": "They were awesome and flexible, and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
+          },
+          {
+            "initials": "RE",
+            "name": "Rami El-Khateib",
+            "role": "Founder, OMNIYA",
+            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
+          },
+          {
+            "initials": "MM",
+            "name": "Mr. Marco",
+            "role": "Entrepreneur & CEO, RubberDuck",
+            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
+          },
+          {
+            "initials": "RP",
+            "name": "Rachit Patel",
+            "role": "CEO, GBNODES",
+            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
+            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
+          }
+        ]
+      }
+    ]
+  },
+  "videoTestimonials": [
     {
-      "initials": "JA",
-      "name": "Justin Ash",
-      "role": "Robbins Pest Control, USA",
-      "quote": "Mudassir delivered our entire email automation and domain setup in days. Professional, fast, and the system works flawlessly. Will definitely work with him again."
-    },
-    {
-      "initials": "MP",
-      "name": "Michael Pritsky",
-      "role": "Vocalis / MYNTZ INC",
-      "quote": "Most developers promise results. Mudassir actually delivers. The EHR integration he built handles everything automatically \u2014 it saved us countless hours every week."
-    },
-    {
-      "initials": "BT",
-      "name": "Brad Tucker",
-      "role": "Senior Pros Home Care, USA",
-      "quote": "Mudassir migrated our entire phone system to OpenPhone smoothly. Zero downtime, zero complications. The whole setup was handled with great attention to detail."
-    },
-    {
-      "initials": "MG",
-      "name": "Mike Godleski",
-      "role": "Prepare2Swim",
-      "quote": "Working with Mudassir and the DevRolin team has been excellent. They understand what we need quickly and execute without back-and-forth. Genuinely impressive work."
+      "id": 1,
+      "quote": "The attention to detail and creative vision exceeded every expectation we had. Every interaction feels intentional, every pixel purposeful. Truly exceptional work.",
+      "embedUrl": "https://www.youtube.com/embed/18Dot40sUrQ?si=EoknBt3mXTO6oRLI",
+      "duration": "1:45",
+      "rating": 5
     }
   ],
   "contact": {
@@ -147,10 +321,22 @@
   },
   "footer": {
     "links": [
-      { "label": "upwork",   "href": "https://upwork.com" },
-      { "label": "linkedin", "href": "https://linkedin.com" },
-      { "label": "github",   "href": "https://github.com" },
-      { "label": "email",    "href": "mailto:hello@devrolin.com" }
+      {
+        "label": "upwork",
+        "href": "https://www.upwork.com/freelancers/mudassirai0crm0guy?mp_source=share"
+      },
+      {
+        "label": "linkedin",
+        "href": "https://www.linkedin.com/in/mudasr/"
+      },
+      {
+        "label": "github",
+        "href": "https://github.com/mudsr0"
+      },
+      {
+        "label": "email",
+        "href": "mailto:mudassirdevrolin@gmail.com"
+      }
     ]
   }
 }

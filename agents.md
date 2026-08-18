@@ -6,7 +6,7 @@ This is a modern, premium 3D portfolio website for a developer/agency named "Mud
 ## Tech Stack
 * **Framework**: React 18 (Vite)
 * **Styling**: Vanilla CSS (`src/index.css`) with global variables and a custom utility class system.
-* **3D Graphics**: `three` (Raw Three.js — *NOT* react-three-fiber). 
+* **3D Graphics**: `three` (Raw Three.js *NOT* react-three-fiber). 
 * **Animations**: `gsap` (ScrollTrigger for scroll-linked animations, and standard GSAP timelines for 3D robot sequencing).
 * **Scrolling**: `lenis` (for smooth scrolling).
 
