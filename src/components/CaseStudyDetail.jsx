@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import caseStudies from '../caseStudies.json'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -117,7 +118,14 @@ export default function CaseStudyDetail() {
               <p className="builder-note">
                 <RichText html={builder.note} />
               </p>
-              <a href="#video-demo" className="watch-demo-btn">
+              <a
+                href="#video-demo"
+                className="watch-demo-btn"
+                onClick={(e) => {
+                  e.preventDefault()
+                  smoothScrollTo('#video-demo')
+                }}
+              >
                 Watch the live demo
                 <span className="arrow-wrap">
                   <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" /></svg>

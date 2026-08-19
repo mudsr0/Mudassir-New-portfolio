@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
 import { isWebGLAvailable } from '../utils/webgl'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 const { hero } = data
 
@@ -337,11 +338,11 @@ export default function Hero() {
   }, [])
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    smoothScrollTo(`#${id}`)
   }
 
   const handleScrollDown = () => {
-    window.scrollBy({ top: window.innerHeight * 0.65, behavior: 'smooth' })
+    smoothScrollTo(window.innerHeight * 0.65)
   }
 
   return (
@@ -370,7 +371,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div
+      {/* <div
         className="scroll-hint"
         onClick={handleScrollDown}
         role="button"
@@ -379,7 +380,7 @@ export default function Hero() {
       >
         <span className="scroll-label">scroll</span>
         <div className="scroll-line" />
-      </div>
+      </div> */}
     </section>
   )
 }

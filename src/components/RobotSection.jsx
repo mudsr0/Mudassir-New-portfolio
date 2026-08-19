@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { isWebGLAvailable } from '../utils/webgl'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -312,8 +313,8 @@ function RobotSection() {
     /* ===================== DEVICE SETTINGS ===================== */
     const isMobile = window.innerWidth < 768
     // Scaled down slightly on mobile to fit both comfortably
-    const botX = isMobile ? 1.2 : 2.4
-    const panX = isMobile ? 1.8 : 3.6
+    const botX = isMobile ? 1.2 : 3.2
+    const panX = isMobile ? 1.8 : 4.2
     const camZ = isMobile ? 6.5 : 5.9
 
     /* ===================== RENDERER ===================== */
@@ -629,7 +630,7 @@ function RobotSection() {
 
   /* ===================== JSX ===================== */
   const handleScrollDown = () => {
-    window.scrollBy({ top: window.innerHeight * 0.90, behavior: 'smooth' })
+    smoothScrollTo('#work')
   }
 
   return (

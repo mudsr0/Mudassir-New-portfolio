@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { smoothScrollTo } from './utils/smoothScroll'
 
 import Hero from './components/Hero';
 import RobotSection from './components/RobotSection'
@@ -63,24 +64,7 @@ export default function App() {
 
     // Wait for the DOM (home sections + their GSAP setup) to be ready before scrolling.
     const timer = setTimeout(() => {
-      const el = document.getElementById(scrollToId)
-      if (el) {
-        const startPosition = window.pageYOffset
-        const targetPosition = el.getBoundingClientRect().top + startPosition
-        const distance = targetPosition - startPosition
-        const duration = 1500
-        let startTimestamp = null
-        const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp
-          const elapsed = timestamp - startTimestamp
-          const progress = Math.min(elapsed / duration, 1)
-          window.scrollTo(0, startPosition + distance * easeInOutCubic(progress))
-          if (elapsed < duration) requestAnimationFrame(step)
-        }
-        requestAnimationFrame(step)
-      }
+      smoothScrollTo(`#${scrollToId}`, { duration: 1.2 })
 
       // Clear the state so a manual refresh / revisit doesn't re-scroll.
       window.history.replaceState({}, '')
@@ -99,17 +83,28 @@ export default function App() {
     if (isLoading) return
 
     // ── Lenis smooth scroll ────────────────────────────────
+    // Single instance, created once the preloader finishes (effect is gated by
+    // [isLoading] below, and lenis.destroy() runs on cleanup). It is driven by
+    // GSAP's own rAF ticker so scrolling and ScrollTrigger stay in perfect sync.
     const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
+      duration: 3, // smoother feel (higher = smoother, lower = snappier)
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo out
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.2,
     })
+
+    // Expose the instance so components (Navbar, Hero, RobotSection,
+    // ScrollToTopButton, etc.) can reuse Lenis for programmatic smooth scrolls.
+    window.lenis = lenis
+
+    // Tell ScrollTrigger every time Lenis scrolls.
     lenis.on('scroll', ScrollTrigger.update)
 
+    // Single, clean rAF loop: drive Lenis through GSAP's ticker (GSAP's ticker
+    // runs on requestAnimationFrame, so this is the one loop). Do NOT add a
+    // second standalone requestAnimationFrame — calling lenis.raf twice per
+    // frame double-drives the animation and reintroduces the jank we're fixing.
     const raf = (time) => {
-      lenis.raf(time * 1000)
+      lenis.raf(time * 1000) // GSAP ticker time is in seconds; lenis expects ms
     }
 
     gsap.ticker.add(raf)
@@ -244,6 +239,7 @@ export default function App() {
     })
 
     return () => {
+      window.lenis = null
       lenis.destroy()
       gsap.ticker.remove(raf)
       disposeCursor()
