@@ -9,9 +9,9 @@
     ]
   },
   "hero": {
-    "eyebrowText": "ai automation · crm engineer · python",
-    "headlineHtml": "I build what<br /><em>doesn't exist</em><br />yet.",
-    "caption": "AI Agents · Zoho CRM · GHL · Automations<br />DevRolin · Based in Pakistan · Serving globally"
+    "eyebrowText": "AI AUTOMATION & INTEGRATION · CRM & REVENUE SYSTEMS · AI AGENTS · AI SAAS & MVPs",
+    "headlineHtml": "I build systems<br /><em>businesses run</em><br />on.",
+    "caption": "AI-powered systems that automate operations, connect your tools, and turn manual processes into scalable workflows. <br/> <b> Forbes-Featured Clients · 4.9/5 Upwork Rating <br/>  · Systems Supporting 1M+ Audiences</b>"
   },
   "marquee": {
     "items": [
@@ -143,66 +143,83 @@
       "logo": "/images/partners/Anatome.png"
     }
   ],
+  "partnersText": {
+    "eyebrow": "Trusted To Build What Businesses Depend On",
+    "headingLine1": "More than a developer.",
+    "headingLine2": "A systems partner.",
+    "subheading": "I help businesses turn disconnected tools, manual processes, and ambitious AI ideas into systems that actually work together.",
+    "description1": "From the first workflow to the final deployment, I focus on what matters: <em>less manual work, stronger operations, and systems built to scale with the business.</em>",
+    "locations": [
+      { "flag": "/images/flags/us.png", "name": "USA" },
+      { "flag": "/images/flags/gb.png", "name": "UK" },
+      { "flag": "/images/flags/ae.png", "name": "UAE" },
+      { "flag": "/images/flags/ca.png", "name": "CANADA" },
+      { "flag": "/images/flags/au.png", "name": "AUSTRALIA" },
+      { "flag": "/images/flags/global.png", "name": "GLOBAL" }
+    ],
+    "description2": "From CRM automation and AI agents to custom APIs and SaaS platforms, every build starts with one question:",
+    "finalQuestion": "What does this need to solve for the business?",
+    "videoUrl": "https://www.youtube.com/embed/8KGhyl4qld0?rel=0"
+  },
+  "workText": {
+    "eyebrow": "01 · REAL SYSTEMS. REAL USE CASES.",
+    "heading": "Built to solve real business problems.",
+    "subheading": "AI automation, CRM systems, AI agents and SaaS products built around one thing: Making the business work better."
+  },
   "work": [
     {
-      "tag": "AI Automation",
+      "tag": "AI SAAS · DOCUMENT AUTOMATION",
       "year": "2024",
-      "icon": "✦",
-      "title": "CV Labz",
-      "desc": "AI-powered CV generation platform producing ATS-optimized resumes instantly.",
+      "title": "CV LABZ",
+      "desc": "From raw information to an ATS-ready CV in minutes. Built an AI-powered SaaS platform that transforms user data into structured, professional resumes automatically.",
       "stack": "React · OpenAI · Node.js",
       "link": "/case-study/cvlabz",
       "image": "/images/work/cvlabz.webp"
     },
     {
-      "tag": "SaaS Platform",
-      "year": "2025",
-      "icon": "▲",
-      "title": "PixelLift",
-      "desc": "AI upscaling SaaS that automatically enhances low-quality product images.",
-      "stack": "Next.js · DALL-E · AWS",
-      "link": "/case-study/pixellift",
-      "image": "/images/work/pixellift.webp"
-    },
-    {
-      "tag": "Full-Stack App",
+      "tag": "CRM & REVENUE AUTOMATION · LEGAL",
       "year": "2024",
-      "icon": "◉",
-      "title": "Loomo",
-      "desc": "Full ride-booking platform with user app, driver app, and live tracking.",
-      "stack": "React Native · Node.js · Stripe",
-      "link": "/case-study/loomo",
-      "image": "/images/work/loomo.webp"
-    },
-    {
-      "tag": "CRM Automation",
-      "year": "2026",
-      "icon": "⚖",
-      "title": "The Digital Counsel",
-      "desc": "Automated 14-day SMS and email review sequence for law firms.",
-      "stack": "GoHighLevel · Make.com · Twilio",
+      "title": "THE DIGITAL COUNSEL",
+      "desc": "Follow-up that happens even when your team is busy. Built a 14-day automated SMS and email system that keeps client communication moving without relying on manual follow-ups.",
+      "stack": "GoHighLevel · Make · Twilio",
       "link": "/case-study/digitalcounsel",
       "image": "/images/work/TGC.webp"
     },
     {
-      "tag": "Healthcare AI",
-      "year": "2026",
-      "icon": "✚",
-      "title": "Cherrett Chiropractic",
-      "desc": "Automated patient reactivation pipeline with AI SMS booking bot.",
+      "tag": "AI AGENT · CRM AUTOMATION · HEALTHCARE",
+      "year": "2024",
+      "title": "CHERRETT CHIROPRACTIC",
+      "desc": "Turning an inactive patient database back into appointments. Built an AI-powered reactivation system that starts conversations, handles responses and moves qualified patients toward booking.",
       "stack": "GoHighLevel · Cliniko · OpenAI",
       "link": "/case-study/cherrett",
       "image": "/images/work/cherrett.webp"
     },
     {
-      "tag": "Email Marketing",
-      "year": "2025",
-      "icon": "✉",
-      "title": "Prepare2Swim",
-      "desc": "Fixed broken email deliverability and automated ManyChat lead handoff.",
-      "stack": "ConvertKit · ManyChat · DNS",
+      "tag": "AI AUTOMATION & INTEGRATION · 1M+ AUDIENCE",
+      "year": "2024",
+      "title": "PREPARE2SWIM",
+      "desc": "Automation built to support a 1M+ audience. Fixed critical email-deliverability issues and automated the ManyChat → Kit lead journey for a high-volume digital business.",
+      "stack": "Kit · ManyChat · DNS · Automation",
       "link": "/case-study/prepare2swim",
       "image": "/images/work/p2s.webp"
+    },
+    {
+      "tag": "AI SAAS · IMAGE AUTOMATION",
+      "year": "2024",
+      "title": "PIXELLIFT",
+      "desc": "From low-quality images to usable product assets automatically. Built an AI SaaS workflow that enhances product images without repetitive manual editing.",
+      "stack": "Next.js · AI APIs · AWS",
+      "link": "/case-study/pixellift",
+      "image": "/images/work/pixellift.webp"
+    },
+    {
+      "tag": "SAAS MVP · CUSTOM PLATFORM",
+      "year": "2024",
+      "title": "LOOMO",
+      "desc": "One platform connecting customers, drivers and payments. Built a multi-sided ride-booking system covering customer journeys, driver operations, payments and live tracking.",
+      "stack": "React Native · Node.js · Stripe",
+      "link": "/case-study/loomo",
+      "image": "/images/work/loomo.webp"
     }
   ],
   "techStack": {

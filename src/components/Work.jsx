@@ -231,12 +231,9 @@ export default function Work() {
   return (
     <section id="work" className="section" ref={sectionRef}>
       <div className="sec-header" data-fade>
-        <div className="sec-eyebrow">
-          <span className="eyebrow-num">01</span>
-          selected work
-        </div>
-        <h2 className="sec-h">Case studies.</h2>
-        <p className="sec-p">A selection of projects across AI, automation, and full-stack development.</p>
+        <div className="sec-eyebrow">{data.workText.eyebrow}</div>
+        <h2 className="sec-h">{data.workText.heading}</h2>
+        <p className="sec-p">{data.workText.subheading}</p>
       </div>
 
       <div className="work-list">

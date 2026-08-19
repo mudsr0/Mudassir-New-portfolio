@@ -358,8 +358,8 @@ export default function Hero() {
         <p className="hero-caption" dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
 
         <div className="hero-actions">
-          <button className="btn-primary" onClick={() => scrollTo('work')}>view work</button>
-          <button className="btn-ghost" onClick={() => scrollTo('contact')}>start a project →</button>
+          <button className="btn-primary" onClick={() => scrollTo('work')}>VIEW CASE STUDIES</button>
+          <button className="btn-ghost" onClick={() => scrollTo('contact')}>DISCUSS YOUR PROJECT →</button>
         </div>
       </div>
 

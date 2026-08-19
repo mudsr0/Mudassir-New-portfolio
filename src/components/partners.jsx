@@ -5,6 +5,7 @@ import usePauseOnHidden from "../hooks/usePauseOnHidden";
 
 const PARTNERS_ROW_1 = data.partners;
 const PARTNERS_ROW_2 = [...data.partners].reverse();
+const { partnersText } = data;
 
 const repeatPartners = (partners, repeat = 4) =>
     Array.from({ length: repeat }).flatMap(() => partners);
@@ -28,27 +29,48 @@ export default function Partners() {
                             <span className="partners-eyebrow-icon">
                                 <Zap size={11} strokeWidth={2.5} />
                             </span>
-                            <span>Partners & Clients</span>
+                            <span>{partnersText.eyebrow}</span>
                             <span className="eyebrow-line" />
                         </div>
 
                         <h2 className="sec-h partners-heading">
-                            Trusted by teams
+                            {partnersText.headingLine1}
                             <br />
-                            <span>building what&apos;s next.</span>
+                            <span>{partnersText.headingLine2}</span>
                         </h2>
 
+                        <h3 className="partners-subheading">
+                            {partnersText.subheading}
+                        </h3>
+
+                        <p
+                            className="sec-p partners-description"
+                            dangerouslySetInnerHTML={{ __html: partnersText.description1 }}
+                        />
+
+                        <div className="partners-locations">
+                            {partnersText.locations.map((loc, index) => (
+                                <span className="location-item" key={loc.name}>
+                                    <img src={loc.flag} alt={`${loc.name} Flag`} className="location-flag-img" />
+                                    {loc.name}
+                                    {index < partnersText.locations.length - 1 && <span className="location-dot"> · </span>}
+                                </span>
+                            ))}
+                        </div>
+
                         <p className="sec-p partners-description">
-                            I work with ambitious companies, startups, and teams to build
-                            digital products, intelligent systems, and experiences that
-                            create real impact.
+                            {partnersText.description2}
                         </p>
+
+                        <h3 className="partners-final-question">
+                            {partnersText.finalQuestion}
+                        </h3>
                     </div>
 
                     {/* Right: YouTube Testimonial Video */}
                     <div className="partners-video">
                         <iframe
-                            src="https://www.youtube.com/embed/8KGhyl4qld0?rel=0"
+                            src={partnersText.videoUrl}
                             title="YouTube testimonial video"
                             loading="lazy"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
