@@ -9,9 +9,12 @@
     ]
   },
   "hero": {
-    "eyebrowText": "AI AUTOMATION & INTEGRATION · CRM & REVENUE SYSTEMS · AI AGENTS · AI SAAS & MVPs",
+    "eyebrow": "AI AUTOMATION & INTEGRATION · CRM & REVENUE SYSTEMS · AI AGENTS · AI SAAS & MVPs",
     "headlineHtml": "I build systems<br /><em>businesses run</em><br />on.",
-    "caption": "AI-powered systems that automate operations, connect your tools, and turn manual processes into scalable workflows. <br/> <b> Forbes-Featured Clients · 4.9/5 Upwork Rating <br/>  · Systems Supporting 1M+ Audiences</b>"
+    "caption": "AI-powered systems that automate operations, connect your tools, and turn manual processes into scalable workflows.",
+    "trustLine": "Forbes-Featured Clients · 4.9/5 Upwork Rating · Systems Supporting 1M+ Audiences",
+    "primaryBtn": "View Case Studies",
+    "secondaryBtn": "Discuss your project &#8594;"
   },
   "marquee": {
     "items": [
