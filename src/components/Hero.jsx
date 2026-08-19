@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
 import { isWebGLAvailable } from '../utils/webgl'
 
+const { hero } = data
+
 gsap.registerPlugin(ScrollTrigger)
 
 const runWhenIdle = (callback) => {
@@ -39,7 +41,7 @@ export default function Hero() {
     const playIntro = (threeCtx) => {
       if (cancelled) return
 
-      gsap.set(['.hero-eyebrow', '.hero-caption'], { opacity: 0, y: 30 })
+      gsap.set(['.hero-eyebrow', '.hero-caption', '.hero-trust-line'], { opacity: 0, y: 30 })
       gsap.set('.hero-actions', { opacity: 0, scale: 0.9 })
       gsap.set('.scroll-hint', { opacity: 0, y: -10 })
       gsap.set('.hero-h1', { opacity: 1, y: 30 })
@@ -56,12 +58,14 @@ export default function Hero() {
           .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
           .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.4')
           .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+          .to('.hero-trust-line', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
           .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
           .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
       } else {
         tl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
           .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.15')
           .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.25')
+          .to('.hero-trust-line', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
           .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.35')
           .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.45')
       }
@@ -346,20 +350,23 @@ export default function Hero() {
         <canvas ref={canvasRef} />
       </div>
       <div className="hero-vignette" aria-hidden="true" />
-      
+
       <div ref={heroContentRef} className="hero-content">
         <div className="hero-eyebrow">
           <span className="eyebrow-line" />
-          {data.hero.eyebrowText}
+          {hero.eyebrow}
           <span className="eyebrow-line" />
         </div>
 
         <h1 className="hero-h1" dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
-        <p className="hero-caption" dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
+
+        <p className="hero-caption">{hero.caption}</p>
+
+        <p className="hero-trust-line">{hero.trustLine}</p>
 
         <div className="hero-actions">
-          <button className="btn-primary" onClick={() => scrollTo('work')}>view work</button>
-          <button className="btn-ghost" onClick={() => scrollTo('contact')}>start a project →</button>
+          <button className="btn-primary" onClick={() => scrollTo('work')}>{hero.primaryBtn}</button>
+          <button className="btn-ghost" onClick={() => scrollTo('contact')} dangerouslySetInnerHTML={{ __html: hero.secondaryBtn }} />
         </div>
       </div>
 

@@ -641,8 +641,17 @@ function RobotSection() {
 
         <div className="robot-overlay" ref={overlayRef}>
           <p className="robot-eyebrow" data-fade>built different</p>
-          <h2 className="robot-h" data-fade data-delay="0.1">Welcome to the future<br />of development.</h2>
-          <p className="robot-sub" data-fade data-delay="0.2">Agentic systems that think. Automations that run themselves.<br />Code that doesn't need babysitting.</p>
+          <h2 className="robot-h" data-fade data-delay="0.1">
+            Your business doesn't need<br />
+            more software.<br />
+            <span className="robot-h-sub">It needs systems that actually work together.</span>
+          </h2>
+          <p className="robot-sub" data-fade data-delay="0.2">
+            AI that handles real work. CRM that moves revenue forward. Automations that remove the manual work slowing your team down.
+          </p>
+          <p className="robot-sub-highlight" data-fade data-delay="0.3">
+            Less busywork. Fewer bottlenecks. More business moving without you.
+          </p>
 
           <button className="robot-view-btn" onClick={handleScrollDown} type="button">
             View Case Studies

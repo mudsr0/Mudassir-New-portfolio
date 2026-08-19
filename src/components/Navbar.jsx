@@ -273,8 +273,8 @@ export default function Navbar() {
           <span className="avail-dot" />
           available
         </div>
-        <button className="nav-cta" onClick={() => handleNavClick('contact')}>
-          hire me ↗
+        <button className="nav-cta" onClick={() => handleNavClick('about')}>
+          why hire me
         </button>
       </div>
     </nav>

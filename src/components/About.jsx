@@ -183,7 +183,7 @@ export default function About() {
       <div className="about-topbar">
         <div className="sec-eyebrow" data-fade>
           <span className="eyebrow-num">02</span>
-          about
+          WHY CLIENTS HIRE ME
         </div>
       </div>
       <div className="about-stats-top" ref={statsTopRef}>
@@ -227,7 +227,7 @@ export default function About() {
           <div className="about-brand">{brand}</div>
           <div className="about-role">{role}</div>
           <p className="about-cta-line">{ctaLine}</p>
-          <a href={ctaHref} className="about-cta-btn">
+          <a href={ctaHref} target="_blank" rel="noopener noreferrer" className="about-cta-btn">
             {ctaLabel}
             <ArrowRight size={16} />
           </a>

@@ -2,16 +2,8 @@ import data from '../data.json'
 import Footer3DText from './common/Footer3DText'
 
 export default function Footer() {
-  const links = data.footer.links
-  const year = new Date().getFullYear()
-
-  const toHref = (l) => {
-    if (l.href.startsWith('mailto:')) {
-      const email = l.href.slice('mailto:'.length)
-      return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`
-    }
-    return l.href
-  }
+  const footer = data.footer
+  const brand = footer.brand.slice(0, -1)
 
   return (
     <footer className="footer">
@@ -21,7 +13,7 @@ export default function Footer() {
         <div className="footer-brand">
           <div className="footer-status">
             <span className="status-dot"></span>
-            Available for work
+            {footer.status}
           </div>
 
           <div className="footer-logo-3d-wrapper">
@@ -33,42 +25,34 @@ export default function Footer() {
                 pointerEvents: 'none',
               }}
             >
-              Mudassir<span>.</span>
+              {brand}<span>.</span>
             </h2>
             <Footer3DText />
           </div>
 
           <p className="footer-tagline">
-            Building premium digital experiences.
+            {footer.tagline}
           </p>
         </div>
 
         <div className="footer-nav">
-          <span className="footer-nav-label">Connect</span>
-          <nav className="footer-links" aria-label="Social links">
-            {links.map((l) => (
-              <a
-                key={l.label}
-                href={toHref(l)}
-                className="footer-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {l.label}
-                <span className="link-arrow">↗</span>
-              </a>
-            ))}
-          </nav>
+          <a
+            href={footer.upworkUrl}
+            className="footer-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {footer.ctaText}
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
 
       <div className="footer-divider"></div>
 
       <div className="footer-bottom">
-        <span className="footer-copy">© {year} Mudassir H. · DevRolin</span>
-        <span className="footer-credits">
-          CRM Automation · Sales Systems · SaaS MVPs · Custom Platforms
-        </span>
+        <span className="footer-copy">{footer.copyright}</span>
+        <span className="footer-credits">{footer.services}</span>
       </div>
     </footer>
   )
