@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight } from 'lucide-react'
 import data from '../data.json'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -183,7 +184,7 @@ export default function About() {
       <div className="about-topbar">
         <div className="sec-eyebrow" data-fade>
           <span className="eyebrow-num">02</span>
-          about
+          WHY CLIENTS HIRE ME
         </div>
       </div>
       <div className="about-stats-top" ref={statsTopRef}>
@@ -227,7 +228,14 @@ export default function About() {
           <div className="about-brand">{brand}</div>
           <div className="about-role">{role}</div>
           <p className="about-cta-line">{ctaLine}</p>
-          <a href={ctaHref} className="about-cta-btn">
+          <a
+            href={ctaHref}
+            className="about-cta-btn"
+            onClick={(e) => {
+              e.preventDefault()
+              smoothScrollTo(ctaHref)
+            }}
+          >
             {ctaLabel}
             <ArrowRight size={16} />
           </a>

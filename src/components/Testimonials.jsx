@@ -2,20 +2,18 @@ import { memo, useRef } from 'react'
 import data from '../data.json'
 import usePauseOnHidden from '../hooks/usePauseOnHidden'
 
-const STARS = ['★', '★', '★', '★', '★']
-
 const TestimonialCard = memo(function TestimonialCard({ t }) {
+  const stars = Array.from({ length: t.rating || 5 })
+
   return (
     <div className="testi-card">
-      <div className="testi-stars" aria-label="5 stars">
-        {STARS.map((star, i) => <span key={i} className="star">{star}</span>)}
+      <div className="testi-stars" aria-label={`${stars.length} stars`}>
+        {stars.map((star, i) => <span key={i} className="star">★</span>)}
       </div>
-      <p className="testi-quote">"{t.quote}"</p>
+      <p className="testi-quote">"{t.text}"</p>
       <div className="testi-author">
-        {t.avatarUrl ? (
-          <img src={t.avatarUrl} alt={t.name} className="testi-avatar-img" loading="lazy" decoding="async" />
-        ) : (
-          <div className="testi-avatar" aria-hidden="true">{t.initials}</div>
+        {t.avatar && (
+          <img src={t.avatar} alt={t.name} className="testi-avatar-img" loading="lazy" decoding="async" />
         )}
         <div className="testi-info">
           <div className="testi-name">{t.name}</div>
@@ -47,7 +45,13 @@ function TestimonialRow({ row }) {
 }
 
 export default function Testimonials() {
-  const rows = data.testimonials.rows
+  const { heading, subheading, reviews } = data.testimonials
+
+  const half = Math.ceil(reviews.length / 2)
+  const rows = [
+    { id: 'row-1', direction: 'left', speed: '45s', testimonials: reviews.slice(0, half) },
+    { id: 'row-2', direction: 'right', speed: '60s', testimonials: reviews.slice(half) },
+  ]
 
   return (
     <section id="testimonials" className="section">
@@ -56,7 +60,8 @@ export default function Testimonials() {
           <span className="eyebrow-num">05</span>
           testimonials
         </div>
-        <h2 className="sec-h">Client words.</h2>
+        <h2 className="sec-h">{heading}</h2>
+        <p className="sec-p">{subheading}</p>
       </div>
       <div className="testi-rows-container" data-fade>
         {rows.map((row) => <TestimonialRow key={row.id} row={row} />)}

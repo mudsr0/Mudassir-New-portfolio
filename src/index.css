@@ -1,3 +1,18 @@
+.case-study .hero-title em,
+.contact-h,
+.hero-h1 em,
+.sec-h {
+    -webkit-text-fill-color: transparent
+}
+
+.case-study .open-link,
+.contact-cta,
+.robot-view-btn,
+a,
+button {
+    text-decoration: none
+}
+
 .about-main,
 .marquee-wrap,
 .tech-orbit-wrap {
@@ -78,6 +93,35 @@
 .wave-bg canvas {
     width: 100% !important;
     height: 100% !important
+}
+
+.hero-canvas-wrap.webgl-fallback,
+.robot-canvas.webgl-fallback {
+    background: radial-gradient(circle at 50% 42%, var(--bg-2) 0, color-mix(in srgb, var(--accent) 8%, var(--bg)) 55%, var(--bg) 100%)
+}
+
+.wave-bg.webgl-fallback {
+    background: radial-gradient(ellipse at center, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%)
+}
+
+.footer-3d-text-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(48px, 9vw, 120px);
+    font-weight: 800;
+    line-height: .9;
+    color: var(--white);
+    letter-spacing: -.04em;
+    user-select: none
+}
+
+.footer-3d-text-fallback span,
+.footer-logo span {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--white)
 }
 
 .capsule-logo span,
@@ -173,6 +217,7 @@ body {
     text-transform: uppercase
 }
 
+.contact-toast-close:hover,
 .nav-link.active,
 .nav-link:hover,
 .pill-toggle,
@@ -197,12 +242,6 @@ html {
 .wcard-video,
 .wcard::before {
     pointer-events: none
-}
-
-.contact-h,
-.hero-h1 em,
-.sec-h {
-    -webkit-text-fill-color: transparent
 }
 
 .cf-field,
@@ -231,7 +270,7 @@ html {
     --accent-glow: rgba(59, 130, 246, 0.5);
     --portfolio-cyan: #0064c9;
     --portfolio-navy: #121216;
-    --star-color: #ffd700;
+    --star-color: #00B67A;
     --g1: #FFFFFF;
     --g2: #D1D1D1;
     --g3: #A0A0A0;
@@ -246,7 +285,6 @@ html {
 
 a,
 button {
-    text-decoration: none;
     color: inherit;
     cursor: pointer;
     border: none;
@@ -428,6 +466,15 @@ button {
     cursor: default
 }
 
+.mobile-nav-link,
+.nav-cta,
+.nav-link,
+.svc-cell,
+.wcard,
+.wcard-view-btn {
+    cursor: pointer
+}
+
 .hero-eyebrow,
 .svc-cell:hover .svc-icon {
     text-shadow: 0 0 20px var(--accent-glow)
@@ -507,7 +554,6 @@ button {
     font-weight: 500;
     background: 0 0;
     border: none;
-    cursor: pointer;
     transition: color .3s, text-shadow .3s
 }
 
@@ -573,8 +619,19 @@ button {
     border-radius: 12px;
     font-size: 14px;
     text-transform: capitalize;
-    cursor: pointer;
     transition: .2s
+}
+
+.case-study .builder-from,
+.case-study .cta-pre,
+.case-study .project-tag,
+.case-study .section-eyebrow,
+.footer-cta,
+.partner-name,
+.robot-view-btn,
+.tech-stack-cat,
+.wcard-view-btn {
+    text-transform: uppercase
 }
 
 .mobile-nav-link.active,
@@ -645,7 +702,6 @@ button {
     border: 1px solid var(--border-2);
     color: var(--g1);
     background: rgba(255, 255, 255, .03);
-    cursor: pointer;
     flex-shrink: 0
 }
 
@@ -725,7 +781,7 @@ button {
     align-items: center;
     justify-content: center;
     gap: 16px;
-    font-size: 11px;
+    font-size: 14px;
     letter-spacing: .3em;
     color: var(--accent);
     margin-bottom: 32px
@@ -738,7 +794,7 @@ button {
 }
 
 .hero-h1 {
-    font-size: clamp(56px, 10vw, 120px);
+    font-size: clamp(30px, 9vw, 120px);
     font-weight: 300;
     line-height: .95;
     letter-spacing: -.04em;
@@ -765,6 +821,16 @@ button {
     margin-inline: auto;
     font-weight: 400;
     text-shadow: 0 4px 30px rgba(0, 0, 0, .95), 0 2px 10px rgba(0, 0, 0, .9)
+}
+
+.hero-trust-line {
+    font-size: 14px;
+    color: var(--g2);
+    font-weight: bold;
+    margin-top: 20px;
+    letter-spacing: .05em;
+    line-height: 1.8;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, .9)
 }
 
 .btn-ghost,
@@ -807,6 +873,11 @@ button {
     box-shadow: 0 0 20px rgba(255, 255, 255, .1)
 }
 
+.about-desc li strong,
+.btn-ghost {
+    color: var(--g1)
+}
+
 .btn-primary:hover {
     box-shadow: 0 20px 40px rgba(255, 255, 255, .25), 0 0 40px rgba(255, 255, 255, .1)
 }
@@ -814,7 +885,6 @@ button {
 .btn-ghost {
     border-radius: 99px;
     border: 1px solid var(--border-2);
-    color: var(--g1);
     background: rgba(255, 255, 255, .02)
 }
 
@@ -1101,7 +1171,8 @@ button {
 }
 
 .about-h {
-    margin-bottom: 28px
+    margin-bottom: 28px;
+    font-size: clamp(28px, 6vw, 64px)
 }
 
 .about-h .word {
@@ -1109,8 +1180,8 @@ button {
 }
 
 .about-desc {
-    font-size: 16px;
-    line-height: 1.9;
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.8;
     color: var(--g2);
     column-count: 2;
     column-gap: 36px
@@ -1119,6 +1190,36 @@ button {
 .about-desc strong {
     color: var(--white);
     font-weight: 500
+}
+
+.about-desc p+p {
+    margin-top: 16px
+}
+
+.about-desc ul {
+    padding: 0;
+    margin: 16px 0;
+    list-style: none
+}
+
+.about-desc li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+    color: var(--g2);
+    line-height: 1.7;
+    break-inside: avoid
+}
+
+.about-desc li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent)
 }
 
 .about-main-right {
@@ -1212,7 +1313,6 @@ button {
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     transition: background .4s var(--ease);
-    cursor: pointer;
     position: relative;
     background: 0 0
 }
@@ -1314,6 +1414,30 @@ button {
     font-weight: 400
 }
 
+.svc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px
+}
+
+.svc-tag {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--g2);
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 99px;
+    transition: border-color .3s, color .3s
+}
+
+.svc-cell:hover .svc-tag {
+    border-color: var(--border-2);
+    color: var(--g1)
+}
+
 .svc-arrow {
     font-size: 20px;
     color: var(--g3);
@@ -1353,8 +1477,7 @@ button {
     border-radius: 32px;
     background: var(--portfolio-navy);
     border: 1px solid color-mix(in srgb, var(--g3) 18%, transparent);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, .6), 0 0 24px -8px color-mix(in srgb, var(--g2) 30%, transparent), inset 0 1px 0 0 rgba(255, 255, 255, .04);
-    cursor: pointer
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, .6), 0 0 24px -8px color-mix(in srgb, var(--g2) 30%, transparent), inset 0 1px 0 0 rgba(255, 255, 255, .04)
 }
 
 .wcard::before {
@@ -1486,6 +1609,15 @@ button {
     margin-bottom: 32px
 }
 
+.wcard-cta,
+.wcard-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    width: fit-content
+}
+
 .wcard-stack-item {
     font-size: 11.5px;
     color: var(--g3);
@@ -1495,16 +1627,11 @@ button {
 }
 
 .wcard-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     font-size: 12px;
-    font-weight: 600;
     letter-spacing: .1em;
     color: var(--white);
     border-bottom: 1px solid var(--border-2);
     padding-bottom: 4px;
-    width: fit-content;
     transition: border-color .3s, gap .3s
 }
 
@@ -1514,22 +1641,15 @@ button {
 }
 
 .wcard-view-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     font-size: 11px;
-    font-weight: 600;
     letter-spacing: .12em;
-    text-transform: uppercase;
     color: var(--g1);
     background: rgba(255, 255, 255, .02);
     border: 1px solid var(--border-2);
     border-radius: 99px;
     padding: 10px 20px;
     margin-top: auto;
-    width: fit-content;
-    transition: all .3s var(--ease);
-    cursor: pointer
+    transition: all .3s var(--ease)
 }
 
 .wcard:hover .wcard-view-btn {
@@ -1582,6 +1702,43 @@ button {
     line-height: 2;
     margin-top: 20px;
     font-weight: 400
+}
+
+.tech-stack-fade {
+    position: relative;
+    min-height: 80px;
+    margin-top: 32px
+}
+
+.tech-stack-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .6s var(--ease), transform .6s var(--ease);
+    pointer-events: none
+}
+
+.tech-stack-item.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto
+}
+
+.tech-stack-cat {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: .15em;
+    margin-bottom: 8px
+}
+
+.tech-stack-tools {
+    font-size: 15px;
+    color: var(--g1);
+    line-height: 1.6
 }
 
 .tech-pills {
@@ -1781,6 +1938,16 @@ button {
     z-index: 1
 }
 
+.case-study .builder-avatar,
+.case-study .builder-name,
+.case-study .built-num,
+.case-study .built-title,
+.case-study .hero-title,
+.case-study .outcome-num,
+.case-study .section-heading {
+    font-family: 'DM Sans', Inter, sans-serif
+}
+
 .testi-card:hover {
     border-color: rgba(255, 255, 255, .15);
     transform: translateY(-6px);
@@ -1906,8 +2073,136 @@ button {
     font-size: 15px;
     color: var(--g2);
     line-height: 2.1;
-    margin-bottom: 56px;
+    margin-bottom: 44px;
     font-weight: 400
+}
+
+.contact-cta-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--g2);
+    margin-bottom: 24px
+}
+
+.contact-cta {
+    display: inline-block;
+    text-align: center;
+    margin-top: 8px
+}
+
+.contact-footer-line {
+    font-size: 13px;
+    color: var(--g3);
+    margin-top: 24px;
+    letter-spacing: .05em;
+    text-align: center
+}
+
+.contact-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn .2s ease
+}
+
+.contact-modal-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border-2);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+    animation: modalPop .3s var(--ease)
+}
+
+.contact-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: var(--g3);
+    font-size: 18px;
+    cursor: pointer;
+    transition: color .2s var(--ease);
+    line-height: 1
+}
+
+.contact-modal-close:hover {
+    color: var(--white)
+}
+
+.contact-modal-title {
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 8px;
+    font-weight: 600
+}
+
+.contact-modal-sub {
+    color: var(--g2);
+    font-size: 14px;
+    margin-bottom: 28px
+}
+
+.contact-modal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+}
+
+.contact-modal-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 10px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all .3s var(--ease)
+}
+
+.contact-modal-link:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg-3));
+    transform: translateY(-2px)
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(.96) translateY(10px)
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0)
+    }
 }
 
 .contact-form {
@@ -2045,10 +2340,6 @@ button {
     transition: color .2s
 }
 
-.contact-toast-close:hover {
-    color: var(--white)
-}
-
 .cf-submit:disabled {
     opacity: .55;
     cursor: not-allowed
@@ -2063,16 +2354,6 @@ button {
     to {
         opacity: 1;
         transform: translate3d(0, 0, 0) scale(1)
-    }
-}
-
-@media (max-width:600px) {
-    .contact-toast {
-        top: 16px;
-        right: 16px;
-        left: 16px;
-        min-width: 0;
-        max-width: none
     }
 }
 
@@ -2151,7 +2432,7 @@ button {
     .about-hero-stat {
         width: 34%;
         right: 2%;
-        bottom: -4%
+        bottom: -10%
     }
 
     .about-hero-stat .stat-item-lbl {
@@ -2276,11 +2557,6 @@ button {
     margin: 0
 }
 
-.footer-logo span {
-    color: transparent;
-    -webkit-text-stroke: 2px var(--white)
-}
-
 .footer-tagline {
     font-size: 15px;
     color: var(--g3);
@@ -2327,6 +2603,29 @@ button {
 .footer-link:hover {
     color: var(--white);
     transform: translateX(-8px)
+}
+
+.footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: var(--g1);
+    border-bottom: 1px solid var(--border-2);
+    padding-bottom: 6px;
+    transition: border-color .3s var(--ease), color .3s var(--ease)
+}
+
+.footer-cta:hover {
+    border-color: var(--accent);
+    color: var(--white)
+}
+
+.footer-cta span {
+    font-size: 14px;
+    line-height: 1
 }
 
 .link-arrow {
@@ -2394,7 +2693,7 @@ button {
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    width: 500px;
+    width: 600px;
     max-width: 90vw;
     display: flex;
     flex-direction: column;
@@ -2411,7 +2710,7 @@ button {
 }
 
 .robot-h {
-    font-size: clamp(28px, 4vw, 52px);
+    font-size: clamp(24px, 4vw, 48px);
     font-weight: 300;
     line-height: 1.1;
     letter-spacing: -.03em;
@@ -2420,13 +2719,33 @@ button {
     text-shadow: 0 0 40px rgba(0, 0, 0, .9), 0 0 80px rgba(0, 0, 0, .7)
 }
 
+.robot-sub,
+.robot-sub-highlight {
+    text-shadow: 0 2px 10px #000;
+    color: var(--g1)
+}
+
+.robot-h-sub {
+    display: block;
+    font-size: .75em;
+    opacity: .9;
+    margin-top: 8px;
+    font-weight: 400
+}
+
 .robot-sub {
     font-size: 14px;
-    color: var(--g1);
     line-height: 2;
     letter-spacing: .05em;
-    font-weight: 400;
-    text-shadow: 0 2px 10px #000
+    font-weight: 400
+}
+
+.robot-sub-highlight {
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 16px;
+    letter-spacing: .02em;
+    line-height: 1.7
 }
 
 .robot-view-btn {
@@ -2436,7 +2755,6 @@ button {
     font-size: 12px;
     font-weight: 600;
     letter-spacing: .12em;
-    text-transform: uppercase;
     color: var(--g1);
     background: rgba(255, 255, 255, .02);
     border: 1px solid var(--border-2);
@@ -2446,7 +2764,6 @@ button {
     width: fit-content;
     transition: all .3s var(--ease);
     cursor: pointer;
-    text-decoration: none;
     backdrop-filter: blur(10px);
     pointer-events: auto
 }
@@ -2779,6 +3096,7 @@ button {
     box-shadow: 0 0 0 4px rgba(255, 255, 255, .02)
 }
 
+.case-study .builder-meta,
 .vtesti-author-meta {
     flex: 1;
     min-width: 0
@@ -3136,6 +3454,11 @@ button {
     .navbar.scrolled {
         padding: 10px 16px;
         max-width: 100vw
+    }
+
+    .hero-h1 em {
+        background: linear-gradient(135deg, var(--white) 0, var(--g2) 100%);
+        -webkit-background-clip: text
     }
 
     .avail,
@@ -3635,7 +3958,6 @@ button {
 .partners-inner {
     position: relative;
     width: 100%;
-    max-width: 1280px;
     margin: 0 auto
 }
 
@@ -3686,10 +4008,62 @@ button {
     color: var(--g3)
 }
 
+.partners-subheading {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.5;
+    letter-spacing: .02em;
+    margin: 22px 0 0
+}
+
 .partners-description {
-    margin: 22px 0 0;
+    margin: 18px 0 0;
     max-width: 540px;
     text-align: left
+}
+
+.partners-description em {
+    font-style: italic;
+    color: var(--g1)
+}
+
+.partners-locations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin: 24px 0;
+    color: var(--g2);
+    font-size: 14px;
+    letter-spacing: .05em
+}
+
+.location-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px
+}
+
+.location-flag-img {
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 2px
+}
+
+.location-dot {
+    opacity: .5;
+    margin-left: 4px
+}
+
+.partners-final-question {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.4;
+    letter-spacing: .01em;
+    margin: 6px 0 0
 }
 
 .partners-video {
@@ -3698,6 +4072,13 @@ button {
     border: 1px solid var(--border);
     box-shadow: 0 20px 50px rgba(0, 0, 0, .4), 0 0 40px color-mix(in srgb, var(--accent) 8%, transparent);
     background: var(--bg-2)
+}
+
+.case-study .built-card,
+.partner-card {
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden
 }
 
 .partners-marquee {
@@ -3712,7 +4093,6 @@ button {
 }
 
 .partner-card {
-    position: relative;
     width: 200px;
     height: 88px;
     flex-shrink: 0;
@@ -3720,8 +4100,6 @@ button {
     align-items: center;
     gap: 14px;
     padding: 0 20px;
-    overflow: hidden;
-    border: 1px solid var(--border);
     border-radius: 16px;
     background: linear-gradient(145deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .015));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035), 0 14px 35px rgba(0, 0, 0, .18);
@@ -3792,7 +4170,6 @@ button {
     font-weight: 500;
     line-height: 1.4;
     letter-spacing: .06em;
-    text-transform: uppercase;
     color: var(--g2);
     white-space: normal;
     overflow-wrap: break-word;
@@ -3892,12 +4269,55 @@ button {
         margin-inline: auto;
         text-align: center
     }
+
+    .partners-locations {
+        margin: 20px auto;
+        justify-content: center
+    }
+
+    .partners-final-question {
+        margin-inline: auto
+    }
 }
 
 @media (max-width:767px) {
+    .about-stats-top .stat-item-num {
+        font-size: 16px
+    }
+
+    .hero-eyebrow {
+        font-size: 10px;
+        letter-spacing: .15em;
+        gap: 10px;
+        line-height: 1.8;
+        margin-bottom: 24px
+    }
+
+    .hero-content {
+        padding: 0 16px
+    }
+
+    .hero-h1 {
+        font-size: clamp(30px, 9vw, 120px);
+        margin-bottom: 24px
+    }
+
     .hero-caption {
         margin-bottom: 16px;
-        font-size: 15px
+        font-size: clamp(14px, 2.5vw, 18px);
+        max-width: 90vw;
+        line-height: 1.9
+    }
+
+    .hero-trust-line {
+        color: var(--g1);
+        font-size: 11px;
+        margin-top: 16px
+    }
+
+    .hero-actions {
+        gap: 12px;
+        width: 100%
     }
 
     .wcard-inner,
@@ -4110,13 +4530,14 @@ button {
     }
 
     .robot-overlay .robot-h {
-        font-size: 1.85rem;
+        font-size: 1.45rem;
         line-height: 1.3;
         text-shadow: 0 2px 10px rgba(0, 0, 0, .9)
     }
 
     .robot-overlay .robot-eyebrow,
-    .robot-overlay .robot-sub {
+    .robot-overlay .robot-sub,
+    .robot-overlay .robot-sub-highlight {
         text-shadow: 0 2px 8px rgba(0, 0, 0, .9)
     }
 
@@ -4152,11 +4573,6 @@ button {
     }
 }
 
-/* ════════════════════════════════════════════════════════════
-   CASE STUDY DETAIL PAGE
-   (scoped under .case-study so it never collides with the
-   main portfolio's .footer / :root variables / generic classes)
-════════════════════════════════════════════════════════════ */
 .case-study {
     --surface: #222222;
     --card: #262626;
@@ -4175,13 +4591,9 @@ button {
     --tp: #00B67A;
     --radius: 10px;
     --radius-lg: 16px;
-    /* atmospheric "spotlights" using the global accent variable */
-    background:
-        radial-gradient(600px circle at 50% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
-        radial-gradient(600px circle at 50% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
-    /* offset the app's fixed navbar */
+    background: radial-gradient(600px circle at 50% 0, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%), radial-gradient(600px circle at 50% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
     padding-top: 110px;
-    min-height: 100vh;
+    min-height: 100vh
 }
 
 .case-study .wrap {
@@ -4190,9 +4602,8 @@ button {
     padding: 0 24px
 }
 
-/* ── builder intro card ── */
 .case-study .builder-section {
-    padding: 0 0 0
+    padding: 0
 }
 
 .case-study .builder-card {
@@ -4213,7 +4624,6 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 700;
     color: #fff;
@@ -4222,22 +4632,15 @@ button {
     letter-spacing: -.5px
 }
 
-.case-study .builder-meta {
-    flex: 1;
-    min-width: 0
-}
-
 .case-study .builder-from {
     font-size: 10px;
     font-weight: 600;
     color: var(--text-3);
-    text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 5px
 }
 
 .case-study .builder-name {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 700;
     color: var(--text);
@@ -4276,7 +4679,9 @@ button {
     margin-bottom: 20px
 }
 
-.case-study .builder-note strong {
+.case-study .builder-note strong,
+.case-study .cta-sub strong,
+.case-study .watch-demo-btn {
     color: var(--text);
     font-weight: 600
 }
@@ -4286,8 +4691,6 @@ button {
     align-items: center;
     gap: 10px;
     font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
     background: var(--card);
     border: 1px solid var(--border-strong);
     padding: 11px 20px;
@@ -4311,7 +4714,7 @@ button {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    animation: cs-bounce-down 1.8s ease-in-out infinite
+    animation: 1.8s ease-in-out infinite cs-bounce-down
 }
 
 @keyframes cs-bounce-down {
@@ -4336,10 +4739,7 @@ button {
     fill: none
 }
 
-/* ── hero ── */
 .case-study .hero-section {
-    /* override the global .hero-section (flex, 100vh, centered) so the case
-       study hero stacks single-column like the original design */
     display: block;
     height: auto;
     min-height: 0;
@@ -4361,7 +4761,6 @@ button {
     padding: 5px 13px 5px 10px;
     border-radius: 100px;
     margin-bottom: 20px;
-    text-transform: uppercase;
     letter-spacing: .6px
 }
 
@@ -4374,7 +4773,6 @@ button {
 }
 
 .case-study .hero-title {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: clamp(28px, 5.5vw, 46px);
     font-weight: 700;
     line-height: 1.1;
@@ -4385,9 +4783,8 @@ button {
 
 .case-study .hero-title em {
     font-style: normal;
-    background: linear-gradient(135deg, var(--cyan), #7BE0EA);
+    background: linear-gradient(135deg, var(--cyan), #7be0ea);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text
 }
 
@@ -4426,22 +4823,23 @@ button {
     flex-shrink: 0
 }
 
-/* ── problem ── */
-.case-study .problem-section {
+.case-study .built-section,
+.case-study .outcome-section,
+.case-study .problem-section,
+.case-study .process-section,
+.case-study .testimonial-section {
     padding: 80px 0 0
 }
 
 .case-study .section-eyebrow {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     color: var(--text-3);
-    text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 8px
 }
 
 .case-study .section-heading {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 22px;
     font-weight: 700;
     color: var(--text);
@@ -4468,7 +4866,6 @@ button {
     line-height: 1.65
 }
 
-/* ── Minimalist Friction List ── */
 .case-study .pain-list-minimal {
     margin-top: 32px;
     padding-left: 24px;
@@ -4501,19 +4898,6 @@ button {
     font-weight: 400
 }
 
-/* Ensure it looks good on mobile */
-@media (max-width: 600px) {
-    .case-study .pain-list-minimal {
-        padding-left: 16px;
-        gap: 16px
-    }
-
-    .case-study .pain-text-minimal {
-        font-size: 15px
-    }
-}
-
-/* ── video ── */
 .case-study .video-section {
     padding: 80px 0 0;
     scroll-margin-top: 60px
@@ -4527,8 +4911,16 @@ button {
     box-shadow: 0 4px 6px rgba(0, 0, 0, .3), 0 20px 60px rgba(0, 0, 0, .45)
 }
 
+.case-study .dot-g,
+.case-study .dot-r,
+.case-study .dot-y {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%
+}
+
 .case-study .browser-bar {
-    background: #1E1E1E;
+    background: #1e1e1e;
     border-bottom: 1px solid var(--border);
     padding: 11px 16px;
     display: flex;
@@ -4542,29 +4934,20 @@ button {
 }
 
 .case-study .dot-r {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #FF5F57
+    background: #ff5f57
 }
 
 .case-study .dot-y {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #FEBC2E
+    background: #febc2e
 }
 
 .case-study .dot-g {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #28C840
+    background: #28c840
 }
 
 .case-study .browser-url {
     flex: 1;
-    background: #2A2A2A;
+    background: #2a2a2a;
     border: 1px solid var(--border-strong);
     border-radius: 6px;
     padding: 5px 12px;
@@ -4590,7 +4973,7 @@ button {
 }
 
 .case-study .browser-footer {
-    background: #1E1E1E;
+    background: #1e1e1e;
     border-top: 1px solid var(--border);
     padding: 11px 20px;
     display: flex;
@@ -4611,7 +4994,7 @@ button {
     height: 7px;
     border-radius: 50%;
     background: var(--red);
-    animation: cs-blink 1.6s ease-in-out infinite
+    animation: 1.6s ease-in-out infinite cs-blink
 }
 
 @keyframes cs-blink {
@@ -4633,7 +5016,6 @@ button {
     font-size: 12px;
     font-weight: 600;
     color: var(--cyan);
-    text-decoration: none;
     padding: 6px 14px;
     border-radius: 7px;
     border: 1px solid rgba(0, 183, 201, .25);
@@ -4641,13 +5023,14 @@ button {
     transition: background .15s
 }
 
-.case-study .open-link:hover {
-    background: rgba(0, 183, 201, .15)
+.case-study .built-card,
+.case-study .outcome-card {
+    transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+    background: var(--surface)
 }
 
-/* ── what was built ── */
-.case-study .built-section {
-    padding: 80px 0 0
+.case-study .open-link:hover {
+    background: rgba(0, 183, 201, .15)
 }
 
 .case-study .built-grid {
@@ -4657,16 +5040,13 @@ button {
 }
 
 .case-study .built-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 22px;
-    position: relative;
-    overflow: hidden;
-    transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease)
+    padding: 22px
 }
 
-.case-study .built-card:hover {
+.case-study .built-card:hover,
+.case-study .outcome-card:hover,
+.case-study .tcard:hover {
     transform: translateY(-4px);
     border-color: var(--border-strong);
     box-shadow: 0 10px 30px rgba(0, 0, 0, .2)
@@ -4683,7 +5063,6 @@ button {
 }
 
 .case-study .built-num {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 12px;
     font-weight: 700;
     color: var(--cyan);
@@ -4692,7 +5071,6 @@ button {
 }
 
 .case-study .built-title {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 600;
     color: var(--text);
@@ -4706,11 +5084,6 @@ button {
     line-height: 1.6
 }
 
-/* ── outcome ── */
-.case-study .outcome-section {
-    padding: 80px 0 0
-}
-
 .case-study .outcome-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -4718,22 +5091,13 @@ button {
 }
 
 .case-study .outcome-card {
-    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 24px 16px;
-    text-align: center;
-    transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease)
-}
-
-.case-study .outcome-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--border-strong);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .2)
+    text-align: center
 }
 
 .case-study .outcome-num {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 32px;
     font-weight: 700;
     color: var(--green);
@@ -4753,11 +5117,6 @@ button {
     line-height: 1.45
 }
 
-/* ── testimonial ── */
-.case-study .testimonial-section {
-    padding: 80px 0 0
-}
-
 .case-study .tcard {
     background: var(--surface);
     border: 1px solid var(--border-strong);
@@ -4766,12 +5125,6 @@ button {
     position: relative;
     overflow: hidden;
     transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease)
-}
-
-.case-study .tcard:hover {
-    transform: translateY(-4px);
-    border-color: var(--border-strong);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .2)
 }
 
 .case-study .tcard::before {
@@ -4795,6 +5148,14 @@ button {
     pointer-events: none
 }
 
+.case-study .cta-heading,
+.case-study .pstep-num,
+.case-study .pstep-title,
+.case-study .tcard-avatar,
+.case-study .tcard-text {
+    font-family: 'DM Sans', Inter, sans-serif
+}
+
 .case-study .tcard-stars {
     display: flex;
     gap: 3px;
@@ -4816,7 +5177,6 @@ button {
 }
 
 .case-study .tcard-text {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 400;
     font-style: italic;
@@ -4851,7 +5211,6 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 700;
     color: #fff;
@@ -4891,11 +5250,6 @@ button {
     font-size: 12px
 }
 
-/* ── process ── */
-.case-study .process-section {
-    padding: 80px 0 0
-}
-
 .case-study .process-steps {
     display: flex;
     flex-direction: column;
@@ -4925,7 +5279,6 @@ button {
     border-radius: 50%;
     border: 2px solid var(--green);
     color: var(--green);
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 700;
     display: flex;
@@ -4942,7 +5295,6 @@ button {
 }
 
 .case-study .pstep-title {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 600;
     color: var(--text);
@@ -4956,9 +5308,8 @@ button {
     line-height: 1.65
 }
 
-/* ── CTA ── */
 .case-study .cta-section {
-    padding: 80px 0 80px
+    padding: 80px 0
 }
 
 .case-study .cta-card {
@@ -4995,7 +5346,6 @@ button {
     border: 1px solid var(--green-border);
     padding: 4px 12px;
     border-radius: 100px;
-    text-transform: uppercase;
     letter-spacing: .7px;
     margin-bottom: 20px
 }
@@ -5006,7 +5356,7 @@ button {
     height: 6px;
     border-radius: 50%;
     background: var(--green);
-    animation: cs-pulse 2s ease-in-out infinite
+    animation: 2s ease-in-out infinite cs-pulse
 }
 
 @keyframes cs-pulse {
@@ -5024,7 +5374,6 @@ button {
 }
 
 .case-study .cta-heading {
-    font-family: 'DM Sans', 'Inter', sans-serif;
     font-size: clamp(22px, 4vw, 30px);
     font-weight: 700;
     letter-spacing: -.7px;
@@ -5041,11 +5390,6 @@ button {
     margin: 0 auto 32px
 }
 
-.case-study .cta-sub strong {
-    color: var(--text);
-    font-weight: 600
-}
-
 .case-study .cta-btns {
     display: flex;
     gap: 12px;
@@ -5053,21 +5397,25 @@ button {
     flex-wrap: wrap
 }
 
+.case-study .btn-email,
 .case-study .btn-upwork {
     display: inline-flex;
+    font-size: 14px;
+    text-decoration: none
+}
+
+.case-study .btn-upwork {
     align-items: center;
     gap: 10px;
-    font-size: 14px;
     font-weight: 700;
     color: #fff;
     background: var(--green);
     padding: 14px 28px;
     border-radius: 10px;
-    text-decoration: none;
     letter-spacing: .1px;
     transition: opacity .15s, transform .15s;
     box-shadow: 0 0 0 0 rgba(0, 160, 0, 0);
-    animation: cs-glow-pulse 3s ease-in-out infinite
+    animation: 3s ease-in-out infinite cs-glow-pulse
 }
 
 @keyframes cs-glow-pulse {
@@ -5094,17 +5442,14 @@ button {
 }
 
 .case-study .btn-email {
-    display: inline-flex;
     align-items: center;
     gap: 9px;
-    font-size: 14px;
     font-weight: 500;
     color: var(--text-2);
     background: var(--card);
     border: 1px solid var(--border-strong);
     padding: 14px 24px;
     border-radius: 10px;
-    text-decoration: none;
     transition: border-color .15s, color .15s
 }
 
@@ -5139,8 +5484,24 @@ button {
     color: var(--green)
 }
 
-/* ── responsive ── */
-@media (max-width: 600px) {
+@media (max-width:600px) {
+    .contact-toast {
+        top: 16px;
+        right: 16px;
+        left: 16px;
+        min-width: 0;
+        max-width: none
+    }
+
+    .case-study .pain-list-minimal {
+        padding-left: 16px;
+        gap: 16px
+    }
+
+    .case-study .pain-text-minimal {
+        font-size: 15px
+    }
+
     .case-study .builder-card {
         flex-direction: column;
         gap: 14px;
@@ -5160,23 +5521,18 @@ button {
     }
 }
 
-@media (max-width: 440px) {
-    .case-study .built-grid {
+@media (max-width:440px) {
+
+    .case-study .built-grid,
+    .case-study .outcome-grid {
         grid-template-columns: 1fr
     }
 
     .case-study .browser-url {
         display: none
     }
-
-    .case-study .outcome-grid {
-        grid-template-columns: 1fr
-    }
 }
 
-/* ════════════════════════════════════════════════════════════
-   SCROLL-TO-TOP BUTTON
-════════════════════════════════════════════════════════════ */
 .scroll-top-btn {
     position: fixed;
     bottom: 24px;
@@ -5193,34 +5549,34 @@ button {
     box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
     opacity: 0;
     pointer-events: none;
-    transition: opacity .3s var(--ease);
+    transition: opacity .3s var(--ease)
 }
 
 .scroll-top-btn.visible {
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: auto
 }
 
 .scroll-top-btn:hover {
-    opacity: .88;
+    opacity: .88
 }
 
 .scroll-top-ring {
     position: absolute;
     inset: 0;
     width: 48px;
-    height: 48px;
+    height: 48px
 }
 
 .scroll-top-ring-track {
-    stroke: var(--border-2);
+    stroke: var(--border-2)
 }
 
 .scroll-top-ring-progress {
     stroke: var(--accent);
     stroke-linecap: round;
     transform: rotate(-90deg);
-    transform-origin: center;
+    transform-origin: center
 }
 
 .scroll-top-arrow {
@@ -5230,5 +5586,5 @@ button {
     font-weight: 700;
     line-height: 1;
     color: var(--white);
-    pointer-events: none;
+    pointer-events: none
 }

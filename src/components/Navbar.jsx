@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import data from '../data.json'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 export default function Navbar() {
   const links = data.nav.links
@@ -119,32 +120,7 @@ export default function Navbar() {
   const scrollToEl = (el) => {
     if (!el) return
     setMenuOpen(false)
-
-    const startPosition = window.pageYOffset
-    const targetPosition = el.getBoundingClientRect().top + startPosition
-    const distance = targetPosition - startPosition
-    const duration = 1500 // Duration in milliseconds (1.5 seconds)
-    let startTimestamp = null
-
-    // Easing function for smooth acceleration and deceleration
-    const easeInOutCubic = (t) => {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-    }
-
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp
-      const elapsed = timestamp - startTimestamp
-      const progress = Math.min(elapsed / duration, 1)
-      const easedProgress = easeInOutCubic(progress)
-
-      window.scrollTo(0, startPosition + distance * easedProgress)
-
-      if (elapsed < duration) {
-        requestAnimationFrame(step)
-      }
-    }
-
-    requestAnimationFrame(step)
+    smoothScrollTo(el, { duration: 1.2 })
   }
 
   const scrollToId = (id) => {
@@ -273,8 +249,8 @@ export default function Navbar() {
           <span className="avail-dot" />
           available
         </div>
-        <button className="nav-cta" onClick={() => handleNavClick('contact')}>
-          hire me ↗
+        <button className="nav-cta" onClick={() => handleNavClick('about')}>
+          why hire me
         </button>
       </div>
     </nav>

@@ -2,6 +2,8 @@ import { useEffect, useRef, memo } from 'react'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { isWebGLAvailable } from '../utils/webgl'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -302,11 +304,17 @@ function RobotSection() {
     const mount = mountRef.current
     if (!mount) return
 
+    if (!isWebGLAvailable()) {
+      mount.classList.add('webgl-fallback')
+      return
+    }
+
+    try {
     /* ===================== DEVICE SETTINGS ===================== */
     const isMobile = window.innerWidth < 768
     // Scaled down slightly on mobile to fit both comfortably
-    const botX = isMobile ? 1.2 : 2.4
-    const panX = isMobile ? 1.8 : 3.6
+    const botX = isMobile ? 1.2 : 3.2
+    const panX = isMobile ? 1.8 : 4.2
     const camZ = isMobile ? 6.5 : 5.9
 
     /* ===================== RENDERER ===================== */
@@ -614,11 +622,15 @@ function RobotSection() {
       if (rTex) rTex.dispose()
       renderer.dispose()
     }
+    } catch (err) {
+      console.error('[RobotSection] WebGL init failed, using CSS gradient fallback', err)
+      mount.classList.add('webgl-fallback')
+    }
   }, [])
 
   /* ===================== JSX ===================== */
   const handleScrollDown = () => {
-    window.scrollBy({ top: window.innerHeight * 0.90, behavior: 'smooth' })
+    smoothScrollTo('#work')
   }
 
   return (
@@ -630,8 +642,17 @@ function RobotSection() {
 
         <div className="robot-overlay" ref={overlayRef}>
           <p className="robot-eyebrow" data-fade>built different</p>
-          <h2 className="robot-h" data-fade data-delay="0.1">Welcome to the future<br />of development.</h2>
-          <p className="robot-sub" data-fade data-delay="0.2">Agentic systems that think. Automations that run themselves.<br />Code that doesn't need babysitting.</p>
+          <h2 className="robot-h" data-fade data-delay="0.1">
+            Your business doesn't need<br />
+            more software.<br />
+            <span className="robot-h-sub">It needs systems that actually work together.</span>
+          </h2>
+          <p className="robot-sub" data-fade data-delay="0.2">
+            AI that handles real work. CRM that moves revenue forward. Automations that remove the manual work slowing your team down.
+          </p>
+          <p className="robot-sub-highlight" data-fade data-delay="0.3">
+            Less busywork. Fewer bottlenecks. More business moving without you.
+          </p>
 
           <button className="robot-view-btn" onClick={handleScrollDown} type="button">
             View Case Studies

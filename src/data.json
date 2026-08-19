@@ -9,9 +9,12 @@
     ]
   },
   "hero": {
-    "eyebrowText": "ai automation · crm engineer · python",
-    "headlineHtml": "I build what<br /><em>doesn't exist</em><br />yet.",
-    "caption": "AI Agents · Zoho CRM · GHL · Automations<br />DevRolin · Based in Pakistan · Serving globally"
+    "eyebrow": "AI AUTOMATION & INTEGRATION · CRM & REVENUE SYSTEMS · AI AGENTS · AI SAAS & MVPs",
+    "headlineHtml": "I build systems<br /><em>businesses run</em><br />on.",
+    "caption": "AI-powered systems that automate operations, connect your tools, and turn manual processes into scalable workflows.",
+    "trustLine": "Forbes-Featured Clients · 4.9/5 Upwork Rating · Systems Supporting 1M+ Audiences",
+    "primaryBtn": "View Case Studies",
+    "secondaryBtn": "Discuss your project &#8594;"
   },
   "marquee": {
     "items": [
@@ -31,70 +34,87 @@
   },
   "about": {
     "headingLines": [
-      "Building the future,",
-      "one system at a time."
+      "You shouldn't have to",
+      "manage your developer."
     ],
-    "brand": "DEVROLIN",
-    "role": "COO & Co-founder, Devrolin",
-    "ctaLine": "Ready to automate your next system?",
+    "brand": "Mudassir Hussain",
+    "role": "Systems Architect & Automation Expert",
+    "ctaLine": "Have a bottleneck worth solving?",
     "ctaLabel": "LET'S TALK",
-    "ctaHref": "#contact",
+    "ctaHref": "https://www.upwork.com/freelancers/mudassirai0crm0guy",
     "stats": [
       {
-        "num": "30+",
-        "label": "Projects shipped"
+        "num": "FORBES",
+        "label": "Featured"
       },
       {
-        "num": "12+",
-        "label": "Countries served"
+        "num": "4.9/5",
+        "label": "Client Rating"
       },
       {
-        "num": "3",
-        "label": "Companies built"
+        "num": "18+ YRS",
+        "label": "Building Systems"
       },
       {
-        "num": "5yr",
-        "label": "Experience"
+        "num": "1M+",
+        "label": "Audience Scale"
       }
     ],
-    "descriptionHtml": "COO and co-founder of <strong>DevRolin</strong>. I architect agentic AI systems, automate complex workflows, and build premium digital products for clients across the US, UK, UAE, and beyond.<br /><br />Everything I ship is <strong>custom-built</strong> no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers."
+    "descriptionHtml": "<p>I work differently from developers who simply take requirements, write code, and disappear.</p><p>I understand the business problem first, challenge what doesn't make sense, and then build the simplest system that solves it properly.</p><ul class='about-rules-list'><li><strong>I don't automate a broken process</strong> just because it can be automated.</li><li><strong>I don't force every problem</strong> into the same tool.</li><li><strong>I don't call something finished</strong> because it worked once in development.</li></ul><p>Understand it. Build it. Break it. Test it. Ship it.<br />That's how I build systems businesses can actually depend on.</p><p><strong>Clear scope. Clear communication. Real ownership.</strong></p>"
+  },
+  "servicesText": {
+    "eyebrow": "03 · WHAT I BUILD",
+    "heading": "Systems built around the business.",
+    "subheading": "Not the tool. From one broken workflow to a complete AI-powered platform, I build the system around what needs to happen next."
   },
   "services": [
     {
       "num": "01",
       "icon": "◈",
-      "title": "Agentic AI",
-      "desc": "Multi-agent pipelines, LLM orchestration, autonomous decision systems that operate without human intervention."
+      "eyebrow": "AI AGENTS",
+      "title": "AI Agents That Do Real Work",
+      "desc": "Agents built for lead qualification, customer support, research, document processing, internal operations and multi-step business workflows.",
+      "stack": "OpenAI · Claude · LangGraph · CrewAI · RAG"
     },
     {
       "num": "02",
       "icon": "⇌",
-      "title": "Automations",
-      "desc": "Code-first automation: custom webhooks, API chains, GHL integrations. Zero drag-and-drop."
+      "eyebrow": "AI AUTOMATION & INTEGRATION",
+      "title": "Connect. Automate. Remove the Manual Work.",
+      "desc": "I connect your apps, APIs and data into workflows that run automatically, without your team constantly moving information between tools.",
+      "stack": "n8n · Make · Zapier · APIs · Webhooks"
     },
     {
       "num": "03",
       "icon": "▣",
-      "title": "Full-stack SaaS",
-      "desc": "Next.js, MERN stack, custom CRMs, dashboards, and portals built to scale globally."
+      "eyebrow": "CRM & REVENUE SYSTEMS",
+      "title": "Turn Your CRM Into a Revenue System",
+      "desc": "Lead routing, pipeline automation, follow-ups, lifecycle workflows and integrations designed to keep opportunities moving without relying on memory.",
+      "stack": "GoHighLevel · Zoho CRM · HubSpot · Salesforce · Pipedrive"
     },
     {
       "num": "04",
       "icon": "◉",
-      "title": "3D Web",
-      "desc": "Three.js and React Three Fiber experiences portfolios, product showcases, interactive installations."
+      "eyebrow": "AI SAAS & MVPs",
+      "title": "From Idea to a System People Can Actually Use",
+      "desc": "AI-powered MVPs and SaaS platforms with the backend, authentication, dashboards, payments and integrations needed to operate beyond the demo.",
+      "stack": "Next.js · React · Python · FastAPI · Supabase"
     },
     {
       "num": "05",
       "icon": "▦",
-      "title": "Mobile Apps",
-      "desc": "Flutter cross-platform apps for iOS and Android. One codebase, native-grade performance."
+      "eyebrow": "PYTHON & BACKEND",
+      "title": "When Off-the-Shelf Tools Aren't Enough",
+      "desc": "Custom APIs, backend services, webhooks, databases and automation logic for workflows that need more control than standard platforms provide.",
+      "stack": "Python · FastAPI · Django · Node.js · REST APIs"
     },
     {
       "num": "06",
       "icon": "∿",
-      "title": "AI / ML Systems",
-      "desc": "TTS model training, EEG signal classification, BCI pipelines, voice synthesis, Groq & OpenAI integration."
+      "eyebrow": "VOICE AI & INTELLIGENT SYSTEMS",
+      "title": "AI That Can Listen, Speak and Take Action",
+      "desc": "Voice agents and intelligent systems for inbound calls, qualification, booking, support and multilingual customer experiences.",
+      "stack": "Vapi · Retell · ElevenLabs · Deepgram · Twilio"
     }
   ],
   "partners": [
@@ -143,68 +163,99 @@
       "logo": "/images/partners/Anatome.png"
     }
   ],
+  "partnersText": {
+    "eyebrow": "Trusted To Build What Businesses Depend On",
+    "headingLine1": "More than a developer.",
+    "headingLine2": "A systems partner.",
+    "subheading": "I help businesses turn disconnected tools, manual processes, and ambitious AI ideas into systems that actually work together.",
+    "description1": "From the first workflow to the final deployment, I focus on what matters: <em>less manual work, stronger operations, and systems built to scale with the business.</em>",
+    "locations": [
+      { "flag": "/images/flags/us.png", "name": "USA" },
+      { "flag": "/images/flags/gb.png", "name": "UK" },
+      { "flag": "/images/flags/ae.png", "name": "UAE" },
+      { "flag": "/images/flags/ca.png", "name": "CANADA" },
+      { "flag": "/images/flags/au.png", "name": "AUSTRALIA" },
+      { "flag": "/images/flags/global.png", "name": "GLOBAL" }
+    ],
+    "description2": "From CRM automation and AI agents to custom APIs and SaaS platforms, every build starts with one question:",
+    "finalQuestion": "What does this need to solve for the business?",
+    "videoUrl": "https://www.youtube.com/embed/8KGhyl4qld0?rel=0"
+  },
+  "workText": {
+    "eyebrow": "01 · REAL SYSTEMS. REAL USE CASES.",
+    "heading": "Built to solve real business problems.",
+    "subheading": "AI automation, CRM systems, AI agents and SaaS products built around one thing: Making the business work better."
+  },
   "work": [
     {
-      "tag": "AI Automation",
+      "tag": "AI SAAS · DOCUMENT AUTOMATION",
       "year": "2024",
-      "icon": "✦",
-      "title": "CV Labz",
-      "desc": "AI-powered CV generation platform producing ATS-optimized resumes instantly.",
+      "title": "CV LABZ",
+      "desc": "From raw information to an ATS-ready CV in minutes. Built an AI-powered SaaS platform that transforms user data into structured, professional resumes automatically.",
       "stack": "React · OpenAI · Node.js",
       "link": "/case-study/cvlabz",
       "image": "/images/work/cvlabz.webp"
     },
     {
-      "tag": "SaaS Platform",
-      "year": "2025",
-      "icon": "▲",
-      "title": "PixelLift",
-      "desc": "AI upscaling SaaS that automatically enhances low-quality product images.",
-      "stack": "Next.js · DALL-E · AWS",
-      "link": "/case-study/pixellift",
-      "image": "/images/work/pixellift.webp"
-    },
-    {
-      "tag": "Full-Stack App",
+      "tag": "CRM & REVENUE AUTOMATION · LEGAL",
       "year": "2024",
-      "icon": "◉",
-      "title": "Loomo",
-      "desc": "Full ride-booking platform with user app, driver app, and live tracking.",
-      "stack": "React Native · Node.js · Stripe",
-      "link": "/case-study/loomo",
-      "image": "/images/work/loomo.webp"
-    },
-    {
-      "tag": "CRM Automation",
-      "year": "2026",
-      "icon": "⚖",
-      "title": "The Digital Counsel",
-      "desc": "Automated 14-day SMS and email review sequence for law firms.",
-      "stack": "GoHighLevel · Make.com · Twilio",
+      "title": "THE DIGITAL COUNSEL",
+      "desc": "Follow-up that happens even when your team is busy. Built a 14-day automated SMS and email system that keeps client communication moving without relying on manual follow-ups.",
+      "stack": "GoHighLevel · Make · Twilio",
       "link": "/case-study/digitalcounsel",
       "image": "/images/work/TGC.webp"
     },
     {
-      "tag": "Healthcare AI",
-      "year": "2026",
-      "icon": "✚",
-      "title": "Cherrett Chiropractic",
-      "desc": "Automated patient reactivation pipeline with AI SMS booking bot.",
+      "tag": "AI AGENT · CRM AUTOMATION · HEALTHCARE",
+      "year": "2024",
+      "title": "CHERRETT CHIROPRACTIC",
+      "desc": "Turning an inactive patient database back into appointments. Built an AI-powered reactivation system that starts conversations, handles responses and moves qualified patients toward booking.",
       "stack": "GoHighLevel · Cliniko · OpenAI",
       "link": "/case-study/cherrett",
       "image": "/images/work/cherrett.webp"
     },
     {
-      "tag": "Email Marketing",
-      "year": "2025",
-      "icon": "✉",
-      "title": "Prepare2Swim",
-      "desc": "Fixed broken email deliverability and automated ManyChat lead handoff.",
-      "stack": "ConvertKit · ManyChat · DNS",
+      "tag": "AI AUTOMATION & INTEGRATION · 1M+ AUDIENCE",
+      "year": "2024",
+      "title": "PREPARE2SWIM",
+      "desc": "Automation built to support a 1M+ audience. Fixed critical email-deliverability issues and automated the ManyChat → Kit lead journey for a high-volume digital business.",
+      "stack": "Kit · ManyChat · DNS · Automation",
       "link": "/case-study/prepare2swim",
       "image": "/images/work/p2s.webp"
+    },
+    {
+      "tag": "AI SAAS · IMAGE AUTOMATION",
+      "year": "2024",
+      "title": "PIXELLIFT",
+      "desc": "From low-quality images to usable product assets automatically. Built an AI SaaS workflow that enhances product images without repetitive manual editing.",
+      "stack": "Next.js · AI APIs · AWS",
+      "link": "/case-study/pixellift",
+      "image": "/images/work/pixellift.webp"
+    },
+    {
+      "tag": "SAAS MVP · CUSTOM PLATFORM",
+      "year": "2024",
+      "title": "LOOMO",
+      "desc": "One platform connecting customers, drivers and payments. Built a multi-sided ride-booking system covering customer journeys, driver operations, payments and live tracking.",
+      "stack": "React Native · Node.js · Stripe",
+      "link": "/case-study/loomo",
+      "image": "/images/work/loomo.webp"
     }
   ],
+  "tech": {
+    "eyebrow": "04 · TECH STACK",
+    "heading": "The right tool for the right system.",
+    "subheading": "I don't force every project into the same stack. From AI agents and CRM automation to custom APIs and SaaS platforms, I choose the technology around your workflow, existing systems, scale, and what will be easiest to maintain after launch. No unnecessary complexity. No tool bias. Just the stack that gets the job done properly.",
+    "stackList": [
+      { "category": "AI & AGENTS", "tools": "OpenAI · Claude · Gemini · LangGraph · CrewAI · LangChain · LlamaIndex" },
+      { "category": "AUTOMATION & INTEGRATION", "tools": "n8n · Make · Zapier · Pipedream · APIs · Webhooks" },
+      { "category": "CRM & REVENUE", "tools": "GoHighLevel · Zoho CRM · HubSpot · Salesforce · Pipedrive" },
+      { "category": "PYTHON & BACKEND", "tools": "Python · FastAPI · Django · Node.js · REST APIs" },
+      { "category": "DATA & RAG", "tools": "Supabase · PostgreSQL · Redis · MongoDB · Pinecone · Weaviate" },
+      { "category": "VOICE AI", "tools": "Vapi · Retell · ElevenLabs · Deepgram · Twilio · LiveKit" },
+      { "category": "CLOUD", "tools": "AWS · Vercel · Railway · Render" }
+    ]
+  },
   "techStack": {
     "featured": [
       "React / Next.js",
@@ -234,76 +285,64 @@
     ]
   },
   "testimonials": {
-    "rows": [
+    "heading": "Don't take my word for it.",
+    "subheading": "Real feedback from clients I've worked with.",
+    "reviews": [
       {
-        "id": "row-1",
-        "speed": "45s",
-        "direction": "left",
-        "testimonials": [
-          {
-            "initials": "DM",
-            "name": "David Morgan",
-            "role": "Startup Owner",
-            "quote": "Most teams overpromise. Mudassir and the team simply delivered. Clear updates, fast problem solving, and a level of ownership that’s hard to find.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
-          },
-          {
-            "initials": "RP",
-            "name": "Rachit Patel",
-            "role": "CEO, GBNODES",
-            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
-          },
-          {
-            "initials": "MM",
-            "name": "Mr. Marco",
-            "role": "Entrepreneur & CEO, RubberDuck",
-            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
-          },
-          {
-            "initials": "RE",
-            "name": "Rami El-Khateib",
-            "role": "Founder, OMNIYA",
-            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
-          }
-        ]
+        "name": "David Morgan",
+        "role": "Startup Owner",
+        "text": "Most teams overpromise. Mudassir simply delivered with clear updates, fast problem solving, and real ownership.",
+        "rating": 5,
+        "avatar": null
       },
       {
-        "id": "row-2",
-        "speed": "60s",
-        "direction": "right",
-        "testimonials": [
-          {
-            "initials": "NS",
-            "name": "Noble Schools",
-            "role": "Chicago",
-            "quote": "They were awesome and flexible, and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
-          },
-          {
-            "initials": "RE",
-            "name": "Rami El-Khateib",
-            "role": "Founder, OMNIYA",
-            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
-          },
-          {
-            "initials": "MM",
-            "name": "Mr. Marco",
-            "role": "Entrepreneur & CEO, RubberDuck",
-            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
-          },
-          {
-            "initials": "RP",
-            "name": "Rachit Patel",
-            "role": "CEO, GBNODES",
-            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
-          }
-        ]
+        "name": "Rachit Patel",
+        "role": "CEO, GBNODES",
+        "text": "Strong technical team with real operational thinking. Fixed critical gaps and executed professionally from start to finish.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Marco",
+        "role": "Entrepreneur & CEO, RubberDuck",
+        "text": "Mudassir was great to work with. Delivered clean work, communicated proactively, and met every deadline.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Rami El-Khateib",
+        "role": "Founder, OMNIYA",
+        "text": "Delivered a complex, real-time system cleanly, on time, and fully documented. Highly recommended for serious SaaS work.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Noble Schools",
+        "role": "Chicago",
+        "text": "They were awesome and flexible, and knocked our job out of the park. Beyond expectations.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Julian",
+        "role": "Noble School Chicago",
+        "text": "They were awesome and flexible, and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Marco",
+        "role": "Founder, RubberDuck",
+        "text": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Dermot",
+        "role": "Founder, AWF",
+        "text": "Mudassir worked really well, communicated well and completed quality work. We look forward to working with him again.",
+        "rating": 5,
+        "avatar": null
       }
     ]
   },
@@ -317,26 +356,24 @@
     }
   ],
   "contact": {
-    "subTextHtml": "Agentic AI · Automations · 3D Web · Full-stack<br/>Global clients. No templates. No shortcuts."
+    "eyebrow": "READY TO BUILD?",
+    "heading": "Show me what's slowing your business down.",
+    "body": "A broken workflow. A CRM that isn't working. An AI idea waiting to be built. Or a process your team shouldn't be doing manually. Send me the problem. I'll tell you where I'd start.",
+    "buttonText": "DISCUSS YOUR PROJECT &#8594;",
+    "upworkUrl": "https://www.upwork.com/freelancers/mudassirai0crm0guy",
+    "whatsappUrl": "https://wa.me/+971522347966",
+    "email": "https://mail.google.com/mail/?view=cm&fs=1&to=mudassirarid@gmail.com",
+    "linkedinUrl": "https://www.linkedin.com/in/mudasr/",
+    "footerLine1": "AI Automation & Integration · CRM & Revenue Systems · AI Agents · AI SaaS & MVPs",
+    "footerLine2": "Available for selected projects & long-term collaborations"
   },
   "footer": {
-    "links": [
-      {
-        "label": "upwork",
-        "href": "https://www.upwork.com/freelancers/mudassirai0crm0guy?mp_source=share"
-      },
-      {
-        "label": "linkedin",
-        "href": "https://www.linkedin.com/in/mudasr/"
-      },
-      {
-        "label": "github",
-        "href": "https://github.com/mudsr0"
-      },
-      {
-        "label": "email",
-        "href": "mailto:mudassirdevrolin@gmail.com"
-      }
-    ]
+    "status": "AVAILABLE FOR SELECTED PROJECTS",
+    "brand": "Mudassir.",
+    "tagline": "Building systems businesses can actually depend on.",
+    "services": "AI Automation & Integration · CRM & Revenue Systems · AI Agents · AI SaaS & MVPs",
+    "ctaText": "CONTINUE ON UPWORK",
+    "upworkUrl": "https://www.upwork.com/freelancers/mudassirai0crm0guy",
+    "copyright": "© 2026 Mudassir H."
   }
 }

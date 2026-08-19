@@ -4,13 +4,10 @@ import ParticleDome from './ParticleDome'
 const ICON_MAP = {
   'React / Next.js': { slug: 'react', color: '61dafb' }, 'Three.js': { slug: 'threedotjs', color: 'ffffff' },
   'Node.js': { slug: 'nodedotjs', color: '5fa04e' }, 'Flutter': { slug: 'flutter', color: '02569b' },
-  'OpenAI API': { slug: 'openai', color: '412991' }, 'Python': { slug: 'python', color: '3776ab' },
   'MongoDB': { slug: 'mongodb', color: '47a248' }, 'GSAP': { slug: 'greensock', color: '88ce02' },
   'Framer Motion': { slug: 'framer', color: '0055ff' }, 'GCP': { slug: 'googlecloud', color: '4285f4' },
-  'n8n': { slug: 'n8n', color: 'ea4b71' }, 'Groq': { slug: 'groq', color: 'f55036' },
   'Vercel': { slug: 'vercel', color: 'ffffff' }, 'Tailwind CSS': { slug: 'tailwindcss', color: '06b6d4' },
   'TypeScript': { slug: 'typescript', color: '3178c6' }, 'FastAPI': { slug: 'fastapi', color: '009688' },
-  'Twilio': { slug: 'twilio', color: 'f22f46' }, 'Zapier': { slug: 'zapier', color: 'ff4a00' },
   'Airtable (API)': { slug: 'airtable', color: '18bfff' }, 'Shopify': { slug: 'shopify', color: '95bf47' },
   'Neon DB': null, 'GoHighLevel': null,
 }
