@@ -129,7 +129,6 @@ function ServiceCard({ s }) {
             ))}
           </div>
         )}
-        <div className="svc-arrow" aria-hidden="true">→</div>
       </div>
     </div>
   )
