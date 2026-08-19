@@ -242,6 +242,20 @@
       "image": "/images/work/loomo.webp"
     }
   ],
+  "tech": {
+    "eyebrow": "04 · TECH STACK",
+    "heading": "The right tool for the right system.",
+    "subheading": "I don't force every project into the same stack. From AI agents and CRM automation to custom APIs and SaaS platforms, I choose the technology around your workflow, existing systems, scale, and what will be easiest to maintain after launch. No unnecessary complexity. No tool bias. Just the stack that gets the job done properly.",
+    "stackList": [
+      { "category": "AI & AGENTS", "tools": "OpenAI · Claude · Gemini · LangGraph · CrewAI · LangChain · LlamaIndex" },
+      { "category": "AUTOMATION & INTEGRATION", "tools": "n8n · Make · Zapier · Pipedream · APIs · Webhooks" },
+      { "category": "CRM & REVENUE", "tools": "GoHighLevel · Zoho CRM · HubSpot · Salesforce · Pipedrive" },
+      { "category": "PYTHON & BACKEND", "tools": "Python · FastAPI · Django · Node.js · REST APIs" },
+      { "category": "DATA & RAG", "tools": "Supabase · PostgreSQL · Redis · MongoDB · Pinecone · Weaviate" },
+      { "category": "VOICE AI", "tools": "Vapi · Retell · ElevenLabs · Deepgram · Twilio · LiveKit" },
+      { "category": "CLOUD", "tools": "AWS · Vercel · Railway · Render" }
+    ]
+  },
   "techStack": {
     "featured": [
       "React / Next.js",

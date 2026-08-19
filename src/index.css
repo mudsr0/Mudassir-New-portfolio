@@ -1688,6 +1688,44 @@ button {
     font-weight: 400
 }
 
+.tech-stack-fade {
+    position: relative;
+    min-height: 80px;
+    margin-top: 32px
+}
+
+.tech-stack-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .6s var(--ease), transform .6s var(--ease);
+    pointer-events: none
+}
+
+.tech-stack-item.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto
+}
+
+.tech-stack-cat {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 8px
+}
+
+.tech-stack-tools {
+    font-size: 15px;
+    color: var(--g1);
+    line-height: 1.6
+}
+
 .tech-pills {
     display: flex;
     flex-wrap: wrap;
