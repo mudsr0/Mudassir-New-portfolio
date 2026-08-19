@@ -1394,6 +1394,30 @@ button {
     font-weight: 400
 }
 
+.svc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px
+}
+
+.svc-tag {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--g2);
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 99px;
+    transition: border-color .3s, color .3s
+}
+
+.svc-cell:hover .svc-tag {
+    border-color: var(--border-2);
+    color: var(--g1)
+}
+
 .svc-arrow {
     font-size: 20px;
     color: var(--g3);

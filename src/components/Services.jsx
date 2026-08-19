@@ -122,6 +122,13 @@ function ServiceCard({ s }) {
         <div className="svc-icon" aria-hidden="true">{s.icon}</div>
         <div className="svc-title">{s.title}</div>
         <div className="svc-desc">{s.desc}</div>
+        {s.stack && (
+          <div className="svc-tags">
+            {s.stack.split(' · ').map((tag, i) => (
+              <span key={i} className="svc-tag">{tag}</span>
+            ))}
+          </div>
+        )}
         <div className="svc-arrow" aria-hidden="true">→</div>
       </div>
     </div>
@@ -137,11 +144,9 @@ export default function Services() {
         <WaveBackground color="#ffffff" dotCount={170} />
 
         <div className="sec-header" data-fade>
-          <div className="sec-eyebrow">
-            <span className="eyebrow-num">03</span>
-            services
-          </div>
-          <h2 className="sec-h">What I build.</h2>
+          <div className="sec-eyebrow">{data.servicesText.eyebrow}</div>
+          <h2 className="sec-h">{data.servicesText.heading}</h2>
+          <p className="sec-p">{data.servicesText.subheading}</p>
         </div>
 
         {/* Mobile swipe hint (hidden on desktop via CSS) */}

@@ -62,42 +62,59 @@
     ],
     "descriptionHtml": "<p>I work differently from developers who simply take requirements, write code, and disappear.</p><p>I understand the business problem first, challenge what doesn't make sense, and then build the simplest system that solves it properly.</p><ul class='about-rules-list'><li><strong>I don't automate a broken process</strong> just because it can be automated.</li><li><strong>I don't force every problem</strong> into the same tool.</li><li><strong>I don't call something finished</strong> because it worked once in development.</li></ul><p>Understand it. Build it. Break it. Test it. Ship it.<br />That's how I build systems businesses can actually depend on.</p><p><strong>Clear scope. Clear communication. Real ownership.</strong></p>"
   },
+  "servicesText": {
+    "eyebrow": "03 · WHAT I BUILD",
+    "heading": "Systems built around the business.",
+    "subheading": "Not the tool. From one broken workflow to a complete AI-powered platform, I build the system around what needs to happen next."
+  },
   "services": [
     {
       "num": "01",
       "icon": "◈",
-      "title": "Agentic AI",
-      "desc": "Multi-agent pipelines, LLM orchestration, autonomous decision systems that operate without human intervention."
+      "eyebrow": "AI AGENTS",
+      "title": "AI Agents That Do Real Work",
+      "desc": "Agents built for lead qualification, customer support, research, document processing, internal operations and multi-step business workflows.",
+      "stack": "OpenAI · Claude · LangGraph · CrewAI · RAG"
     },
     {
       "num": "02",
       "icon": "⇌",
-      "title": "Automations",
-      "desc": "Code-first automation: custom webhooks, API chains, GHL integrations. Zero drag-and-drop."
+      "eyebrow": "AI AUTOMATION & INTEGRATION",
+      "title": "Connect. Automate. Remove the Manual Work.",
+      "desc": "I connect your apps, APIs and data into workflows that run automatically, without your team constantly moving information between tools.",
+      "stack": "n8n · Make · Zapier · APIs · Webhooks"
     },
     {
       "num": "03",
       "icon": "▣",
-      "title": "Full-stack SaaS",
-      "desc": "Next.js, MERN stack, custom CRMs, dashboards, and portals built to scale globally."
+      "eyebrow": "CRM & REVENUE SYSTEMS",
+      "title": "Turn Your CRM Into a Revenue System",
+      "desc": "Lead routing, pipeline automation, follow-ups, lifecycle workflows and integrations designed to keep opportunities moving without relying on memory.",
+      "stack": "GoHighLevel · Zoho CRM · HubSpot · Salesforce · Pipedrive"
     },
     {
       "num": "04",
       "icon": "◉",
-      "title": "3D Web",
-      "desc": "Three.js and React Three Fiber experiences portfolios, product showcases, interactive installations."
+      "eyebrow": "AI SAAS & MVPs",
+      "title": "From Idea to a System People Can Actually Use",
+      "desc": "AI-powered MVPs and SaaS platforms with the backend, authentication, dashboards, payments and integrations needed to operate beyond the demo.",
+      "stack": "Next.js · React · Python · FastAPI · Supabase"
     },
     {
       "num": "05",
       "icon": "▦",
-      "title": "Mobile Apps",
-      "desc": "Flutter cross-platform apps for iOS and Android. One codebase, native-grade performance."
+      "eyebrow": "PYTHON & BACKEND",
+      "title": "When Off-the-Shelf Tools Aren't Enough",
+      "desc": "Custom APIs, backend services, webhooks, databases and automation logic for workflows that need more control than standard platforms provide.",
+      "stack": "Python · FastAPI · Django · Node.js · REST APIs"
     },
     {
       "num": "06",
       "icon": "∿",
-      "title": "AI / ML Systems",
-      "desc": "TTS model training, EEG signal classification, BCI pipelines, voice synthesis, Groq & OpenAI integration."
+      "eyebrow": "VOICE AI & INTELLIGENT SYSTEMS",
+      "title": "AI That Can Listen, Speak and Take Action",
+      "desc": "Voice agents and intelligent systems for inbound calls, qualification, booking, support and multilingual customer experiences.",
+      "stack": "Vapi · Retell · ElevenLabs · Deepgram · Twilio"
     }
   ],
   "partners": [
