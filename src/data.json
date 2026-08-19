@@ -34,33 +34,33 @@
   },
   "about": {
     "headingLines": [
-      "Building the future,",
-      "one system at a time."
+      "You shouldn't have to",
+      "manage your developer."
     ],
-    "brand": "DEVROLIN",
-    "role": "COO & Co-founder, Devrolin",
-    "ctaLine": "Ready to automate your next system?",
+    "brand": "Mudassir Hussain",
+    "role": "Systems Architect & Automation Expert",
+    "ctaLine": "Have a bottleneck worth solving?",
     "ctaLabel": "LET'S TALK",
     "ctaHref": "#contact",
     "stats": [
       {
-        "num": "30+",
-        "label": "Projects shipped"
+        "num": "FORBES",
+        "label": "Featured"
       },
       {
-        "num": "12+",
-        "label": "Countries served"
+        "num": "4.9/5",
+        "label": "Client Rating"
       },
       {
-        "num": "3",
-        "label": "Companies built"
+        "num": "18+ YRS",
+        "label": "Building Systems"
       },
       {
-        "num": "5yr",
-        "label": "Experience"
+        "num": "1M+",
+        "label": "Audience Scale"
       }
     ],
-    "descriptionHtml": "COO and co-founder of <strong>DevRolin</strong>. I architect agentic AI systems, automate complex workflows, and build premium digital products for clients across the US, UK, UAE, and beyond.<br /><br />Everything I ship is <strong>custom-built</strong> no templates, no drag-and-drop shortcuts. I work at the intersection of AI, automation, and premium web development. If something doesn't exist yet, I build it.<br /><br />My focus is on <strong>agentic systems</strong> that operate autonomously, handling complex tasks without human intervention. From legal intake AI to multilingual voice platforms, I build software that scales.<br /><br />DevRolin serves global clients with a remote-first team of engineers and designers."
+    "descriptionHtml": "<p>I work differently from developers who simply take requirements, write code, and disappear.</p><p>I understand the business problem first, challenge what doesn't make sense, and then build the simplest system that solves it properly.</p><ul class='about-rules-list'><li><strong>I don't automate a broken process</strong> just because it can be automated.</li><li><strong>I don't force every problem</strong> into the same tool.</li><li><strong>I don't call something finished</strong> because it worked once in development.</li></ul><p>Understand it. Build it. Break it. Test it. Ship it.<br />That's how I build systems businesses can actually depend on.</p><p><strong>Clear scope. Clear communication. Real ownership.</strong></p>"
   },
   "services": [
     {

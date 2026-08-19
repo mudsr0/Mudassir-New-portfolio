@@ -1140,7 +1140,8 @@ button {
 }
 
 .about-h {
-    margin-bottom: 28px
+    margin-bottom: 28px;
+    font-size: clamp(28px, 6vw, 64px)
 }
 
 .about-h .word {
@@ -1148,8 +1149,8 @@ button {
 }
 
 .about-desc {
-    font-size: 16px;
-    line-height: 1.9;
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.8;
     color: var(--g2);
     column-count: 2;
     column-gap: 36px
@@ -1158,6 +1159,46 @@ button {
 .about-desc strong {
     color: var(--white);
     font-weight: 500
+}
+
+.about-desc p + p {
+    margin-top: 16px
+}
+
+.about-desc ul {
+    padding: 0;
+    margin: 16px 0;
+    list-style: none
+}
+
+.about-desc li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+    color: var(--g2);
+    line-height: 1.7;
+    break-inside: avoid
+}
+
+.about-desc li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent)
+}
+
+.about-desc li strong {
+    color: var(--g1)
+}
+
+@media (max-width:767px) {
+    .about-stats-top .stat-item-num {
+        font-size: 16px
+    }
 }
 
 .about-main-right {
