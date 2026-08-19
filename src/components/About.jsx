@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight } from 'lucide-react'
 import data from '../data.json'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -57,11 +58,11 @@ export default function About() {
 
     const createBackgroundGradient = () => {
       backgroundGradient = context.createLinearGradient(0, 0, width, height)
-      backgroundGradient.addColorStop(0.00, '#133a79e6')
-      backgroundGradient.addColorStop(0.20, '#152d52e6')
-      backgroundGradient.addColorStop(0.45, '#0E1421')
-      backgroundGradient.addColorStop(0.70, '#0d131f')
-      backgroundGradient.addColorStop(1.00, '#1b2331')
+      backgroundGradient.addColorStop(0.00, '#101622e6')
+      backgroundGradient.addColorStop(0.20, '#111827e6')
+      backgroundGradient.addColorStop(0.45, '#222222')
+      backgroundGradient.addColorStop(0.70, '#272727')
+      backgroundGradient.addColorStop(1.00, '#292929')
     }
 
     const createParticles = () => {
@@ -129,7 +130,7 @@ export default function About() {
           if (distSq < linkDistanceSq) {
             const dist = Math.sqrt(distSq), alpha = 0.22 * (1 - dist / linkDistance)
             context.beginPath()
-            context.strokeStyle = `rgba(200,215,255,${alpha})`
+            context.strokeStyle = `rgba(150,190,255,${alpha})`
             context.moveTo(p.x, p.y); context.lineTo(q.x, q.y); context.stroke()
           }
         }
@@ -143,9 +144,9 @@ export default function About() {
         context.fill()
         const glowRadius = p.r * 6
         const glow = context.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius)
-        glow.addColorStop(0, 'rgba(170,195,255,.28)')
-        glow.addColorStop(0.55, 'rgba(120,150,255,.10)')
-        glow.addColorStop(1, 'rgba(120,150,255,0)')
+        glow.addColorStop(0, 'rgba(120,170,255,.28)')
+        glow.addColorStop(0.55, 'rgba(60,120,200,.10)')
+        glow.addColorStop(1, 'rgba(60,120,200,0)')
         context.beginPath()
         context.arc(p.x, p.y, glowRadius, 0, Math.PI * 2)
         context.fillStyle = glow
@@ -183,7 +184,7 @@ export default function About() {
       <div className="about-topbar">
         <div className="sec-eyebrow" data-fade>
           <span className="eyebrow-num">02</span>
-          about
+          WHY CLIENTS HIRE ME
         </div>
       </div>
       <div className="about-stats-top" ref={statsTopRef}>
@@ -201,7 +202,7 @@ export default function About() {
               <path d="M0.0998072 1H0.422076H0.749756C0.767072 1 0.774207 0.961783 0.77561 0.942675V0.807325C0.777053 0.743631 0.791844 0.731953 0.799059 0.734076H0.969813C0.996268 0.730255 1.00088 0.693206 0.999875 0.675159V0.0700637C0.999875 0.0254777 0.985045 0.00477707 0.977629 0H0.902473C0.854975 0 0.890448 0.138535 0.850165 0.138535H0.0204424C0.00408849 0.142357 0 0.180467 0 0.199045V0.410828C0 0.449045 0.0136283 0.46603 0.0204424 0.469745H0.0523086C0.0696245 0.471019 0.0735527 0.497877 0.0733523 0.511146V0.915605C0.0723903 0.983121 0.090588 1 0.0998072 1Z" />
             </clipPath>
           </defs>
-          <rect width="100%" height="100%" clipPath="url(#about-clip-inverted)" fill="#151515" />
+          <rect width="100%" height="100%" clipPath="url(#about-clip-inverted)" fill="#1A1A1A" />
         </svg>
         <canvas ref={canvasRef} className="about-hero-particles" />
         <div className="about-hero-stat" ref={heroStatRef}>
@@ -227,7 +228,14 @@ export default function About() {
           <div className="about-brand">{brand}</div>
           <div className="about-role">{role}</div>
           <p className="about-cta-line">{ctaLine}</p>
-          <a href={ctaHref} className="about-cta-btn">
+          <a
+            href={ctaHref}
+            className="about-cta-btn"
+            onClick={(e) => {
+              e.preventDefault()
+              smoothScrollTo(ctaHref)
+            }}
+          >
             {ctaLabel}
             <ArrowRight size={16} />
           </a>

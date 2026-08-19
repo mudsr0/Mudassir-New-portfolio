@@ -3,6 +3,10 @@ import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
+import { isWebGLAvailable } from '../utils/webgl'
+import { smoothScrollTo } from '../utils/smoothScroll'
+
+const { hero } = data
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,6 +38,45 @@ export default function Hero() {
 
     let W = window.innerWidth
     let H = window.innerHeight
+
+    const playIntro = (threeCtx) => {
+      if (cancelled) return
+
+      gsap.set(['.hero-eyebrow', '.hero-caption', '.hero-trust-line'], { opacity: 0, y: 30 })
+      gsap.set('.hero-actions', { opacity: 0, scale: 0.9 })
+      gsap.set('.scroll-hint', { opacity: 0, y: -10 })
+      gsap.set('.hero-h1', { opacity: 1, y: 30 })
+
+      document.body.classList.remove('js-loading')
+
+      const tl = gsap.timeline({ delay: 0.2, defaults: { ease: 'expo.out' } })
+      tlRef.current = tl
+
+      if (threeCtx) {
+        tl.to(threeCtx.orbGroup.scale, { x: 1, y: 1, z: 1, duration: 0.4 })
+          .to(threeCtx.cMat, { opacity: 0.85, duration: 2.5, ease: 'power2.out' }, '<0.2')
+          .to(threeCtx.lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
+          .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
+          .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.4')
+          .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+          .to('.hero-trust-line', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+          .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
+          .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+      } else {
+        tl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
+          .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.15')
+          .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.25')
+          .to('.hero-trust-line', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
+          .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.35')
+          .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.45')
+      }
+    }
+
+    const applyFallback = () => {
+      if (cancelled) return
+      mount.classList.add('webgl-fallback')
+      playIntro(null)
+    }
 
     const initThree = () => {
       if (cancelled) return
@@ -232,34 +275,14 @@ export default function Hero() {
 
       animate()
 
-      const startHeroIntro = () => {
-        if (cancelled) return
-
-        gsap.set(['.hero-eyebrow', '.hero-caption'], { opacity: 0, y: 30 })
-        gsap.set('.hero-actions', { opacity: 0, scale: 0.9 })
-        gsap.set('.scroll-hint', { opacity: 0, y: -10 })
-        gsap.set('.hero-h1', { opacity: 1, y: 30 })
-
-        document.body.classList.remove('js-loading')
-
-        const tl = gsap.timeline({ delay: 0.2, defaults: { ease: 'expo.out' } })
-        tlRef.current = tl
-
-        tl.to(orbGroup.scale, { x: 1, y: 1, z: 1, duration: 0.4 })
-          .to(cMat, { opacity: 0.85, duration: 2.5, ease: 'power2.out' }, '<0.2')
-          .to(lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
-          .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
-          .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.4')
-          .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
-          .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
-          .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
-      }
+      const threeCtx = { orbGroup, cMat, lMat }
+      const onAppLoaded = () => playIntro(threeCtx)
 
       let introTimer = null
       if (document.querySelector('.loader-screen')) {
-        window.addEventListener('app-loaded', startHeroIntro)
+        window.addEventListener('app-loaded', onAppLoaded)
       } else {
-        introTimer = setTimeout(startHeroIntro, 300)
+        introTimer = setTimeout(onAppLoaded, 300)
       }
 
       const cleanup = () => {
@@ -268,7 +291,7 @@ export default function Hero() {
         window.removeEventListener('mousemove', onMove)
         window.removeEventListener('touchmove', onTouch)
         window.removeEventListener('resize', onResize)
-        window.removeEventListener('app-loaded', startHeroIntro)
+        window.removeEventListener('app-loaded', onAppLoaded)
 
         if (introTimer) clearTimeout(introTimer)
 
@@ -292,7 +315,17 @@ export default function Hero() {
     }
 
     idleId = runWhenIdle(() => {
-      if (!cancelled) initThree()
+      if (cancelled) return
+      if (!isWebGLAvailable()) {
+        applyFallback()
+        return
+      }
+      try {
+        initThree()
+      } catch (err) {
+        console.error('[Hero] WebGL init failed, using CSS gradient fallback', err)
+        applyFallback()
+      }
     })
 
     return () => {
@@ -305,11 +338,11 @@ export default function Hero() {
   }, [])
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    smoothScrollTo(`#${id}`)
   }
 
   const handleScrollDown = () => {
-    window.scrollBy({ top: window.innerHeight * 0.65, behavior: 'smooth' })
+    smoothScrollTo(window.innerHeight * 0.65)
   }
 
   return (
@@ -318,24 +351,27 @@ export default function Hero() {
         <canvas ref={canvasRef} />
       </div>
       <div className="hero-vignette" aria-hidden="true" />
-      
+
       <div ref={heroContentRef} className="hero-content">
         <div className="hero-eyebrow">
           <span className="eyebrow-line" />
-          {data.hero.eyebrowText}
+          {hero.eyebrow}
           <span className="eyebrow-line" />
         </div>
 
         <h1 className="hero-h1" dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
-        <p className="hero-caption" dangerouslySetInnerHTML={{ __html: data.hero.caption }} />
+
+        <p className="hero-caption">{hero.caption}</p>
+
+        <p className="hero-trust-line">{hero.trustLine}</p>
 
         <div className="hero-actions">
-          <button className="btn-primary" onClick={() => scrollTo('work')}>view work</button>
-          <button className="btn-ghost" onClick={() => scrollTo('contact')}>start a project →</button>
+          <button className="btn-primary" onClick={() => scrollTo('work')}>{hero.primaryBtn}</button>
+          <button className="btn-ghost" onClick={() => scrollTo('contact')} dangerouslySetInnerHTML={{ __html: hero.secondaryBtn }} />
         </div>
       </div>
 
-      <div
+      {/* <div
         className="scroll-hint"
         onClick={handleScrollDown}
         role="button"
@@ -344,7 +380,7 @@ export default function Hero() {
       >
         <span className="scroll-label">scroll</span>
         <div className="scroll-line" />
-      </div>
+      </div> */}
     </section>
   )
 }

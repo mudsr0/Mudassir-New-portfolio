@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState, Component } from 'react'
+import { useEffect, useRef, useState, useLayoutEffect, Component } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { smoothScrollTo } from './utils/smoothScroll'
 
 import Hero from './components/Hero';
 import RobotSection from './components/RobotSection'
@@ -17,6 +19,8 @@ import VideoTestimonials from './components/VideoTestimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Partners from './components/partners'
+import CaseStudyDetail from './components/CaseStudyDetail'
+import ScrollToTopButton from './components/ScrollToTopButton'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -49,7 +53,25 @@ class RobotErrorBoundary extends Component {
 
 export default function App() {
   const cursorRef = useRef(null)
+  const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
+
+  // Handle incoming navigation state from the Navbar: after landing on the home
+  // page, smooth-scroll to the requested section (e.g. `#work`, `#about`).
+  useLayoutEffect(() => {
+    const scrollToId = location.state && location.state.scrollTo
+    if (!scrollToId) return
+
+    // Wait for the DOM (home sections + their GSAP setup) to be ready before scrolling.
+    const timer = setTimeout(() => {
+      smoothScrollTo(`#${scrollToId}`, { duration: 1.2 })
+
+      // Clear the state so a manual refresh / revisit doesn't re-scroll.
+      window.history.replaceState({}, '')
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [location.state])
 
   // Lock body scroll and manage initial load styles
   useEffect(() => {
@@ -61,17 +83,28 @@ export default function App() {
     if (isLoading) return
 
     // ── Lenis smooth scroll ────────────────────────────────
+    // Single instance, created once the preloader finishes (effect is gated by
+    // [isLoading] below, and lenis.destroy() runs on cleanup). It is driven by
+    // GSAP's own rAF ticker so scrolling and ScrollTrigger stay in perfect sync.
     const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
+      duration: 3, // smoother feel (higher = smoother, lower = snappier)
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo out
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.2,
     })
+
+    // Expose the instance so components (Navbar, Hero, RobotSection,
+    // ScrollToTopButton, etc.) can reuse Lenis for programmatic smooth scrolls.
+    window.lenis = lenis
+
+    // Tell ScrollTrigger every time Lenis scrolls.
     lenis.on('scroll', ScrollTrigger.update)
 
+    // Single, clean rAF loop: drive Lenis through GSAP's ticker (GSAP's ticker
+    // runs on requestAnimationFrame, so this is the one loop). Do NOT add a
+    // second standalone requestAnimationFrame — calling lenis.raf twice per
+    // frame double-drives the animation and reintroduces the jank we're fixing.
     const raf = (time) => {
-      lenis.raf(time * 1000)
+      lenis.raf(time * 1000) // GSAP ticker time is in seconds; lenis expects ms
     }
 
     gsap.ticker.add(raf)
@@ -113,8 +146,12 @@ export default function App() {
 
       // ── Fade-up animations ─────────────────────────────────
       const wait = (ms) => new Promise(r => setTimeout(r, ms))
+      // Elements inside the case study page animate themselves (CaseStudyDetail),
+      // so exclude them here to avoid double-animating.
+      const isCaseStudy = (el) => !!el.closest('.case-study')
       const init = () => {
         document.querySelectorAll('[data-fade]').forEach((el) => {
+          if (isCaseStudy(el)) return
           gsap.fromTo(el,
             { opacity: 0, y: 55 },
             {
@@ -163,10 +200,46 @@ export default function App() {
       idleId = idleCallback(async () => {
         await wait(200) // let DOM settle
         ctx.add(init)
+
+        // The initial refresh runs while the preloader locks body overflow and
+        // before web fonts / the footer 3D canvas shift the layout. Recalculate
+        // once fonts are ready so reveal triggers (footer included) fire correctly.
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => ScrollTrigger.refresh())
+        }
+        setTimeout(() => ScrollTrigger.refresh(), 600)
+
+        // Safety net: never let a reveal-triggered element (e.g. the footer's
+        // data-fade wrapper) stay stuck at opacity 0 if its trigger miscalculated.
+        const revealStuck = () => {
+          document.querySelectorAll('[data-fade]').forEach((el) => {
+            if (el.closest('.case-study')) return
+            const rect = el.getBoundingClientRect()
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              if (Number(gsap.getProperty(el, 'opacity')) < 1) {
+                gsap.to(el, {
+                  opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+                  overwrite: true,
+                })
+              }
+            }
+          })
+        }
+        window.addEventListener('scroll', revealStuck, { passive: true })
+        revealStuck()
+
+        disposeCursor = (() => {
+          const original = disposeCursor
+          return () => {
+            original()
+            window.removeEventListener('scroll', revealStuck)
+          }
+        })()
       });
     })
 
     return () => {
+      window.lenis = null
       lenis.destroy()
       gsap.ticker.remove(raf)
       disposeCursor()
@@ -184,21 +257,29 @@ export default function App() {
       <div className="noise" aria-hidden="true" />
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
 
+      <ScrollToTopButton />
       <Navbar />
       <main>
-        <Hero />
-        <Marquee />
-        {/* <VideoTestimonials /> */}
-        <Partners />
-        <RobotErrorBoundary>
-          <RobotSection />
-        </RobotErrorBoundary>
-        <Work />
-        <About />
-        <Services />
-        <TechStack />
-        <Testimonials />
-        <Contact />
+        <Routes>
+          <Route path="/case-study/:id" element={<CaseStudyDetail />} />
+          <Route path="*" element={
+            <>
+              <Hero />
+              <Marquee />
+              {/* <VideoTestimonials /> */}
+              <Partners />
+              <RobotErrorBoundary>
+                <RobotSection />
+              </RobotErrorBoundary>
+              <Work />
+              <About />
+              <Services />
+              <TechStack />
+              <Testimonials />
+              <Contact />
+            </>
+          } />
+        </Routes>
       </main>
       <Footer />
     </>

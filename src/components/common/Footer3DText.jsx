@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, Suspense } from 'react'
+import { Component, useEffect, useRef, useState, Suspense } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Text3D, Center, Float, Environment } from '@react-three/drei'
 import * as THREE from 'three'
+import { isWebGLAvailable } from '../../utils/webgl'
 
 const FONT_URL = 'https://threejs.org/examples/fonts/helvetiker_bold.typeface.json'
 
@@ -56,9 +57,33 @@ function TextMesh({ isVisible }) {
   )
 }
 
+const FallbackLogo = () => (
+  <div className="footer-3d-text-fallback" aria-hidden="true">
+    Mudassir<span>.</span>
+  </div>
+)
+
+class CanvasErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+  componentDidCatch(error) {
+    console.error('[Footer3DText] 3D render failed, using text fallback', error)
+  }
+  render() {
+    if (this.state.hasError) return <FallbackLogo />
+    return this.props.children
+  }
+}
+
 export default function Footer3DText() {
   const wrapperRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [webglOk] = useState(() => isWebGLAvailable())
 
   useEffect(() => {
     const element = wrapperRef.current
@@ -70,20 +95,26 @@ export default function Footer3DText() {
 
   return (
     <div ref={wrapperRef} style={{ width: '100%', height: '100%' }}>
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 45 }}
-        style={{ width: '100%', height: '100%', flex: '1 1 100%' }}
-        dpr={[1, 1.5]}
-        frameloop={isVisible ? 'always' : 'never'}
-      >
-        <Suspense fallback={null}>
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#ffffff" />
-          <spotLight position={[-10, -5, 5]} angle={0.15} penumbra={1} intensity={1.5} color="#3b82f6" />
-          <TextMesh isVisible={isVisible} />
-          <Environment preset="city" />
-        </Suspense>
-      </Canvas>
+      {!webglOk ? (
+        <FallbackLogo />
+      ) : (
+        <CanvasErrorBoundary>
+          <Canvas
+            camera={{ position: [0, 0, 5], fov: 45 }}
+            style={{ width: '100%', height: '100%', flex: '1 1 100%' }}
+            dpr={[1, 1.5]}
+            frameloop={isVisible ? 'always' : 'never'}
+          >
+            <Suspense fallback={null}>
+              <ambientLight intensity={0.5} />
+              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#FFFFFF" />
+              <spotLight position={[-10, -5, 5]} angle={0.15} penumbra={1} intensity={1.5} color="#00A000" />
+              <TextMesh isVisible={isVisible} />
+              <Environment preset="city" />
+            </Suspense>
+          </Canvas>
+        </CanvasErrorBoundary>
+      )}
     </div>
   )
 }

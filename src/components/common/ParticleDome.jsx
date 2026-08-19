@@ -58,10 +58,10 @@ export default function ParticleDome({ size = 260 }) {
         const y = cy + p.baseY + wobble
         const alpha = 0.25 + 0.45 * ((Math.sin(t * p.speed + p.twinkle) + 1) / 2)
 
-        if (p.colorRoll > 0.985) ctx.fillStyle = `rgba(96,165,250,${alpha})`
+        if (p.colorRoll > 0.985) ctx.fillStyle = `rgba(0,180,90,${alpha})`
         else if (p.colorRoll > 0.975) ctx.fillStyle = `rgba(248,113,113,${alpha})`
         else if (p.colorRoll > 0.965) ctx.fillStyle = `rgba(251,191,36,${alpha})`
-        else if (p.colorRoll > 0.9) ctx.fillStyle = `rgba(147,197,253,${alpha * 0.8})`
+        else if (p.colorRoll > 0.9) ctx.fillStyle = `rgba(120,255,170,${alpha * 0.8})`
         else ctx.fillStyle = `rgba(255,255,255,${alpha})`
 
         ctx.fillRect(x, y, 1.6, 1.6)

@@ -1,4 +1,5 @@
 import { useRef, useLayoutEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
@@ -29,6 +30,7 @@ function splitStack(stack) {
 
 function WorkCard({ p, index, cardRef }) {
   const boundsRef = useRef(null)
+  const navigate = useNavigate()
   const stackItems = splitStack(p.stack)
 
   const handleEnter = () => {
@@ -47,8 +49,12 @@ function WorkCard({ p, index, cardRef }) {
 
   const handleLeave = () => { boundsRef.current = null }
 
+  const handleClick = () => {
+    navigate(p.link)
+  }
+
   return (
-    <div ref={cardRef} className="wcard" style={{ zIndex: index + 1 }} onMouseEnter={handleEnter} onMouseMove={handleMove} onMouseLeave={handleLeave}>
+    <div ref={cardRef} className="wcard" style={{ zIndex: index + 1 }} onMouseEnter={handleEnter} onMouseMove={handleMove} onMouseLeave={handleLeave} onClick={handleClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }}>
       <div className="wcard-inner">
         <div className="wcard-media">
           {p.image && (
@@ -71,12 +77,7 @@ function WorkCard({ p, index, cardRef }) {
             </div>
           )}
 
-          {p.link && (
-            <a href={p.link} target="_blank" rel="noopener noreferrer" className="wcard-cta">
-              View project
-              <span aria-hidden="true">↗</span>
-            </a>
-          )}
+          <div className="wcard-view-btn">View Case Study <span>↗</span></div>
         </div>
         {/* Ensure this element has a background color in your CSS (e.g., background: rgba(0,0,0,0.5)) */}
         <div className="wcard-dim" aria-hidden="true" />
@@ -230,12 +231,9 @@ export default function Work() {
   return (
     <section id="work" className="section" ref={sectionRef}>
       <div className="sec-header" data-fade>
-        <div className="sec-eyebrow">
-          <span className="eyebrow-num">01</span>
-          selected work
-        </div>
-        <h2 className="sec-h">Case studies.</h2>
-        <p className="sec-p">A selection of projects across AI, automation, and full-stack development.</p>
+        <div className="sec-eyebrow">{data.workText.eyebrow}</div>
+        <h2 className="sec-h">{data.workText.heading}</h2>
+        <p className="sec-p">{data.workText.subheading}</p>
       </div>
 
       <div className="work-list">

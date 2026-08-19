@@ -2,6 +2,8 @@ import { useEffect, useRef, memo } from 'react'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { isWebGLAvailable } from '../utils/webgl'
+import { smoothScrollTo } from '../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,9 +37,9 @@ const mkMats = () => ({
   silver: new THREE.MeshStandardMaterial({ color: 0x9aa8bc, metalness: 0.80, roughness: 0.22 }),
   dark: new THREE.MeshStandardMaterial({ color: 0x080816, metalness: 0.90, roughness: 0.20 }),
   joint: new THREE.MeshStandardMaterial({ color: 0x222234, metalness: 0.92, roughness: 0.12 }),
-  glow: new THREE.MeshStandardMaterial({ color: 0xaae8ff, emissive: 0x0044ff, emissiveIntensity: 4.5, metalness: 0, roughness: 0 }),
-  panel: new THREE.MeshStandardMaterial({ color: 0x0033ee, emissive: 0x001299, emissiveIntensity: 1.8, metalness: 0.5, roughness: 0.3 }),
-  acc: new THREE.MeshStandardMaterial({ color: 0x88aaff, emissive: 0x2244bb, emissiveIntensity: 1.0, metalness: 0.7, roughness: 0.1 })
+  glow: new THREE.MeshStandardMaterial({ color: 0x8ab4f8, emissive: 0x3b82f6, emissiveIntensity: 4.5, metalness: 0, roughness: 0 }),
+  panel: new THREE.MeshStandardMaterial({ color: 0x102030, emissive: 0x081520, emissiveIntensity: 1.8, metalness: 0.5, roughness: 0.3 }),
+  acc: new THREE.MeshStandardMaterial({ color: 0x60a5fa, emissive: 0x3b82f6, emissiveIntensity: 1.0, metalness: 0.7, roughness: 0.1 })
 })
 
 
@@ -241,29 +243,29 @@ function drawPanel(p) {
   const { ctx, tex, label } = p
   p.t += 0.03; const t = p.t
   ctx.clearRect(0, 0, 256, 192)
-  ctx.fillStyle = 'rgba(2,5,24,0.94)'; ctx.fillRect(0, 0, 256, 192)
-  ctx.strokeStyle = 'rgba(50,110,255,0.85)'; ctx.lineWidth = 1.5; ctx.strokeRect(1.5, 1.5, 253, 189)
-  ctx.strokeStyle = 'rgba(80,140,255,0.2)'; ctx.lineWidth = 4; ctx.strokeRect(3, 3, 250, 186)
+  ctx.fillStyle = 'rgba(26,26,26,0.94)'; ctx.fillRect(0, 0, 256, 192)
+  ctx.strokeStyle = 'rgba(59,130,246,0.85)'; ctx.lineWidth = 1.5; ctx.strokeRect(1.5, 1.5, 253, 189)
+  ctx.strokeStyle = 'rgba(59,130,246,0.2)'; ctx.lineWidth = 4; ctx.strokeRect(3, 3, 250, 186)
 
   const hg = ctx.createLinearGradient(0, 0, 256, 0)
-  hg.addColorStop(0, 'rgba(20,55,200,0.92)'); hg.addColorStop(1, 'rgba(10,25,120,0.6)')
+  hg.addColorStop(0, 'rgba(59,130,246,0.92)'); hg.addColorStop(1, 'rgba(30,80,150,0.6)')
   ctx.fillStyle = hg; ctx.fillRect(2, 2, 252, 24)
 
-  ctx.fillStyle = '#99bbff'; ctx.font = 'bold 9px monospace'; ctx.fillText(label, 8, 16)
-  ctx.fillStyle = 'rgba(60,200,80,0.95)'; ctx.font = '8px monospace'; ctx.fillText('● ACTIVE', 178, 16)
+  ctx.fillStyle = '#a5b4fc'; ctx.font = 'bold 9px monospace'; ctx.fillText(label, 8, 16)
+  ctx.fillStyle = 'rgba(96,165,250,0.95)'; ctx.font = '8px monospace'; ctx.fillText('● ACTIVE', 178, 16)
 
   for (let i = 0; i < 8; i++) {
     const bh = 12 + Math.abs(Math.sin(t * 1.3 + i * 0.85)) * 44
     const x = 8 + i * 30, bw = 22
     const bg = ctx.createLinearGradient(0, 92 - bh, 0, 92)
-    bg.addColorStop(0, `rgba(${55 + i * 16},${88 + i * 11},255,0.95)`)
-    bg.addColorStop(1, 'rgba(18,35,170,0.35)')
+    bg.addColorStop(0, `rgba(59,${130 + i * 10},246,0.95)`)
+    bg.addColorStop(1, 'rgba(40,80,150,0.35)')
     ctx.fillStyle = bg; ctx.fillRect(x, 92 - bh, bw, bh)
-    ctx.fillStyle = 'rgba(160,200,255,0.55)'; ctx.fillRect(x, 92 - bh, bw, 1)
+    ctx.fillStyle = 'rgba(150,200,255,0.55)'; ctx.fillRect(x, 92 - bh, bw, 1)
   }
 
-  ctx.strokeStyle = 'rgba(40,70,180,0.22)'; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(4, 94); ctx.lineTo(252, 94); ctx.stroke()
-  ctx.beginPath(); ctx.strokeStyle = 'rgba(100,200,255,0.78)'; ctx.lineWidth = 1.4
+  ctx.strokeStyle = 'rgba(59,130,246,0.22)'; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(4, 94); ctx.lineTo(252, 94); ctx.stroke()
+  ctx.beginPath(); ctx.strokeStyle = 'rgba(96,165,250,0.78)'; ctx.lineWidth = 1.4
 
   for (let x = 4; x < 252; x += 2) {
     const y = 122 + Math.sin((x / 252) * Math.PI * 4 + t * 1.9) * 11 + Math.sin((x / 252) * Math.PI * 9 + t * 2.5) * 5
@@ -271,7 +273,7 @@ function drawPanel(p) {
   }
   ctx.stroke()
 
-  ctx.font = '7.5px monospace'; ctx.fillStyle = 'rgba(100,160,255,0.82)'
+  ctx.font = '7.5px monospace'; ctx.fillStyle = 'rgba(96,165,250,0.82)'
   const stats = [
     `PROC  ${(79 + Math.sin(t * 1.1) * 13).toFixed(1)}%`,
     `NET   ${(50 + Math.cos(t * 0.9) * 20).toFixed(0)}MB/s`,
@@ -280,14 +282,14 @@ function drawPanel(p) {
   ]
   stats.forEach((v, i) => ctx.fillText(v, 10, 150 + i * 11))
 
-  ctx.fillStyle = 'rgba(70,130,255,0.65)'
+  ctx.fillStyle = 'rgba(59,130,246,0.65)'
   const extraStats = [
     `LAT  ${(7 + Math.abs(Math.sin(t * 2.2)) * 11).toFixed(0)}ms`,
     `UPT  99.${Math.floor(80 + Math.sin(t) * 19)}%`
   ]
   extraStats.forEach((v, i) => ctx.fillText(v, 146, 150 + i * 11))
 
-  ctx.fillStyle = 'rgba(80,140,255,0.06)'; ctx.fillRect(0, ((t * 34) % 192), 256, 2)
+  ctx.fillStyle = 'rgba(59,130,246,0.06)'; ctx.fillRect(0, ((t * 34) % 192), 256, 2)
   tex.needsUpdate = true
 }
 
@@ -302,11 +304,17 @@ function RobotSection() {
     const mount = mountRef.current
     if (!mount) return
 
+    if (!isWebGLAvailable()) {
+      mount.classList.add('webgl-fallback')
+      return
+    }
+
+    try {
     /* ===================== DEVICE SETTINGS ===================== */
     const isMobile = window.innerWidth < 768
     // Scaled down slightly on mobile to fit both comfortably
-    const botX = isMobile ? 1.2 : 2.4
-    const panX = isMobile ? 1.8 : 3.6
+    const botX = isMobile ? 1.2 : 3.2
+    const panX = isMobile ? 1.8 : 4.2
     const camZ = isMobile ? 6.5 : 5.9
 
     /* ===================== RENDERER ===================== */
@@ -345,19 +353,19 @@ function RobotSection() {
 
     // Skip heavy extra lights on mobile
     if (!isMobile) {
-        const fill = new THREE.DirectionalLight(0x8899cc, 1.6); fill.position.set(-5, 4, 3); scene.add(fill)
+        const fill = new THREE.DirectionalLight(0x7080a0, 1.6); fill.position.set(-5, 4, 3); scene.add(fill)
         const rim = new THREE.DirectionalLight(0xffffff, 2.2); rim.position.set(0, 6, -6); scene.add(rim)
-        const und = new THREE.DirectionalLight(0x2244ff, 0.8); und.position.set(0, -2, 3); scene.add(und)
+        const und = new THREE.DirectionalLight(0x3b82f6, 0.8); und.position.set(0, -2, 3); scene.add(und)
     }
 
     /* ===================== SPOTLIGHTS ===================== */
     const mkSpot = (x) => {
-      const s = new THREE.SpotLight(0x8899ff, 0, 18, Math.PI / 7.5, 0.55, 1.3)
+      const s = new THREE.SpotLight(0x60a5fa, 0, 18, Math.PI / 7.5, 0.55, 1.3)
       s.position.set(x, 9, 1.5); s.target.position.set(x, 0, 0)
       scene.add(s, s.target); return s
     }
     const spotL = mkSpot(-botX), spotR = mkSpot(botX)
-    const eyePtL = new THREE.PointLight(0x55aaff, 0, 1.6), eyePtR = new THREE.PointLight(0x55aaff, 0, 1.6)
+    const eyePtL = new THREE.PointLight(0x3b82f6, 0, 1.6), eyePtR = new THREE.PointLight(0x3b82f6, 0, 1.6)
     scene.add(eyePtL, eyePtR)
 
     /* ===================== FLOOR ===================== */
@@ -366,13 +374,13 @@ function RobotSection() {
       new THREE.MeshPhysicalMaterial({ color: 0x030310, metalness: 1, roughness: 0.015, clearcoat: 1, clearcoatRoughness: 0.04 })
     )
     floorMesh.rotation.x = -Math.PI / 2; floorMesh.receiveShadow = !isMobile; scene.add(floorMesh)
-    if (!isMobile) scene.add(new THREE.GridHelper(20, 40, 0x101030, 0x080820))
+    if (!isMobile) scene.add(new THREE.GridHelper(20, 40, 0x0d1824, 0x0a121a))
 
     /* ===================== LIGHT BEAMS ===================== */
     const mkBeam = (x) => {
       const geo = new THREE.CylinderGeometry(0.03, 0.62, 9, 16, 1, true)
       geo.translate(0, -4.5, 0)
-      const m2 = new THREE.MeshBasicMaterial({ color: 0x5577ff, transparent: true, opacity: 0, side: THREE.BackSide, depthWrite: false, blending: THREE.AdditiveBlending })
+      const m2 = new THREE.MeshBasicMaterial({ color: 0x3b82f6, transparent: true, opacity: 0, side: THREE.BackSide, depthWrite: false, blending: THREE.AdditiveBlending })
       const mesh = new THREE.Mesh(geo, m2); mesh.position.set(x, 9, 1.5); scene.add(mesh); return mesh
     }
     const beamL = mkBeam(-botX), beamR = mkBeam(botX)
@@ -403,7 +411,7 @@ function RobotSection() {
         rCtx.fillStyle = 'rgba(0,0,6,0.08)'; rCtx.fillRect(0, 0, 256, 256)
         drops.forEach((y, i) => {
           rCtx.font = '10px monospace'
-          rCtx.fillStyle = `rgba(38,78,255,${0.3 + Math.random() * 0.4})`
+          rCtx.fillStyle = `rgba(59,130,246,${0.3 + Math.random() * 0.4})`
           rCtx.fillText(rChars[Math.floor(Math.random() * rChars.length)], i * 11 + 1, y * 11)
           if (y * 11 > 256 && Math.random() > 0.96) { drops[i] = 0 } else { drops[i] += 0.55 }
         })
@@ -614,11 +622,15 @@ function RobotSection() {
       if (rTex) rTex.dispose()
       renderer.dispose()
     }
+    } catch (err) {
+      console.error('[RobotSection] WebGL init failed, using CSS gradient fallback', err)
+      mount.classList.add('webgl-fallback')
+    }
   }, [])
 
   /* ===================== JSX ===================== */
   const handleScrollDown = () => {
-    window.scrollBy({ top: window.innerHeight * 0.65, behavior: 'smooth' })
+    smoothScrollTo('#work')
   }
 
   return (
@@ -630,13 +642,22 @@ function RobotSection() {
 
         <div className="robot-overlay" ref={overlayRef}>
           <p className="robot-eyebrow" data-fade>built different</p>
-          <h2 className="robot-h" data-fade data-delay="0.1">Welcome to the future<br />of development.</h2>
-          <p className="robot-sub" data-fade data-delay="0.2">Agentic systems that think. Automations that run themselves.<br />Code that doesn't need babysitting.</p>
-        </div>
+          <h2 className="robot-h" data-fade data-delay="0.1">
+            Your business doesn't need<br />
+            more software.<br />
+            <span className="robot-h-sub">It needs systems that actually work together.</span>
+          </h2>
+          <p className="robot-sub" data-fade data-delay="0.2">
+            AI that handles real work. CRM that moves revenue forward. Automations that remove the manual work slowing your team down.
+          </p>
+          <p className="robot-sub-highlight" data-fade data-delay="0.3">
+            Less busywork. Fewer bottlenecks. More business moving without you.
+          </p>
 
-        <div className="robot-scroll-hint" onClick={handleScrollDown} role="button" tabIndex={0} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
-          <span>scroll</span>
-          <div className="robot-scroll-line" />
+          <button className="robot-view-btn" onClick={handleScrollDown} type="button">
+            View Case Studies
+            <span aria-hidden="true">↓</span>
+          </button>
         </div>
       </section>
     </>
