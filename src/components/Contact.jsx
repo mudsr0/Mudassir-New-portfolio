@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import WaveBackground from './common/WaveBackground'
 import data from '../data.json'
 
+/*
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaewqlgv'
 
 export default function Contact() {
@@ -106,106 +107,128 @@ export default function Contact() {
       setIsSubmitting(false)
     }
   }
+*/
+
+export default function Contact() {
+  const contact = data.contact
 
   return (
     <section id="contact" className="contact">
       <WaveBackground color="#ffffff" dotCount={170} />
 
-      {toast.show && (
-        <div
-          className={`contact-toast contact-toast-${toast.type}`}
-          role="status"
-          aria-live="polite"
-        >
-          <span className="contact-toast-icon">
-            {toast.type === 'success' ? '✓' : '×'}
-          </span>
-
-          <span className="contact-toast-message">
-            {toast.message}
-          </span>
-
-          <button
-            type="button"
-            className="contact-toast-close"
-            onClick={() =>
-              setToast((prev) => ({
-                ...prev,
-                show: false,
-              }))
-            }
-            aria-label="Close notification"
+      {/* Toast (form success/error messages) - re-enable with the form below
+        {toast.show && (
+          <div
+            className={`contact-toast contact-toast-${toast.type}`}
+            role="status"
+            aria-live="polite"
           >
-            ×
-          </button>
-        </div>
-      )}
+            <span className="contact-toast-icon">
+              {toast.type === 'success' ? '✓' : '×'}
+            </span>
+
+            <span className="contact-toast-message">
+              {toast.message}
+            </span>
+
+            <button
+              type="button"
+              className="contact-toast-close"
+              onClick={() =>
+                setToast((prev) => ({
+                  ...prev,
+                  show: false,
+                }))
+              }
+              aria-label="Close notification"
+            >
+              ×
+            </button>
+          </div>
+        )}
+      */}
 
       <div className="contact-inner">
         <div data-fade>
           <div className="contact-eyebrow">
-            ready to build?
+            {contact.eyebrow}
           </div>
 
           <h2 className="contact-h">
-            Let's make something<br />
-            that doesn't exist yet.
+            {contact.heading}
           </h2>
 
-          <p
-            className="contact-sub"
-            dangerouslySetInnerHTML={{
-              __html: data.contact.subTextHtml,
-            }}
-          />
+          <p className="contact-sub">
+            {contact.body}
+          </p>
+
+          <p className="contact-cta-label">
+            {contact.ctaLabel}
+          </p>
+
+          <a
+            href={contact.upworkUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary contact-cta"
+            data-fade
+            data-delay="0.2"
+          >
+            <span dangerouslySetInnerHTML={{ __html: contact.buttonText }} />
+          </a>
+
+          <div className="contact-footer-line">{contact.footerLine1}</div>
+          <div className="contact-footer-line">{contact.footerLine2}</div>
         </div>
 
-        <form
-          className="contact-form"
-          onSubmit={handleSubmit}
-          data-fade
-          data-delay="0.2"
-          noValidate
-        >
-          <input
-            className="cf-field"
-            type="text"
-            name="name"
-            placeholder="your name"
-            value={form.name}
-            onChange={handleChange}
-            autoComplete="name"
-            required
-          />
-
-          <input
-            className="cf-field"
-            type="email"
-            name="email"
-            placeholder="email address"
-            value={form.email}
-            onChange={handleChange}
-            autoComplete="email"
-            required
-          />
-
-          <textarea
-            className="cf-field cf-textarea"
-            name="message"
-            placeholder="what do you need built?"
-            value={form.message}
-            onChange={handleChange}
-            required
-          />
-
-          <button
-            type="submit"
-            className="cf-submit"
-            disabled={isSubmitting}
+        {/* Contact form - re-enable by uncommenting (and restoring the state/handlers above)
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+            data-fade
+            data-delay="0.2"
+            noValidate
           >
-            {isSubmitting ? 'sending...' : 'send it →'}
-          </button>
-        </form>
+            <input
+              className="cf-field"
+              type="text"
+              name="name"
+              placeholder="your name"
+              value={form.name}
+              onChange={handleChange}
+              autoComplete="name"
+              required
+            />
+
+            <input
+              className="cf-field"
+              type="email"
+              name="email"
+              placeholder="email address"
+              value={form.email}
+              onChange={handleChange}
+              autoComplete="email"
+              required
+            />
+
+            <textarea
+              className="cf-field cf-textarea"
+              name="message"
+              placeholder="what do you need built?"
+              value={form.message}
+              onChange={handleChange}
+              required
+            />
+
+            <button
+              type="submit"
+              className="cf-submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'sending...' : 'send it →'}
+            </button>
+          </form>
+        */}
       </div>
     </section>
   )

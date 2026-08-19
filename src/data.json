@@ -41,7 +41,7 @@
     "role": "Systems Architect & Automation Expert",
     "ctaLine": "Have a bottleneck worth solving?",
     "ctaLabel": "LET'S TALK",
-    "ctaHref": "#contact",
+    "ctaHref": "https://www.upwork.com/freelancers/mudassirai0crm0guy",
     "stats": [
       {
         "num": "FORBES",
@@ -285,76 +285,64 @@
     ]
   },
   "testimonials": {
-    "rows": [
+    "heading": "Don't take my word for it.",
+    "subheading": "Real feedback from clients I've worked with.",
+    "reviews": [
       {
-        "id": "row-1",
-        "speed": "45s",
-        "direction": "left",
-        "testimonials": [
-          {
-            "initials": "DM",
-            "name": "David Morgan",
-            "role": "Startup Owner",
-            "quote": "Most teams overpromise. Mudassir and the team simply delivered. Clear updates, fast problem solving, and a level of ownership that’s hard to find.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
-          },
-          {
-            "initials": "RP",
-            "name": "Rachit Patel",
-            "role": "CEO, GBNODES",
-            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
-          },
-          {
-            "initials": "MM",
-            "name": "Mr. Marco",
-            "role": "Entrepreneur & CEO, RubberDuck",
-            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
-          },
-          {
-            "initials": "RE",
-            "name": "Rami El-Khateib",
-            "role": "Founder, OMNIYA",
-            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
-          }
-        ]
+        "name": "David Morgan",
+        "role": "Startup Owner",
+        "text": "Most teams overpromise. Mudassir simply delivered with clear updates, fast problem solving, and real ownership.",
+        "rating": 5,
+        "avatar": null
       },
       {
-        "id": "row-2",
-        "speed": "60s",
-        "direction": "right",
-        "testimonials": [
-          {
-            "initials": "NS",
-            "name": "Noble Schools",
-            "role": "Chicago",
-            "quote": "They were awesome and flexible, and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/32.jpg"
-          },
-          {
-            "initials": "RE",
-            "name": "Rami El-Khateib",
-            "role": "Founder, OMNIYA",
-            "quote": "Mudassir delivered a complex, real-time attention system integrated with Firebase and WooCommerce - cleanly, on time, and fully documented. Mudassir's team is proactive, professional, and never cuts corners. We've already started Phase 2 and plan to retain them for long-term support. Highly recommended for serious SaaS and WordPress development.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/76.jpg"
-          },
-          {
-            "initials": "MM",
-            "name": "Mr. Marco",
-            "role": "Entrepreneur & CEO, RubberDuck",
-            "quote": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/41.jpg"
-          },
-          {
-            "initials": "RP",
-            "name": "Rachit Patel",
-            "role": "CEO, GBNODES",
-            "quote": "Strong technical team with real operational thinking behind their work. They fixed critical gaps, improved system stability, and executed with professionalism from start to finish.",
-            "avatarUrl": "https://randomuser.me/api/portraits/men/52.jpg"
-          }
-        ]
+        "name": "Rachit Patel",
+        "role": "CEO, GBNODES",
+        "text": "Strong technical team with real operational thinking. Fixed critical gaps and executed professionally from start to finish.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Marco",
+        "role": "Entrepreneur & CEO, RubberDuck",
+        "text": "Mudassir was great to work with. Delivered clean work, communicated proactively, and met every deadline.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Rami El-Khateib",
+        "role": "Founder, OMNIYA",
+        "text": "Delivered a complex, real-time system cleanly, on time, and fully documented. Highly recommended for serious SaaS work.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Noble Schools",
+        "role": "Chicago",
+        "text": "They were awesome and flexible, and knocked our job out of the park. Beyond expectations.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Julian",
+        "role": "Noble School Chicago",
+        "text": "They were awesome and flexible, and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Marco",
+        "role": "Founder, RubberDuck",
+        "text": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
+        "rating": 5,
+        "avatar": null
+      },
+      {
+        "name": "Mr. Dermot",
+        "role": "Founder, AWF",
+        "text": "Mudassir worked really well, communicated well and completed quality work. We look forward to working with him again.",
+        "rating": 5,
+        "avatar": null
       }
     ]
   },
@@ -368,26 +356,22 @@
     }
   ],
   "contact": {
-    "subTextHtml": "Agentic AI · Automations · 3D Web · Full-stack<br/>Global clients. No templates. No shortcuts."
+    "eyebrow": "READY TO BUILD?",
+    "heading": "Show me what's slowing your business down.",
+    "body": "A broken workflow. A CRM that isn't working. An AI idea waiting to be built. Or a process your team shouldn't be doing manually.",
+    "ctaLabel": "Send me the problem. I'll tell you where I'd start.",
+    "buttonText": "DISCUSS YOUR PROJECT &#8594;",
+    "upworkUrl": "https://www.upwork.com/freelancers/mudassirai0crm0guy",
+    "footerLine1": "AI Automation & Integration · CRM & Revenue Systems · AI Agents · AI SaaS & MVPs",
+    "footerLine2": "Available for selected projects & long-term collaborations"
   },
   "footer": {
-    "links": [
-      {
-        "label": "upwork",
-        "href": "https://www.upwork.com/freelancers/mudassirai0crm0guy?mp_source=share"
-      },
-      {
-        "label": "linkedin",
-        "href": "https://www.linkedin.com/in/mudasr/"
-      },
-      {
-        "label": "github",
-        "href": "https://github.com/mudsr0"
-      },
-      {
-        "label": "email",
-        "href": "mailto:mudassirdevrolin@gmail.com"
-      }
-    ]
+    "status": "AVAILABLE FOR SELECTED PROJECTS",
+    "brand": "Mudassir.",
+    "tagline": "Building systems businesses can actually depend on.",
+    "services": "AI Automation & Integration · CRM & Revenue Systems · AI Agents · AI SaaS & MVPs",
+    "ctaText": "CONTINUE ON UPWORK",
+    "upworkUrl": "https://www.upwork.com/freelancers/mudassirai0crm0guy",
+    "copyright": "© 2026 Mudassir H."
   }
 }
