@@ -130,7 +130,7 @@ export default function About() {
           if (distSq < linkDistanceSq) {
             const dist = Math.sqrt(distSq), alpha = 0.22 * (1 - dist / linkDistance)
             context.beginPath()
-            context.strokeStyle = `rgba(150,190,255,${alpha})`
+            context.strokeStyle = `rgba(125,211,252,${alpha})`
             context.moveTo(p.x, p.y); context.lineTo(q.x, q.y); context.stroke()
           }
         }
@@ -144,9 +144,9 @@ export default function About() {
         context.fill()
         const glowRadius = p.r * 6
         const glow = context.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius)
-        glow.addColorStop(0, 'rgba(120,170,255,.28)')
-        glow.addColorStop(0.55, 'rgba(60,120,200,.10)')
-        glow.addColorStop(1, 'rgba(60,120,200,0)')
+        glow.addColorStop(0, 'rgba(125,211,252,.28)')
+        glow.addColorStop(0.55, 'rgba(56,189,248,.10)')
+        glow.addColorStop(1, 'rgba(56,189,248,0)')
         context.beginPath()
         context.arc(p.x, p.y, glowRadius, 0, Math.PI * 2)
         context.fillStyle = glow

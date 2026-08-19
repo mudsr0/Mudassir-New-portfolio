@@ -266,8 +266,8 @@ html {
     --border: #292929;
     --border-2: #383838;
     --white: #FFFFFF;
-    --accent: #3b82f6;
-    --accent-glow: rgba(59, 130, 246, 0.5);
+    --accent: #38BDF8;
+    --accent-glow: rgba(56, 189, 248, 0.5);
     --portfolio-cyan: #0064c9;
     --portfolio-navy: #121216;
     --star-color: #00B67A;
@@ -4578,10 +4578,10 @@ button {
     --card: #262626;
     --border: #2F2F2F;
     --border-strong: #3A3A3A;
-    --green: #3b82f6;
-    --green-dim: rgba(59, 130, 246, .14);
-    --green-border: rgba(59, 130, 246, .3);
-    --green-glow: rgba(59, 130, 246, .45);
+    --green: #38BDF8;
+    --green-dim: rgba(56, 189, 248, .14);
+    --green-border: rgba(56, 189, 248, .3);
+    --green-glow: rgba(56, 189, 248, .45);
     --cyan: var(--accent);
     --navy: #00183A;
     --text: #F5F5F5;
@@ -4591,7 +4591,7 @@ button {
     --tp: #00B67A;
     --radius: 10px;
     --radius-lg: 16px;
-    background: radial-gradient(600px circle at 50% 0, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%), radial-gradient(600px circle at 50% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+    background: radial-gradient(600px circle at 50% 0, color-mix(in srgb, #38BDF8 4%, transparent), transparent 70%), radial-gradient(600px circle at 50% 100%, color-mix(in srgb, #38BDF8 4%, transparent), transparent 70%);
     padding-top: 110px;
     min-height: 100vh
 }
