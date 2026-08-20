@@ -314,8 +314,8 @@ function RobotSection() {
     /* ===================== DEVICE SETTINGS ===================== */
     const isMobile = window.innerWidth < 768
     // Scaled down slightly on mobile to fit both comfortably
-    const botX = isMobile ? 1.2 : 3.2
-    const panX = isMobile ? 1.8 : 4.2
+    const botX = isMobile ? 1.2 : 3.4
+    const panX = isMobile ? 1.8 : 4.4
     const camZ = isMobile ? 6.5 : 5.9
 
     /* ===================== RENDERER ===================== */
