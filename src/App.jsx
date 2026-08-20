@@ -88,9 +88,11 @@ export default function App() {
     // [isLoading] below and lenis.destroy() runs on cleanup). It is driven by
     // GSAP's own rAF ticker so scrolling and ScrollTrigger stay in perfect sync.
     const lenis = new Lenis({
-      duration: 3, // smoother feel (higher = smoother, lower = snappier)
+      duration: 1.1, // snappier feel (lower = less scroll lag, higher = smoother)
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo out
       smoothWheel: true,
+      syncTouch: true, // smooth touch scrolling on mobile (Lenis 1.x option name)
+      touchMultiplier: 1.5,
     })
 
     // Expose the instance so components (Navbar, Hero, RobotSection,
@@ -226,14 +228,23 @@ export default function App() {
             }
           })
         }
-        window.addEventListener('scroll', revealStuck, { passive: true })
+        let revealStuckRaf = null
+        const onScrollRevealStuck = () => {
+          if (revealStuckRaf != null) return
+          revealStuckRaf = requestAnimationFrame(() => {
+            revealStuckRaf = null
+            revealStuck()
+          })
+        }
+        window.addEventListener('scroll', onScrollRevealStuck, { passive: true })
         revealStuck()
 
         disposeCursor = (() => {
           const original = disposeCursor
           return () => {
             original()
-            window.removeEventListener('scroll', revealStuck)
+            window.removeEventListener('scroll', onScrollRevealStuck)
+            if (revealStuckRaf != null) cancelAnimationFrame(revealStuckRaf)
           }
         })()
       });

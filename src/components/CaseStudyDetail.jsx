@@ -76,13 +76,22 @@ export default function CaseStudyDetail() {
           }
         })
       }
-      window.addEventListener('scroll', revealVisible, { passive: true })
+      let revealVisibleRaf = null
+      const onScrollRevealVisible = () => {
+        if (revealVisibleRaf != null) return
+        revealVisibleRaf = requestAnimationFrame(() => {
+          revealVisibleRaf = null
+          revealVisible()
+        })
+      }
+      window.addEventListener('scroll', onScrollRevealVisible, { passive: true })
       revealVisible()
 
       return () => {
         cancelAnimationFrame(rafId)
+        if (revealVisibleRaf != null) cancelAnimationFrame(revealVisibleRaf)
         if (fontsReady && typeof fontsReady.cancel === 'function') fontsReady.cancel()
-        window.removeEventListener('scroll', revealVisible)
+        window.removeEventListener('scroll', onScrollRevealVisible)
       }
     }, root)
 

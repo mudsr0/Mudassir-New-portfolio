@@ -7,7 +7,6 @@ export default function Navbar() {
   const links = data.nav.links
   const location = useLocation()
   const navigate = useNavigate()
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState(null)
   const [hoveredLink, setHoveredLink] = useState(null)
@@ -15,17 +14,20 @@ export default function Navbar() {
 
   const linkRefs = useRef({})
   const navLinksRef = useRef(null)
+  const navRef = useRef(null)
 
   const isCaseStudyPage = location.pathname.startsWith('/case-study/')
 
   useEffect(() => {
     let rafId = null
     const onScroll = () => {
-      // rAF-throttle so a scroll stick per frame only causes one cheap read + setState.
+      // rAF-throttle so a scroll stick per frame only causes one cheap read.
+      // Toggle the class directly on the DOM node to avoid a React re-render
+      // on every scroll frame (a primary source of mobile scroll lag).
       if (rafId != null) return
       rafId = requestAnimationFrame(() => {
         rafId = null
-        setScrolled(window.scrollY > 50)
+        if (navRef.current) navRef.current.classList.toggle('scrolled', window.scrollY > 50)
       })
     }
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -154,7 +156,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`navbar${scrolled ? ' scrolled' : ''}`} role="navigation" aria-label="main navigation">
+    <nav ref={navRef} className="navbar" role="navigation" aria-label="main navigation">
       <div className="nav-left-group">
         <button
           className="pill-toggle"
