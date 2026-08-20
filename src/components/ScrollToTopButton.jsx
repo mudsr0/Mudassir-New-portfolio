@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { smoothScrollTo } from '../utils/smoothScroll'
 
 const RADIUS = 22
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
@@ -44,7 +43,11 @@ export default function ScrollToTopButton() {
   }, [])
 
   const scrollToTop = () => {
-    smoothScrollTo(0)
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { duration: 1.5 })
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   return (

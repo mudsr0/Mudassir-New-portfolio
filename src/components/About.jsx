@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight } from 'lucide-react'
@@ -8,9 +9,11 @@ import { smoothScrollTo } from '../utils/smoothScroll'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function About() {
-  const sectionRef = useRef(null), statsTopRef = useRef(null), heroStatRef = useRef(null), headingRef = useRef(null), imgRef = useRef(null), canvasRef = useRef(null)
+  const sectionRef = useRef(null), statsTopRef = useRef(null), heroStatRef = useRef(null), headingRef = useRef(null), imgRef = useRef(null), canvasRef = useRef(null), eyebrowRef = useRef(null)
   const { stats, descriptionHtml, headingLines, brand, role, ctaLine, ctaLabel, ctaHref } = data.about
   const smallStats = stats.slice(0, -1), heroStat = stats[stats.length - 1]
+
+  useTypingAnimation(eyebrowRef, 'WHY CLIENTS HIRE ME', { trigger: sectionRef })
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -182,8 +185,8 @@ export default function About() {
   return (
     <section id="about" className="section about-v2" ref={sectionRef}>
       <div className="about-topbar">
-        <div className="sec-eyebrow" data-fade>
-          <span className="eyebrow-num">02</span>
+        <div className="sec-eyebrow" ref={eyebrowRef}>
+          {/* <span className="eyebrow-num">02</span> */}
           WHY CLIENTS HIRE ME
         </div>
       </div>

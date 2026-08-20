@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import data from '../data.json'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -87,8 +88,10 @@ function WorkCard({ p, index, cardRef }) {
 }
 
 export default function Work() {
-  const sectionRef = useRef(null), stackRef = useRef(null), cardRefs = useRef([])
+  const sectionRef = useRef(null), stackRef = useRef(null), cardRefs = useRef([]), eyebrowRef = useRef(null)
   const projects = data.work || []
+
+  useTypingAnimation(eyebrowRef, data.workText.eyebrow, { trigger: sectionRef })
 
   useLayoutEffect(() => {
     const section = sectionRef.current, stack = stackRef.current
@@ -231,7 +234,7 @@ export default function Work() {
   return (
     <section id="work" className="section" ref={sectionRef}>
       <div className="sec-header" data-fade>
-        <div className="sec-eyebrow">{data.workText.eyebrow}</div>
+        <div className="sec-eyebrow" ref={eyebrowRef}>{data.workText.eyebrow}</div>
         <h2 className="sec-h">{data.workText.heading}</h2>
         <p className="sec-p">{data.workText.subheading}</p>
       </div>

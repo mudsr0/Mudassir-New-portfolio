@@ -1,10 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Award, Star, Users } from 'lucide-react'
 import data from '../data.json'
 import { isWebGLAvailable } from '../utils/webgl'
 import { smoothScrollTo } from '../utils/smoothScroll'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
+
+const iconMap = { Award, Star, Users }
 
 const { hero } = data
 
@@ -27,6 +31,25 @@ export default function Hero() {
   const mouse = useRef({ x: 0, y: 0, tx: 0, ty: 0 })
   const rafRef = useRef(null)
   const tlRef = useRef(null)
+  const captionRef = useRef(null)
+  const [captionReady, setCaptionReady] = useState(false)
+
+  useEffect(() => {
+    // Post-commit check: if there is no preloader on screen, type immediately.
+    if (!document.querySelector('.loader-screen')) {
+      setCaptionReady(true)
+      return
+    }
+    const onReady = () => setCaptionReady(true)
+    const fallback = setTimeout(onReady, 3000)
+    window.addEventListener('app-loaded', onReady)
+    return () => {
+      clearTimeout(fallback)
+      window.removeEventListener('app-loaded', onReady)
+    }
+  }, [])
+
+  useTypingAnimation(captionRef, captionReady ? hero.caption : '', { duration: 1.5 })
 
   useEffect(() => {
     const mount = mountRef.current
@@ -42,7 +65,7 @@ export default function Hero() {
     const playIntro = (threeCtx) => {
       if (cancelled) return
 
-      gsap.set(['.hero-eyebrow', '.hero-caption', '.hero-trust-line'], { opacity: 0, y: 30 })
+      gsap.set(['.hero-eyebrow', '.hero-trust-line'], { opacity: 0, y: 30 })
       gsap.set('.hero-actions', { opacity: 0, scale: 0.9 })
       gsap.set('.scroll-hint', { opacity: 0, y: -10 })
       gsap.set('.hero-h1', { opacity: 1, y: 30 })
@@ -58,14 +81,12 @@ export default function Hero() {
           .to(threeCtx.lMat, { opacity: 0.18, duration: 3.5, ease: 'power2.out' }, '<0.8')
           .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
           .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.4')
-          .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
           .to('.hero-trust-line', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
           .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.2')
           .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
       } else {
         tl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.1')
           .to('.hero-h1', { y: 0, duration: 1, ease: 'power3.out' }, '0.15')
-          .to('.hero-caption', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.25')
           .to('.hero-trust-line', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.3')
           .to('.hero-actions', { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, '0.35')
           .to('.scroll-hint', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '0.45')
@@ -202,14 +223,17 @@ export default function Hero() {
 
       orbGroup.scale.set(0.001, 0.001, 0.001)
 
+      const heroSectionEl = mount.closest('.hero-section')
+      const heroScrollEnd = () => '+=' + (heroSectionEl ? heroSectionEl.offsetHeight : window.innerHeight)
+
       gsap.to(camera.position, {
         z: -1.5, ease: 'none',
-        scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true },
+        scrollTrigger: { trigger: '.hero-section', start: 'top top', end: heroScrollEnd, scrub: true },
       })
 
       gsap.to(heroContent, {
         y: -120, opacity: 0, ease: 'none',
-        scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true },
+        scrollTrigger: { trigger: '.hero-section', start: 'top top', end: heroScrollEnd, scrub: true },
       })
 
       const onMove = (e) => {
@@ -245,8 +269,10 @@ export default function Hero() {
 
       let t = 0
 
+      let heroVisible = true
+
       const animate = () => {
-        if (cancelled) return
+        if (cancelled || !heroVisible) return
         rafRef.current = requestAnimationFrame(animate)
         t += 0.008
 
@@ -273,6 +299,18 @@ export default function Hero() {
         renderer.render(scene, camera)
       }
 
+      const visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          heroVisible = entry.isIntersecting
+          if (heroVisible && !cancelled) {
+            cancelAnimationFrame(rafRef.current)
+            animate()
+          }
+        },
+        { root: null, rootMargin: '200px 0px' }
+      )
+      visibilityObserver.observe(mount)
+
       animate()
 
       const threeCtx = { orbGroup, cMat, lMat }
@@ -288,6 +326,7 @@ export default function Hero() {
       const cleanup = () => {
         cancelAnimationFrame(rafRef.current)
         if (resizeRaf) cancelAnimationFrame(resizeRaf)
+        visibilityObserver.disconnect()
         window.removeEventListener('mousemove', onMove)
         window.removeEventListener('touchmove', onTouch)
         window.removeEventListener('resize', onResize)
@@ -361,9 +400,19 @@ export default function Hero() {
 
         <h1 className="hero-h1" dangerouslySetInnerHTML={{ __html: data.hero.headlineHtml }} />
 
-        <p className="hero-caption">{hero.caption}</p>
+        <p className="hero-caption" ref={captionRef}></p>
 
-        <p className="hero-trust-line">{hero.trustLine}</p>
+        <div className="hero-trust-line">
+          {hero.trustLine.map((item, index) => {
+            const Icon = iconMap[item.icon]
+            return (
+              <span className="trust-item" key={index}>
+                {Icon && <Icon size={14} className="trust-icon" />}
+                {item.text}
+              </span>
+            )
+          })}
+        </div>
 
         <div className="hero-actions">
           <button className="btn-primary" onClick={() => scrollTo('work')}>{hero.primaryBtn}</button>

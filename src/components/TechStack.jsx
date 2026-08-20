@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import data from '../data.json'
 import TechOrbitGlobe from './common/TechOrbitGlobe'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
 
 export default function TechStack() {
   const tech = data.tech
   const stack = data.techStack
 
-  const [eyebrowNum, eyebrowLabel] = tech.eyebrow.split(' · ')
+  const sectionRef = useRef(null)
+  const eyebrowRef = useRef(null)
+
+  useTypingAnimation(eyebrowRef, tech.eyebrow, { trigger: sectionRef })
 
   const [activeStack, setActiveStack] = useState(0)
 
@@ -23,12 +27,11 @@ export default function TechStack() {
   ]
 
   return (
-    <section id="tech" className="section-sm">
+    <section id="tech" className="section-sm" ref={sectionRef}>
       <div className="tech-layout">
         <div data-fade>
-          <div className="sec-eyebrow">
-            <span className="eyebrow-num">{eyebrowNum}</span>
-            {eyebrowLabel.toLowerCase()}
+          <div className="sec-eyebrow" ref={eyebrowRef}>
+            {tech.eyebrow}
           </div>
 
           <h2 className="sec-h">{tech.heading}</h2>

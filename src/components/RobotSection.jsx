@@ -1,7 +1,8 @@
 import { useEffect, useRef, memo } from 'react'
 import * as THREE from 'three'
-import { gsap } from 'gsap'
+import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import data from '../data.json'
 import { isWebGLAvailable } from '../utils/webgl'
 import { smoothScrollTo } from '../utils/smoothScroll'
 
@@ -559,7 +560,7 @@ function RobotSection() {
         camera.position.x = 0
         camera.position.y = 0.28
         if (overlayRef.current) {
-          overlayRef.current.style.transform = 'translate(-50%, -50%)'
+          overlayRef.current.style.transform = 'translate(0, -50%)'
         }
       }
       camera.lookAt(cameraTarget)
@@ -641,10 +642,9 @@ function RobotSection() {
         </div>
 
         <div className="robot-overlay" ref={overlayRef}>
-          <p className="robot-eyebrow" data-fade>built different</p>
+          <p className="robot-eyebrow" data-fade>BUILT DIFFERENT</p>
           <h2 className="robot-h" data-fade data-delay="0.1">
-            Your business doesn't need<br />
-            more software.<br />
+            Your business doesn't need<br />more software.<br />
             <span className="robot-h-sub">It needs systems that actually work together.</span>
           </h2>
           <p className="robot-sub" data-fade data-delay="0.2">
@@ -654,9 +654,8 @@ function RobotSection() {
             Less busywork. Fewer bottlenecks. More business moving without you.
           </p>
 
-          <button className="robot-view-btn" onClick={handleScrollDown} type="button">
-            View Case Studies
-            <span aria-hidden="true">↓</span>
+          <button className="robot-view-btn" onClick={handleScrollDown} data-fade data-delay="0.4" type="button">
+            View Case Studies <span aria-hidden="true">↓</span>
           </button>
         </div>
       </section>

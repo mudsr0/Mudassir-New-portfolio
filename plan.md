@@ -9,7 +9,7 @@ We want both robots flanking the central text to pose like welcoming butlers to 
 * **Orientation**: The robots should pivot their upper bodies inward to face the center text (`torso.rotation.y`).
 * **Heads**: Even though their bodies are turned inward, their heads should turn slightly backward (`head.rotation.y`) to maintain eye contact with the user (the camera).
 * **Inner Arms (Presenting)**: The arm closest to the center text (Left Robot's Right Arm, Right Robot's Left Arm) should extend forward and upward slightly, with a twist on the upper arm so the palm faces up, as if presenting the text to the user.
-* **Outer Arms (Behind Back)**: The arm furthest from the center text should be swung backward, and the elbow should bend so the forearm rests behind the lower back.
+* **Outer Arms (Behind Back)**: The arm furthest from the center text should be swung backward and the elbow should bend so the forearm rests behind the lower back.
 
 ## Where to implement this
 All 3D logic and animations are handled in `src/components/RobotSection.jsx`.
@@ -18,7 +18,7 @@ You will also need to update the `micro-float` logic in the render loop at the b
 
 ## Important Note on Joints & Clipping
 The joints are extremely simple. If you try to rotate an arm horizontally across the robot's wide torso (using `z` rotation), it will almost certainly clip straight through the mesh.
-**The best way to orient the arms inward without clipping is to rotate the entire torso (`torso.rotation.y`) to face the center**, and then simply swing the arms forward (`x` rotation).
+**The best way to orient the arms inward without clipping is to rotate the entire torso (`torso.rotation.y`) to face the center** and then simply swing the arms forward (`x` rotation).
 * Also remember: Bending the elbow forward requires a **negative `x`** rotation on the forearm pivot (`fP.rotation.x`).
 
 ## Visual Verification Steps (Required)
