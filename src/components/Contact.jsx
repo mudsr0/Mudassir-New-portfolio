@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Mail } from 'lucide-react'
 import WaveBackground from './common/WaveBackground'
 import data from '../data.json'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
 
 /*
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaewqlgv'
@@ -115,8 +116,13 @@ export default function Contact() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const sectionRef = useRef(null)
+  const eyebrowRef = useRef(null)
+
+  useTypingAnimation(eyebrowRef, contact.eyebrow, { trigger: sectionRef })
+
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact" ref={sectionRef}>
       <WaveBackground color="#ffffff" dotCount={170} />
 
       {/* Toast (form success/error messages) - re-enable with the form below
@@ -153,7 +159,7 @@ export default function Contact() {
 
       <div className="contact-inner">
         <div data-fade>
-          <div className="contact-eyebrow">
+          <div className="contact-eyebrow" ref={eyebrowRef}>
             {contact.eyebrow}
           </div>
 

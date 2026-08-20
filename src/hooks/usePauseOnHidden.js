@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 /**
  * Pauses CSS and SMIL animations when the observed element leaves the
- * viewport, and seamlessly resumes them when it re-enters, avoiding
+ * viewport and seamlessly resumes them when it re-enters, avoiding
  * off-screen CPU/GPU drain without any visual jump.
  *
  * - CSS marquees: toggles `is-paused` on the wrapper element so child

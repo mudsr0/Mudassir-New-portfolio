@@ -1,19 +1,26 @@
+import { useRef } from 'react'
 import data from '../data.json'
 import Footer3DText from './common/Footer3DText'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
 
 export default function Footer() {
   const footer = data.footer
   const brand = footer.brand.slice(0, -1)
 
+  const footerRef = useRef(null)
+  const statusRef = useRef(null)
+
+  useTypingAnimation(statusRef, footer.status, { trigger: footerRef })
+
   return (
-    <footer className="footer">
+    <footer className="footer" ref={footerRef}>
       <div className="footer-glow" aria-hidden="true"></div>
 
       <div className="footer-top" data-fade data-delay="0.2">
         <div className="footer-brand">
           <div className="footer-status">
             <span className="status-dot"></span>
-            {footer.status}
+            <span ref={statusRef}>{footer.status}</span>
           </div>
 
           <div className="footer-logo-3d-wrapper">

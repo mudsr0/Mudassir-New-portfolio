@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import WaveBackground from './common/WaveBackground'
 import usePauseOnHidden from '../hooks/usePauseOnHidden'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
 import data from '../data.json'
 
 function useInView(ref) {
@@ -136,14 +137,18 @@ function ServiceCard({ s }) {
 
 export default function Services() {
   const services = data.services
+  const sectionRef = useRef(null)
+  const eyebrowRef = useRef(null)
+
+  useTypingAnimation(eyebrowRef, data.servicesText.eyebrow, { trigger: sectionRef })
 
   return (
     <>
-      <section id="services" className="section">
+      <section id="services" className="section" ref={sectionRef}>
         <WaveBackground color="#ffffff" dotCount={170} />
 
         <div className="sec-header" data-fade>
-          <div className="sec-eyebrow">{data.servicesText.eyebrow}</div>
+          <div className="sec-eyebrow" ref={eyebrowRef}>{data.servicesText.eyebrow}</div>
           <h2 className="sec-h">{data.servicesText.heading}</h2>
           <p className="sec-p">{data.servicesText.subheading}</p>
         </div>

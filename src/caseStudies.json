@@ -55,7 +55,7 @@
         {
           "num": "03",
           "title": "Smart Suggestions",
-          "desc": "AI guides users on keywords, formatting, and role-specific improvements"
+          "desc": "AI guides users on keywords, formatting and role-specific improvements"
         },
         {
           "num": "04",
@@ -113,7 +113,7 @@
     },
     "cta": {
       "heading": "You were looking for someone who's done this before. You found them.",
-      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline, and a number. <strong>No vague proposals.</strong>",
+      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline and a number. <strong>No vague proposals.</strong>",
       "upworkUrl": "https://www.upwork.com/freelancers/mudassir",
       "email": "mudassir@devrolin.com"
     }
@@ -129,7 +129,7 @@
     "hero": {
       "tag": "Case Study · PixelLift",
       "title": "Their product images were low quality.<br>We made them <em>store-ready automatically.</em>",
-      "body": "PixelLift was losing sales to blurry, low-resolution product images scraped from Amazon, Shopify, and eBay. We built an AI upscaling SaaS that automatically enhances every image  sharper, higher resolution, professional quality. No manual editing required.",
+      "body": "PixelLift was losing sales to blurry, low-resolution product images scraped from Amazon, Shopify and eBay. We built an AI upscaling SaaS that automatically enhances every image  sharper, higher resolution, professional quality. No manual editing required.",
       "pills": [
         "AI Upscaling",
         "Multi-platform scraping",
@@ -144,7 +144,7 @@
       "pains": [
         "Product images scraped at low resolution  unprofessional appearance",
         "No automated enhancement  every image needed manual editing",
-        "Inconsistent quality across Amazon, Shopify, and eBay stores",
+        "Inconsistent quality across Amazon, Shopify and eBay stores",
         "Hours wasted on image processing that should have been instant"
       ]
     },
@@ -164,12 +164,12 @@
         {
           "num": "01",
           "title": "Multi-Platform Scraper",
-          "desc": "Pulls product images from Amazon, Shopify, and eBay automatically"
+          "desc": "Pulls product images from Amazon, Shopify and eBay automatically"
         },
         {
           "num": "02",
           "title": "AI Upscaling Engine",
-          "desc": "Enhances resolution, sharpness, and quality using DALL-E pipeline"
+          "desc": "Enhances resolution, sharpness and quality using DALL-E pipeline"
         },
         {
           "num": "03",
@@ -232,7 +232,7 @@
     },
     "cta": {
       "heading": "You were looking for someone who's done this before. You found them.",
-      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline, and a number. <strong>No vague proposals.</strong>",
+      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline and a number. <strong>No vague proposals.</strong>",
       "upworkUrl": "https://www.upwork.com/freelancers/mudassir",
       "email": "mudassir@devrolin.com"
     }
@@ -248,7 +248,7 @@
     "hero": {
       "tag": "Case Study · Loomo",
       "title": "They were booking rides manually.<br>We built the <em>entire platform from scratch.</em>",
-      "body": "Loomo had a concept and no product. We built a full ride-booking platform  user app, driver app, admin panel, real-time tracking, and payment integration. From zero to live in 4 weeks. Every feature working on day one.",
+      "body": "Loomo had a concept and no product. We built a full ride-booking platform  user app, driver app, admin panel, real-time tracking and payment integration. From zero to live in 4 weeks. Every feature working on day one.",
       "pills": [
         "4-week build",
         "Full-stack build",
@@ -283,7 +283,7 @@
         {
           "num": "01",
           "title": "Rider & Driver Apps",
-          "desc": "Seamless booking, real-time tracking, and trip management for both sides"
+          "desc": "Seamless booking, real-time tracking and trip management for both sides"
         },
         {
           "num": "02",
@@ -293,12 +293,12 @@
         {
           "num": "03",
           "title": "Payment Gateway",
-          "desc": "In-app payments, trip history, and automated receipts"
+          "desc": "In-app payments, trip history and automated receipts"
         },
         {
           "num": "04",
           "title": "Admin Dashboard",
-          "desc": "Full control over drivers, rides, disputes, and platform analytics"
+          "desc": "Full control over drivers, rides, disputes and platform analytics"
         }
       ]
     },
@@ -351,7 +351,7 @@
     },
     "cta": {
       "heading": "You were looking for someone who's done this before. You found them.",
-      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline, and a number. <strong>No vague proposals.</strong>",
+      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline and a number. <strong>No vague proposals.</strong>",
       "upworkUrl": "https://www.upwork.com/freelancers/mudassir",
       "email": "mudassir@devrolin.com"
     }
@@ -412,12 +412,12 @@
         {
           "num": "03",
           "title": "Email Deliverability Fix",
-          "desc": "SPF, DKIM, and DMARC configured on dedicated subdomain"
+          "desc": "SPF, DKIM and DMARC configured on dedicated subdomain"
         },
         {
           "num": "04",
           "title": "Monthly Monitoring Dashboard",
-          "desc": "Open rates, delivery, and review counts in one view"
+          "desc": "Open rates, delivery and review counts in one view"
         }
       ]
     },
@@ -470,7 +470,7 @@
     },
     "cta": {
       "heading": "You were looking for someone who's done this before. You found them.",
-      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline, and a number. <strong>No vague proposals.</strong>",
+      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline and a number. <strong>No vague proposals.</strong>",
       "upworkUrl": "https://www.upwork.com/freelancers/mudassir",
       "email": "mudassir@devrolin.com"
     }
@@ -589,7 +589,7 @@
     },
     "cta": {
       "heading": "You were looking for someone who's done this before. You found them.",
-      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline, and a number. <strong>No vague proposals.</strong>",
+      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline and a number. <strong>No vague proposals.</strong>",
       "upworkUrl": "https://www.upwork.com/freelancers/mudassir",
       "email": "mudassir@devrolin.com"
     }
@@ -605,7 +605,7 @@
     "hero": {
       "tag": "Case Study · Prepare2Swim",
       "title": "Their email system was broken and unscalable.<br>We fixed it completely <em>in one week.</em>",
-      "body": "Mike Godleski's Prepare2Swim brand was sending emails that landed in spam, had no automation, and ManyChat leads were never synced properly. We cleaned the entire ConvertKit account, fixed deliverability, built a welcome sequence, and connected everything. Delivered in 7 days.",
+      "body": "Mike Godleski's Prepare2Swim brand was sending emails that landed in spam, had no automation and ManyChat leads were never synced properly. We cleaned the entire ConvertKit account, fixed deliverability, built a welcome sequence and connected everything. Delivered in 7 days.",
       "pills": [
         "7-day delivery",
         "ConvertKit cleanup",
@@ -618,7 +618,7 @@
       "heading": "What was breaking",
       "sub": "Manual processes that don't scale.",
       "pains": [
-        "Emails landing in spam  SPF, DKIM, and DMARC never configured",
+        "Emails landing in spam  SPF, DKIM and DMARC never configured",
         "No welcome automation  new subscribers received nothing after signup",
         "ManyChat leads entering wrong sequences or getting duplicated",
         "Subscribers addressed as 'Hey there'  personalization completely broken"
@@ -640,7 +640,7 @@
         {
           "num": "01",
           "title": "Deliverability Fix",
-          "desc": "SPF, DKIM, and DMARC configured and verified across Gmail, Yahoo, and Outlook"
+          "desc": "SPF, DKIM and DMARC configured and verified across Gmail, Yahoo and Outlook"
         },
         {
           "num": "02",
@@ -655,7 +655,7 @@
         {
           "num": "04",
           "title": "Account Cleanup",
-          "desc": "Tags, segments, and subscriber fields restructured for clean, scalable operation"
+          "desc": "Tags, segments and subscriber fields restructured for clean, scalable operation"
         }
       ]
     },
@@ -708,7 +708,7 @@
     },
     "cta": {
       "heading": "You were looking for someone who's done this before. You found them.",
-      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline, and a number. <strong>No vague proposals.</strong>",
+      "sub": "The fastest way to move forward is a message on Upwork. Tell me what you're dealing withI'll come back with a clear plan, a realistic timeline and a number. <strong>No vague proposals.</strong>",
       "upworkUrl": "https://www.upwork.com/freelancers/mudassir",
       "email": "mudassir@devrolin.com"
     }

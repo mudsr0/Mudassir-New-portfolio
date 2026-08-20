@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { TextPlugin } from 'gsap/TextPlugin'
 import { smoothScrollTo } from './utils/smoothScroll'
 
 import Hero from './components/Hero';
@@ -22,7 +23,7 @@ import Partners from './components/partners'
 import CaseStudyDetail from './components/CaseStudyDetail'
 import ScrollToTopButton from './components/ScrollToTopButton'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, TextPlugin)
 
 // Global config: the mobile browser address-bar/show resize storms must NOT
 // trigger ScrollTrigger refreshes/recalculations anywhere in the app (Work pin,
@@ -84,7 +85,7 @@ export default function App() {
 
     // ── Lenis smooth scroll ────────────────────────────────
     // Single instance, created once the preloader finishes (effect is gated by
-    // [isLoading] below, and lenis.destroy() runs on cleanup). It is driven by
+    // [isLoading] below and lenis.destroy() runs on cleanup). It is driven by
     // GSAP's own rAF ticker so scrolling and ScrollTrigger stay in perfect sync.
     const lenis = new Lenis({
       duration: 3, // smoother feel (higher = smoother, lower = snappier)
@@ -153,9 +154,9 @@ export default function App() {
         document.querySelectorAll('[data-fade]').forEach((el) => {
           if (isCaseStudy(el)) return
           gsap.fromTo(el,
-            { opacity: 0, y: 55 },
+            { opacity: 0, y: 20 },
             {
-              opacity: 1, y: 0, duration: 1.1, ease: 'power3.out',
+              opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
               delay: parseFloat(el.dataset.delay || 0),
               scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
             }

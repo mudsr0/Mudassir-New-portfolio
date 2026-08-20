@@ -11,7 +11,7 @@
   "hero": {
     "eyebrow": "AI AUTOMATION & INTEGRATION · CRM & REVENUE SYSTEMS · AI AGENTS · AI SAAS & MVPs",
     "headlineHtml": "I build systems<br /><em>businesses run</em><br />on.",
-    "caption": "AI-powered systems that automate operations, connect your tools, and turn manual processes into scalable workflows.",
+    "caption": "AI-powered systems that automate operations, connect your tools and turn manual processes into scalable workflows.",
     "trustLine": "Forbes-Featured Clients · 4.9/5 Upwork Rating · Systems Supporting 1M+ Audiences",
     "primaryBtn": "View Case Studies",
     "secondaryBtn": "Discuss your project &#8594;"
@@ -60,10 +60,10 @@
         "label": "Audience Scale"
       }
     ],
-    "descriptionHtml": "<p>I work differently from developers who simply take requirements, write code, and disappear.</p><p>I understand the business problem first, challenge what doesn't make sense, and then build the simplest system that solves it properly.</p><ul class='about-rules-list'><li><strong>I don't automate a broken process</strong> just because it can be automated.</li><li><strong>I don't force every problem</strong> into the same tool.</li><li><strong>I don't call something finished</strong> because it worked once in development.</li></ul><p>Understand it. Build it. Break it. Test it. Ship it.<br />That's how I build systems businesses can actually depend on.</p><p><strong>Clear scope. Clear communication. Real ownership.</strong></p>"
+    "descriptionHtml": "<p>I work differently from developers who simply take requirements, write code and disappear.</p><p>I understand the business problem first, challenge what doesn't make sense and then build the simplest system that solves it properly.</p><ul class='about-rules-list'><li><strong>I don't automate a broken process</strong> just because it can be automated.</li><li><strong>I don't force every problem</strong> into the same tool.</li><li><strong>I don't call something finished</strong> because it worked once in development.</li></ul><p>Understand it. Build it. Break it. Test it. Ship it.<br />That's how I build systems businesses can actually depend on.</p><p><strong>Clear scope. Clear communication. Real ownership.</strong></p>"
   },
   "servicesText": {
-    "eyebrow": "03 · WHAT I BUILD",
+    "eyebrow": "WHAT I BUILD",
     "heading": "Systems built around the business.",
     "subheading": "Not the tool. From one broken workflow to a complete AI-powered platform, I build the system around what needs to happen next."
   },
@@ -167,8 +167,8 @@
     "eyebrow": "Trusted To Build What Businesses Depend On",
     "headingLine1": "More than a developer.",
     "headingLine2": "A systems partner.",
-    "subheading": "I help businesses turn disconnected tools, manual processes, and ambitious AI ideas into systems that actually work together.",
-    "description1": "From the first workflow to the final deployment, I focus on what matters: <em>less manual work, stronger operations, and systems built to scale with the business.</em>",
+    "subheading": "I help businesses turn disconnected tools, manual processes and ambitious AI ideas into systems that actually work together.",
+    "description1": "From the first workflow to the final deployment, I focus on what matters: <em>less manual work, stronger operations and systems built to scale with the business.</em>",
     "locations": [
       { "flag": "/images/flags/us.png", "name": "USA" },
       { "flag": "/images/flags/gb.png", "name": "UK" },
@@ -182,7 +182,7 @@
     "videoUrl": "https://www.youtube.com/embed/8KGhyl4qld0?rel=0"
   },
   "workText": {
-    "eyebrow": "01 · REAL SYSTEMS. REAL USE CASES.",
+    "eyebrow": "REAL SYSTEMS REAL USE CASES",
     "heading": "Built to solve real business problems.",
     "subheading": "AI automation, CRM systems, AI agents and SaaS products built around one thing: Making the business work better."
   },
@@ -243,9 +243,9 @@
     }
   ],
   "tech": {
-    "eyebrow": "04 · TECH STACK",
+    "eyebrow": "TECH STACK",
     "heading": "The right tool for the right system.",
-    "subheading": "I don't force every project into the same stack. From AI agents and CRM automation to custom APIs and SaaS platforms, I choose the technology around your workflow, existing systems, scale, and what will be easiest to maintain after launch. No unnecessary complexity. No tool bias. Just the stack that gets the job done properly.",
+    "subheading": "I don't force every project into the same stack. From AI agents and CRM automation to custom APIs and SaaS platforms, I choose the technology around your workflow, existing systems, scale and what will be easiest to maintain after launch. No unnecessary complexity. No tool bias. Just the stack that gets the job done properly.",
     "stackList": [
       { "category": "AI & AGENTS", "tools": "OpenAI · Claude · Gemini · LangGraph · CrewAI · LangChain · LlamaIndex" },
       { "category": "AUTOMATION & INTEGRATION", "tools": "n8n · Make · Zapier · Pipedream · APIs · Webhooks" },
@@ -291,7 +291,7 @@
       {
         "name": "David Morgan",
         "role": "Startup Owner",
-        "text": "Most teams overpromise. Mudassir simply delivered with clear updates, fast problem solving, and real ownership.",
+        "text": "Most teams overpromise. Mudassir simply delivered with clear updates, fast problem solving and real ownership.",
         "rating": 5,
         "avatar": null
       },
@@ -305,35 +305,35 @@
       {
         "name": "Mr. Marco",
         "role": "Entrepreneur & CEO, RubberDuck",
-        "text": "Mudassir was great to work with. Delivered clean work, communicated proactively, and met every deadline.",
+        "text": "Mudassir was great to work with. Delivered clean work, communicated proactively and met every deadline.",
         "rating": 5,
         "avatar": null
       },
       {
         "name": "Rami El-Khateib",
         "role": "Founder, OMNIYA",
-        "text": "Delivered a complex, real-time system cleanly, on time, and fully documented. Highly recommended for serious SaaS work.",
+        "text": "Delivered a complex, real-time system cleanly, on time and fully documented. Highly recommended for serious SaaS work.",
         "rating": 5,
         "avatar": null
       },
       {
         "name": "Noble Schools",
         "role": "Chicago",
-        "text": "They were awesome and flexible, and knocked our job out of the park. Beyond expectations.",
+        "text": "They were awesome and flexible and knocked our job out of the park. Beyond expectations.",
         "rating": 5,
         "avatar": null
       },
       {
         "name": "Mr. Julian",
         "role": "Noble School Chicago",
-        "text": "They were awesome and flexible, and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
+        "text": "They were awesome and flexible and they knocked our job out of the park. Beyond expectations, I will definitely use this team for our next project.",
         "rating": 5,
         "avatar": null
       },
       {
         "name": "Mr. Marco",
         "role": "Founder, RubberDuck",
-        "text": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively, and met every deadline. Would gladly hire again.",
+        "text": "Mudassir was great to work with. Delivered clean, thorough work across all milestones, communicated proactively and met every deadline. Would gladly hire again.",
         "rating": 5,
         "avatar": null
       },

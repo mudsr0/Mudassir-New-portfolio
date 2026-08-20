@@ -102,7 +102,7 @@ const VideoTestimonials = () => {
       <motion.div className="sec-header" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.7, ease: easeOut }}>
         <div className="sec-eyebrow"><span className="eyebrow-num">06</span>Video Testimonials</div>
         <h2 className="sec-h">Clients in their <em>own words</em></h2>
-        <p className="sec-p">Don't just take our word for it. Hear directly from the founders, designers, and product teams who've shipped exceptional experiences with us.</p>
+        <p className="sec-p">Don't just take our word for it. Hear directly from the founders, designers and product teams who've shipped exceptional experiences with us.</p>
       </motion.div>
 
       <div className="vtesti-layout">

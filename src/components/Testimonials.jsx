@@ -1,6 +1,7 @@
 import { memo, useRef } from 'react'
 import data from '../data.json'
 import usePauseOnHidden from '../hooks/usePauseOnHidden'
+import { useTypingAnimation } from '../hooks/useTypingAnimation'
 
 const TestimonialCard = memo(function TestimonialCard({ t }) {
   const stars = Array.from({ length: t.rating || 5 })
@@ -47,6 +48,11 @@ function TestimonialRow({ row }) {
 export default function Testimonials() {
   const { heading, subheading, reviews } = data.testimonials
 
+  const sectionRef = useRef(null)
+  const eyebrowRef = useRef(null)
+
+  useTypingAnimation(eyebrowRef, 'testimonials', { trigger: sectionRef })
+
   const half = Math.ceil(reviews.length / 2)
   const rows = [
     { id: 'row-1', direction: 'left', speed: '45s', testimonials: reviews.slice(0, half) },
@@ -54,10 +60,9 @@ export default function Testimonials() {
   ]
 
   return (
-    <section id="testimonials" className="section">
+    <section id="testimonials" className="section" ref={sectionRef}>
       <div className="sec-header" data-fade>
-        <div className="sec-eyebrow">
-          <span className="eyebrow-num">05</span>
+        <div className="sec-eyebrow" ref={eyebrowRef}>
           testimonials
         </div>
         <h2 className="sec-h">{heading}</h2>

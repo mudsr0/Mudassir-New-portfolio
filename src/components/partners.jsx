@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Zap } from "lucide-react";
 import data from "../data.json";
 import usePauseOnHidden from "../hooks/usePauseOnHidden";
+import { useTypingAnimation } from "../hooks/useTypingAnimation";
 
 const PARTNERS_ROW_1 = data.partners;
 const PARTNERS_ROW_2 = [...data.partners].reverse();
@@ -12,11 +13,14 @@ const repeatPartners = (partners, repeat = 4) =>
 
 export default function Partners() {
     const marqueeRef = useRef(null);
+    const sectionRef = useRef(null);
+    const eyebrowRef = useRef(null);
 
     usePauseOnHidden(marqueeRef);
+    useTypingAnimation(eyebrowRef, partnersText.eyebrow, { trigger: sectionRef, duration: 1.2 });
 
     return (
-        <section className="partners-section" id="partners">
+        <section className="partners-section" id="partners" ref={sectionRef}>
             <div className="partners-bg-glow" />
 
             <div className="partners-inner">
@@ -29,7 +33,7 @@ export default function Partners() {
                             <span className="partners-eyebrow-icon">
                                 <Zap size={11} strokeWidth={2.5} />
                             </span>
-                            <span>{partnersText.eyebrow}</span>
+                            <span ref={eyebrowRef}>{partnersText.eyebrow}</span>
                             <span className="eyebrow-line" />
                         </div>
 
