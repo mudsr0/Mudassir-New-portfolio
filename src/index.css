@@ -5499,7 +5499,7 @@ button {
 }
 
 .case-study .reassure-item::before {
-    content: 'âœ“';
+    content: '\2714';
     font-size: 11px;
     font-weight: 700;
     color: var(--green)
