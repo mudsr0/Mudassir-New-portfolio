@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState, useLayoutEffect, Component } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { TextPlugin } from 'gsap/TextPlugin'
-import { smoothScrollTo } from './utils/smoothScroll'
 
 import Hero from './components/Hero';
 import RobotSection from './components/RobotSection'
@@ -58,21 +57,43 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true)
 
   // Handle incoming navigation state from the Navbar: after landing on the home
-  // page, smooth-scroll to the requested section (e.g. `#work`, `#about`).
+  // page from a non-home route (e.g. a case study), jump straight to the
+  // requested section. We temporarily disable GSAP ScrollTrigger pins (the Work
+  // section pin in particular) so they can't snap the user back before/after the
+  // jump, then re-enable and refresh.
+  const navigate = useNavigate()
   useLayoutEffect(() => {
-    const scrollToId = location.state && location.state.scrollTo
-    if (!scrollToId) return
+    const targetId = location.state && location.state.targetId
+    if (!targetId) return
 
-    // Wait for the DOM (home sections + their GSAP setup) to be ready before scrolling.
-    const timer = setTimeout(() => {
-      smoothScrollTo(`#${scrollToId}`, { duration: 1.2 })
+    // Clear the state immediately so a refresh / revisit doesn't re-scroll.
+    navigate(location.pathname, { replace: true, state: {} })
 
-      // Clear the state so a manual refresh / revisit doesn't re-scroll.
-      window.history.replaceState({}, '')
-    }, 300)
+    // Wait for React to paint the homepage DOM before we touch scroll.
+    requestAnimationFrame(() => {
+      const targetEl = document.getElementById(targetId)
+      if (targetEl) {
+        // 1. Clear any saved scroll positions in GSAP.
+        ScrollTrigger.clearScrollMemory()
 
-    return () => clearTimeout(timer)
-  }, [location.state])
+        // 2. Temporarily disable ALL ScrollTriggers so the Work pin can't fight us.
+        ScrollTrigger.getAll().forEach((st) => st.disable(false))
+
+        // 3. Instantly jump to the target section.
+        if (window.lenis) {
+          window.lenis.scrollTo(targetEl, { immediate: true, offset: -80 })
+        } else {
+          window.scrollTo(0, targetEl.offsetTop - 80)
+        }
+
+        // 4. Re-enable ALL ScrollTriggers.
+        ScrollTrigger.getAll().forEach((st) => st.enable())
+
+        // 5. Refresh to recalculate positions based on the new scroll location.
+        ScrollTrigger.refresh()
+      }
+    })
+  }, [location.state, navigate])
 
   // Lock body scroll and manage initial load styles
   useEffect(() => {

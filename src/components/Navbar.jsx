@@ -149,7 +149,7 @@ export default function Navbar() {
     //   Case study -> go home, then scroll to the section once rendered.
     if (isCaseStudyPage) {
       setMenuOpen(false)
-      navigate('/', { state: { scrollTo: link } })
+      navigate('/', { state: { targetId: link } })
     } else {
       scrollToId(link)
     }

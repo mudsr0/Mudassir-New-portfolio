@@ -37,13 +37,13 @@ export default function Footer() {
             <Footer3DText />
           </div>
 
-          <p className="footer-tagline">
+          {/* <p className="footer-tagline">
             {footer.tagline}
-          </p>
+          </p> */}
         </div>
 
         <div className="footer-nav">
-          <a
+          {/* <a
             href={footer.upworkUrl}
             className="footer-cta"
             target="_blank"
@@ -51,7 +51,10 @@ export default function Footer() {
           >
             {footer.ctaText}
             <span aria-hidden="true">↗</span>
-          </a>
+          </a> */}
+          <p className="footer-tagline">
+            {footer.tagline}
+          </p>
         </div>
       </div>
 
