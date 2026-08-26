@@ -30,9 +30,9 @@ export default function Partners() {
                     <div className="partners-header">
                         <div className="sec-eyebrow partners-eyebrow">
                             <span className="eyebrow-line" />
-                            <span className="partners-eyebrow-icon">
+                            {/* <span className="partners-eyebrow-icon">
                                 <Zap size={11} strokeWidth={2.5} />
-                            </span>
+                            </span> */}
                             <span ref={eyebrowRef}>{partnersText.eyebrow}</span>
                             <span className="eyebrow-line" />
                         </div>
