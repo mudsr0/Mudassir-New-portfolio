@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Mail } from 'lucide-react'
-import WaveBackground from './common/WaveBackground'
+import KineticGrid from './common/KineticGrid'
 import data from '../data.json'
 import { useTypingAnimation } from '../hooks/useTypingAnimation'
 
@@ -123,7 +123,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="contact" ref={sectionRef}>
-      <WaveBackground color="#ffffff" dotCount={170} />
+      <KineticGrid />
 
       {/* Toast (form success/error messages) - re-enable with the form below
         {toast.show && (

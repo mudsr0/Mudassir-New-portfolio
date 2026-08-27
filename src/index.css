@@ -1,5 +1,4 @@
 ﻿.case-study .hero-title em,
-.contact-h,
 .hero-h1 em,
 .sec-h {
     -webkit-text-fill-color: transparent
@@ -2054,6 +2053,8 @@ button {
 }
 
 .contact {
+    position: relative;
+    overflow: hidden;
     background: radial-gradient(circle at center top, var(--bg-2) 0, var(--bg) 100%);
     padding: 140px 80px;
     text-align: center
@@ -2070,36 +2071,52 @@ button {
 }
 
 .contact-inner {
-    max-width: 600px;
-    margin: 0 auto;
-    z-index: 2
+    position: relative;
+    z-index: 2;
+    background: rgba(26, 26, 26, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-2);
+    border-radius: 24px;
+    padding: 60px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    max-width: 700px;
+    margin: 0 auto
 }
 
 .contact-eyebrow {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: .25em;
+    text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 24px;
-    text-shadow: 0 0 10px var(--accent-glow)
+    text-shadow: 0 0 15px var(--accent-glow)
 }
 
 .contact-h {
-    font-size: clamp(36px, 3.5vw, 68px);
-    font-weight: 300;
-    letter-spacing: -.03em;
+    background: linear-gradient(135deg, var(--g1) 0%, var(--g3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -.02em;
     margin-bottom: 20px;
-    line-height: 1.1;
-    background: linear-gradient(135deg, var(--white) 0, var(--g2) 100%);
-    -webkit-background-clip: text
+    text-shadow: none
 }
 
 .contact-sub {
-    font-size: 15px;
+    font-size: clamp(15px, 2vw, 18px);
     color: var(--g2);
-    line-height: 2.1;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 44px;
-    font-weight: 400
+    font-weight: 400;
+    text-shadow: none
 }
 
 .contact-cta-label {
@@ -2112,7 +2129,26 @@ button {
 .contact-cta {
     display: inline-block;
     text-align: center;
-    margin-top: 8px
+    margin-top: 8px;
+    background: var(--accent);
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: 99px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    animation: contact-pulse 3s ease-in-out infinite;
+    transition: transform .3s var(--ease)
+}
+
+.contact-cta:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px var(--accent-glow)
+}
+
+@keyframes contact-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow) }
+    50% { box-shadow: 0 0 20px 4px var(--accent-glow) }
 }
 
 .contact-footer-line {
@@ -2120,7 +2156,8 @@ button {
     color: var(--g3);
     margin-top: 24px;
     letter-spacing: .05em;
-    text-align: center
+    text-align: center;
+    text-shadow: none
 }
 
 .contact-modal-overlay {
@@ -5771,7 +5808,7 @@ button {
     }
 
     .contact-h {
-        font-size: 48px !important
+        font-size: clamp(36px, 6vw, 64px) !important
     }
 
     .robot-h {
@@ -5871,5 +5908,10 @@ button {
 
     .partners-final-question {
         margin-inline: 0
+    }
+
+    /* Frosted contact card: reduce padding so it fits nicely on small screens */
+    .contact-inner {
+        padding: 40px 24px
     }
 }
